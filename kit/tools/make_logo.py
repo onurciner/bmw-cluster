@@ -3,7 +3,7 @@
 make_logo.py - turn a transparent image (PNG / WebP) into a JavaScript module an app can draw
 with fillRect runs, since the kit has no image decoder and build.py ships no image files.
 
-    python3 kit/tools/make_logo.py docs/media/perea_logo.png --width 180 --out apps/mhd_flex/logo.js
+    python3 kit/tools/make_logo.py <image.png> --width 180 --out apps/<id>/logo.js
         [--opacity 0.6] [--ink 40] [--levels 4] [--palette 24]
 
 The image is cropped to the bounding box of its alpha, scaled to --width (LANCZOS), its alpha

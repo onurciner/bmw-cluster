@@ -4,8 +4,8 @@ Run an app on your computer, see it as the car draws it, and see each change you
 a second. You need no car, no head unit VM and no Docker: only Node.js and Python, as for the build.
 
 ```sh
-python3 kit/tools/build.py perea_mhd_flex  # once: emu.js builds again by itself after each save
-node kit/tools/emu.js perea_mhd_flex     # then open http://localhost:8077
+python3 kit/tools/build.py perea_cluster_themes  # once: emu.js builds again by itself after each save
+node kit/tools/emu.js perea_cluster_themes       # then open http://localhost:8077
 ```
 
 | Option | Does |
@@ -117,7 +117,7 @@ exactly at every size.
 - Frame times are your computer's GPU and CPU, not the car's. The head unit's GPU needs about
   1 ms a frame; test the frame rate on the car.
 - Signals come at 20 Hz without the car's timing or gaps, and nothing answers diagnostics (UDS)
-  or other SOME/IP calls: Fault Scanner and eDrive's live values show their no-answer states.
+  or other SOME/IP calls: the app's diagnostic readouts show their no-answer states.
 - No video frames, and no apps that use mgu-render's display bridge (DBR1).
 - A large app such as Doom takes a few seconds to build after a save.
 

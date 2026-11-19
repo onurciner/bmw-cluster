@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """MGU App Kit build: apps/<id>/app.json + main.js  ->  installable app.
 
-    python3 kit/tools/build.py                 # build every app in apps/
-    python3 kit/tools/build.py perea_mhd_flex  # just one
+    python3 kit/tools/build.py                     # build every app in apps/
+    python3 kit/tools/build.py perea_cluster_themes  # just one
 
 Produces in dist/:
     <id>@<ver>.mgu   install bundle for deploy/mgu-app-install.sh (VM and car)

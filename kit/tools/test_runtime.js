@@ -301,11 +301,11 @@ test('iDrive 8: the page scaled into the app area the renderer reports, the kit 
         const r = d.canvas(1600, 520);
         const G = require('../runtime/gauges');
         r.fillRect(100, 100, 400, 200, '#ff0000');
-        G.frame(r, themes.theme(), ['Flex Fuel'], 0, []);
+        G.frame(r, themes.theme(), ['Cluster Themes'], 0, []);
         await d.present('MAIN', r, () => { softs++; return Promise.resolve(); });
         assert.strictEqual(softs, 0, 'nothing drawn in the HMI (it has no image there)');
         const tl = d._tabList();
-        assert.deepStrictEqual([tl.tabs, tl.settings], [['Flex Fuel', 'Settings'], 1]);
+        assert.deepStrictEqual([tl.tabs, tl.settings], [['Cluster Themes', 'Settings'], 1]);
         const claims = JSON.parse(d.gpu.claimed);
         assert.strictEqual(claims.length, 2);
         const scr = claims.map((q) => ({ x: Math.round(q.x * pl.scale + pl.ox), y: Math.round(q.y * pl.scale + pl.oy), w: Math.round(q.w * pl.scale), h: Math.round(q.h * pl.scale) }));
@@ -386,7 +386,7 @@ test('iDrive 7 is as it was: 1920 x 720 placement, the bar and the HMI button', 
         const r = d.canvas(1600, 520);
         assert.strictEqual(r.view, null);
         const G = require('../runtime/gauges');
-        G.frame(r, themes.theme(), ['Flex Fuel'], 0, []);
+        G.frame(r, themes.theme(), ['Cluster Themes'], 0, []);
         await d.present('MAIN', r, () => Promise.resolve());
         assert(d.chromeRec.tabRects[0].x > 100, 'the app name comes before the tabs: ' + JSON.stringify(d.chromeRec.tabRects[0]));
     } finally { t.end(); }
@@ -402,7 +402,7 @@ test('fonts: a size that has the text\'s glyphs (num holds letters and brackets 
     assert.strictEqual(fonts.get('num', 30 * 1.164, '15.4 gal (58.2 L)').size, 40);
     assert.strictEqual(fonts.get('num', 84 * 1.164, '59').size, 150);
     assert.strictEqual(fonts.get('label', 18 * 1.164, 'Purity 99 %').size, 24);
-    assert.strictEqual(fonts.get('bold', 26 * 1.164, 'FLEX FUEL ACTIVE').size, 32);
+    assert.strictEqual(fonts.get('bold', 26 * 1.164, 'CLUSTER THEMES').size, 32);
     // a character no size has: the size picked first stays
     assert.strictEqual(fonts.get('num', 50, '12 \u2603').size, 64);
 });

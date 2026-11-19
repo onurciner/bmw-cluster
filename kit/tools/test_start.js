@@ -11,7 +11,7 @@ const path = require('path');
 const { execFileSync, spawnSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..', '..');
-const APP = 'perea_mhd_flex';
+const APP = 'perea_cluster_themes';
 const ENTRY = '11111111-2222-3333-4444-555555555555';
 
 /* ---------------- child: the app with the stand-in SDK ---------------- */
