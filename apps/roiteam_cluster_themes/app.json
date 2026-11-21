@@ -1,8 +1,8 @@
 {
   "id": "roiteam_cluster_themes",
   "title": "Cluster Themes",
-  "description": "Redraws the instrument cluster: GT3 race dash, M-style, M view, Vector (with a music panel), Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno (BMW-coloured readout tiles), Ribbon (with holiday editions), Atlas (map beside the speed), Volt (electric arcs), Twin (two round dials), Pulse (neon rings), Noir (gold and now playing), Cockpit (iDrive 7-style navigation, speed and media), Aurum (the gold showpiece with navigation, tyres, G-meter, media and 0-60), Apex (the blue sport version of that showpiece) or Eclipse (a deep indigo eclipse with an amber/ice corona), with shift lights, boost, temps, tyres, a G-meter, a 0-60 timer and an optional Ankara weather line",
-  "version": "0.30.0",
+  "description": "Redraws the instrument cluster: GT3 race dash, M-style, M view, Vector (with a music panel and next-turn directions), Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno (BMW-coloured readout tiles), Ribbon (with holiday editions), Atlas (map beside the speed), Volt (electric arcs), Twin (two round dials), Pulse (full-screen map with top and bottom info), Noir (gold and now playing), Cockpit (iDrive 7-style navigation, speed and media), Aurum (the gold showpiece with navigation, tyres, G-meter, media and 0-60), Apex (the blue sport version of that showpiece) or Eclipse (a deep indigo eclipse with an amber/ice corona), with shift lights, boost, temps, tyres, a G-meter, a 0-60 timer and an optional Ankara weather line",
+  "version": "0.32.0",
   "vendor": "custom",
   "loggingId": "OAA1",
   "iconGlyph": "CLU",
@@ -26,6 +26,8 @@
     "page.js",
     "waze.js",
     "weather.js",
+    "nav.js",
+    "hud_nav.js",
     "previews.js",
     "sensors.js",
     "badges.js",
@@ -99,6 +101,36 @@
     "de.bmw.infrastructure.VehicleCondition": {
       "VehicleCondition": "s",
       "_optional": "the car switching off: no new layer while it does (cluster-render's switch-off guard)"
+    },
+    "de.bmw.infotainment.navigation.guiding.Guidance": {
+      "_optional": "Vector's next turn: the route state, BMW navigation's turns and lanes",
+      "_instances": "Main_Instance",
+      "guidanceState": "rs",
+      "guidingProvider": "rs",
+      "conclusiveDart": "rs",
+      "currentLaneGuiding": "rs"
+    },
+    "de.bmw.infotainment.navigation.guiding.GuidanceEventList": {
+      "_optional": "Vector's next turn: the phone's turns (CarPlay, Android Auto)",
+      "_instances": "Main_Instance",
+      "_methods": [
+        "queryContent"
+      ]
+    },
+    "de.bmw.infotainment.navigation.projectedmodeguiding.ProjectedModeGuiding": {
+      "_optional": "Vector's next turn: the phone's lanes",
+      "_instances": "Main_Instance",
+      "currentLaneGuiding": "rs"
+    },
+    "de.bmw.infotainment.a4a.carplay.CarPlayManager": {
+      "_optional": "Vector's next turn: whether CarPlay is guiding",
+      "_instances": "CarPlayManagerInst1",
+      "projectedGuidanceActive": "rs"
+    },
+    "de.bmw.infotainment.sdi.aap.androidautoprojectedmanager.AndroidAutoProjectedManager": {
+      "_optional": "Vector's next turn: whether Android Auto is guiding",
+      "_instances": "AndroidAutoProjectedManagerInst1",
+      "projectedGuidanceActive": "rs"
     }
   },
   "screens": [
@@ -540,6 +572,26 @@
       "label": "Ankara weather (online)",
       "type": "bool",
       "default": true
+    },
+    {
+      "key": "navDirections",
+      "label": "Directions in the cluster",
+      "type": "choice",
+      "default": "route",
+      "options": [
+        [
+          "route",
+          "While a route runs"
+        ],
+        [
+          "near",
+          "Near turns"
+        ],
+        [
+          "off",
+          "Off"
+        ]
+      ]
     },
     {
       "key": "units",

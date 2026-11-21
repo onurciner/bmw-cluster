@@ -106,6 +106,9 @@ def main():
         post(port, '/setting', {'key': 'nightDim', 'value': 'off'})
     if 'hudTheme' in defaults:       # HUD Widgets: the day colours too (Auto shot after sunset came out Night)
         post(port, '/setting', {'key': 'hudTheme', 'value': defaults.get('dayTheme') or 'classic'})
+    # a fake route so Vector/Pulse show the next turn, and Comfort so the drive-mode readouts are not empty
+    post(port, '/nav', {'scenario': 'turn'})
+    post(port, '/drive', {'value': 4})
     try:
         for name in layouts:
             post(port, '/setting', {'key': 'hudLayout', 'value': name})
@@ -123,6 +126,8 @@ def main():
             if k not in defaults:
                 continue
             post(port, '/setting', {'key': k, 'value': saved.get(k, defaults.get(k))})
+        post(port, '/nav', {'scenario': 'off'})
+        post(port, '/drive', {'value': None})
         post(port, '/signals', {'mode': 'demo', 'values': {}})
     dst = os.path.join(ROOT, 'apps', app, 'hud', 'previews')
     os.makedirs(dst, exist_ok=True)

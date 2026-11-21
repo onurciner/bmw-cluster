@@ -2020,4 +2020,86 @@ void main() {
 }
 `;
 
-module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH, volt: VOLT, aurum: AURUM, eclipse: ECLIPSE };
+const MAPDASH = `// Pulse cluster: a full-screen city map behind the top and bottom bars, light by day and dark at night. Roads, blocks, parks,
+// a river and a lit route are drawn here; with the Waze map on, u_hole cuts the whole layer away and the real
+// map shows instead. v_uv (0,0) is the top-left.
+precision mediump float;
+varying vec2 v_uv;
+uniform vec2 u_size;
+uniform vec3 u_bg;
+uniform vec3 u_color;
+uniform vec3 u_color2;
+uniform vec4 u_hole;
+uniform float u_holeR;
+uniform float u_night;
+
+float cov(float d) { return clamp(0.5 - d, 0.0, 1.0); }
+float hash(float n) { return fract(sin(n) * 43758.5453123); }
+float segd(vec2 p, vec2 a, vec2 b) {
+    vec2 ba = b - a;
+    float h = clamp(dot(p - a, ba) / max(dot(ba, ba), 0.001), 0.0, 1.0);
+    return length(p - a - ba * h);
+}
+float rrect(vec2 p, vec4 r, float rad) {
+    vec2 hs = r.zw * 0.5;
+    vec2 q = abs(p - (r.xy + hs)) - (hs - vec2(rad));
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - rad;
+}
+
+void main() {
+    vec2 p = v_uv * u_size;
+    vec3 col = mix(vec3(0.84, 0.83, 0.79), u_bg * 0.55 + vec3(0.032, 0.042, 0.056), u_night);
+
+    // the river and a small lake
+    vec3 water = mix(vec3(0.55, 0.72, 0.82), vec3(0.020, 0.085, 0.120), u_night);
+    float river = abs(p.y - (392.0 + 42.0 * sin(p.x / 310.0) + 12.0 * sin(p.x / 97.0)));
+    col = mix(col, water, (1.0 - smoothstep(32.0, 42.0, river)) * 0.90);
+    col = mix(col, water, cov(rrect(p, vec4(1410.0, 160.0, 260.0, 140.0), 56.0)) * 0.80);
+
+    // parks
+    vec3 parkC = mix(vec3(0.72, 0.82, 0.66), vec3(0.030, 0.085, 0.055), u_night);
+    float park = min(rrect(p, vec4(250.0, 180.0, 260.0, 170.0), 18.0),
+                     rrect(p, vec4(1140.0, 430.0, 220.0, 120.0), 20.0));
+    col = mix(col, parkC, cov(park) * 0.80);
+
+    // city blocks: a filled, slightly varied block inside each street cell
+    vec2 cell = floor(p / 96.0), q = mod(p, 96.0);
+    float h = hash(cell.x * 17.0 + cell.y * 31.0);
+    float block = step(5.0, q.x) * step(5.0, q.y) * step(q.x, 91.0) * step(q.y, 91.0);
+    vec3 blockC = mix(vec3(0.77, 0.76, 0.72) * (0.94 + 0.08 * h), vec3(0.055, 0.068, 0.085) * (0.82 + 0.36 * h), u_night);
+    col = mix(col, blockC, block * 0.45);
+
+    // minor roads, then the wider arteries
+    float minor = min(abs(mod(p.x, 96.0) - 48.0), abs(mod(p.y, 88.0) - 44.0));
+    col = mix(col, mix(vec3(0.96, 0.95, 0.91), vec3(0.14, 0.17, 0.21), u_night), cov(minor - 1.2) * 0.55);
+    float major = min(abs(mod(p.x, 288.0) - 144.0), abs(mod(p.y, 264.0) - 132.0));
+    col = mix(col, mix(vec3(1.0, 0.99, 0.95), vec3(0.30, 0.33, 0.38), u_night), cov(major - 2.5) * 0.50);
+    float ave = segd(p, vec2(-60.0, 760.0), vec2(1980.0, 80.0));
+    col = mix(col, mix(vec3(0.92, 0.91, 0.87), vec3(0.24, 0.27, 0.32), u_night), cov(ave - 4.0) * 0.40);
+
+    // the route: a soft cyan glow, a bright line, and warm start / end points
+    vec2 a = vec2(250.0, 720.0), b = vec2(620.0, 500.0), c = vec2(960.0, 360.0);
+    vec2 d = vec2(1280.0, 240.0), e = vec2(1650.0, 100.0);
+    float route = min(min(segd(p, a, b), segd(p, b, c)), min(segd(p, c, d), segd(p, d, e)));
+    col += u_color * exp(-route / 20.0) * 0.10;
+    vec3 routeC = mix(u_color, vec3(0.06, 0.16, 0.40), (1.0 - u_night) * 0.55);
+    col = mix(col, routeC, cov(route - 2.5) * 0.85);
+    col = mix(col, u_color2, cov(length(p - a) - 6.0) * 0.90);
+    col = mix(col, u_color2, cov(length(p - e) - 7.0) * 0.90);
+
+    // two warm points of interest
+    float poi = min(length(p - vec2(360.0, 320.0)), length(p - vec2(1320.0, 470.0)));
+    col = mix(col, mix(vec3(0.15, 0.18, 0.25), vec3(0.88, 0.92, 1.0), u_night), cov(poi - 3.0) * 0.70);
+
+    // the Waze map's full-screen window
+    float alpha = 1.0;
+    if (u_hole.z > 0.0) {
+        float hd = rrect(p, u_hole, u_holeR);
+        if (hd < 0.0) alpha = 0.0;
+        else if (hd < 1.0) alpha = hd;
+    }
+    gl_FragColor = vec4(col, alpha);
+}
+`;
+
+module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH, volt: VOLT, aurum: AURUM, eclipse: ECLIPSE, mapdash: MAPDASH };

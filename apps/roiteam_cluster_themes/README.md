@@ -2,7 +2,7 @@
 
 <img src="icon.png" width="72" align="left" alt="Cluster Themes icon">
 
-> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). Everything from [Themes](#themes) on is bimmer-lab's own text, except the Atlas, Volt, Twin, Pulse, Noir, Cockpit, Aurum, Apex and Eclipse sections; the issue numbers in it are their repository's.
+> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). Everything from [Themes](#themes) on is bimmer-lab's own text, except the Atlas, Volt, Twin, Pulse, Noir, Cockpit, Aurum, Apex and Eclipse sections and Vector's directions paragraph; the issue numbers in it are their repository's.
 >
 > iDrive 7 only. Install **cluster-render** 0.5.1 or newer first (Store source `robertnisipeanu/idrive-apps`).
 
@@ -73,7 +73,7 @@ The look of the M view in the newer M cars' Live Cockpit (M3, M4, M5), for any c
 A race-sim style dash with angled frames and a music panel.
 
 - **Left:** a round rev counter in segments, 0 to 8000 rpm, red from your redline, with the speed and the gear inside it.
-- **Middle:** boost, torque and power as bars. With "Show Waze map inside the theme" on, the map shows here instead.
+- **Middle:** the next turn, its distance, street and lanes while a route runs in BMW's navigation, CarPlay (Apple Maps) or Android Auto; the boost, torque and power bars step aside and come back when the route ends. With "Show Waze map inside the theme" on, the Waze map shows in the octagon instead (directions can sit over it). "Directions in the cluster" chooses while a route runs, near turns, or off.
 - **Right:** coolant, oil, fuel and boost as rings, and the music panel: the song that is playing with its title, artist and time, read from the car's own now playing. When nothing is playing, the panel shows average speed, peak boost and lateral G instead. The music panel is experimental: please tell us in an issue whether it works with your sources (radio, Bluetooth, USB, CarPlay).
 - **Bottom:** the clock, range and outside temperature, with BMW's own gear letter.
 
@@ -150,7 +150,11 @@ Two round dials and one calm centre column: a speed arc with its peak dot on the
 
 ### Pulse
 
-A neon cyan and magenta double ring around a big speed, a segmented rev bar on top, and vertical charge columns for rpm and boost. The G-force meter and the left/right, accelerating/braking g strip sit at the lower right; fuel runs along the bottom.
+A full-screen city map. With "Show Waze map inside the theme" on, the live Waze map fills the whole background; with it off, a light paper map (dark after sunset) keeps the layout, so the theme reads as a map at a glance.
+
+- **Top bar:** the next turn (BMW navigation, CarPlay with Apple Maps, or Android Auto) or a NAVIGATION / WAZE MAP label, the shift lights, and now playing (or this drive's average).
+- **Bottom bar:** the drive mode, fuel and range, the huge speed and gear, the clock and outside temperature, and the Ankara weather line.
+- **Map:** the Waze map fills the entire background and the bars sit over it; the BMW gear letter keeps its window in the bottom bar.
 
 <p align="center"><img src="../../docs/images/cluster-pulse.png" width="900" alt="Pulse theme"></p>
 
@@ -192,7 +196,7 @@ A deep indigo night in three horizontal bands, not another side-column layout. T
 
 ### Weather
 
-Aurum, Apex and Eclipse show Ankara's current weather in their lower right corner: the temperature, the day's high and low, and a small condition icon. It comes from [Open-Meteo](https://open-meteo.com) (no account and no key; only Ankara's coordinates are sent), refreshes every 15 minutes and keeps the last answer in the app's data folder. **Ankara weather (online)** in Settings turns it off. Without internet the line stays hidden; an answer older than 6 hours is not shown. Weather data by [Open-Meteo.com](https://open-meteo.com), CC BY 4.0.
+Aurum, Apex, Eclipse and Pulse show Ankara's current weather in their lower right corner: the temperature, the day's high and low, and a small condition icon. It comes from [Open-Meteo](https://open-meteo.com) (no account and no key; only Ankara's coordinates are sent), refreshes every 15 minutes and keeps the last answer in the app's data folder. **Ankara weather (online)** in Settings turns it off. Without internet the line stays hidden; an answer older than 6 hours is not shown. Weather data by [Open-Meteo.com](https://open-meteo.com), CC BY 4.0.
 
 Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Volt, Twin, Pulse and Noir have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show. GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex and Eclipse open a window for it.
 
@@ -210,7 +214,8 @@ More themes are on the way.
 - **Theme**, and one per drive mode.
 - **Readouts:** pick which car sensor each GT3, M, Track, Drag, Rally, Retro 80s or Dyno readout shows (speed, rpm, boost, temperatures, tyres, fuel, g, power and more). Plug-in hybrids can also show **Hybrid battery**, the high-voltage battery's charge in % (not yet checked on a hybrid).
 - **Show Waze map inside the theme:** GT3, M, M view and Vector open a window in the middle; Sport opens a small one in its left bracket, and Atlas, Cockpit, Aurum, Apex and Eclipse open one on the left. Waze on Cluster draws its map there above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
-- **Ankara weather (online):** Aurum, Apex and Eclipse show Open-Meteo's current Ankara weather (temperature, high/low and a condition icon). On by default; turn it off to stop the requests. Needs the head unit's internet.
+- **Directions in the cluster:** Vector's middle shows the next turn, distance, street and lanes from BMW's navigation, CarPlay (Apple Maps) or Android Auto. While a route runs, near turns, or off. Waze sends no turns to the car, so with Waze only the map window shows.
+- **Ankara weather (online):** Aurum, Apex, Eclipse and Pulse show Open-Meteo's current Ankara weather (temperature, high/low and a condition icon). On by default; turn it off to stop the requests. Needs the head unit's internet.
 - **Badge:** the model name, like "BMW X3 M40i", as text in the theme's font (GT3 top left, Sport, M and Minimal top centre, where BMW puts its own). Off by default.
 - **Warnings:** oil, coolant and boost limits. A readout over its limit flashes red (oil 130°C and coolant 115°C by default, boost off).
 - **Test the shift lights:** runs the rpm up to the shift point for about 4 seconds while the car stands.

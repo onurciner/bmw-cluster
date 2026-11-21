@@ -53,6 +53,11 @@ Besides its own code, the app ships with:
 8. The Ankara weather line (weather.js, the weather icons in icons.js): data by Open-Meteo
    (https://open-meteo.com), CC BY 4.0. No Open-Meteo code is included; the app only calls its JSON API.
 
+9. The directions (nav.js, hud_nav.js): ported from cauliflowermossgrape/idrive7-apps Redline
+   (apps/redline/nav.js and hud-nav.js at 23ead63, MIT), through bimmer-lab's HUD Widgets, same licence.
+   The guidance interface facts are from jaimeen77's Cluster Redline (jaimeen77-cmyk/apps, MPL-2.0);
+   none of its code is used.
+
 ----------------------------------------------------------------------------------------------
 Copyright 2017 The Barlow Project Authors (https://github.com/jpt/barlow)
 Copyright 2011 The Michroma Project Authors (https://github.com/googlefonts/Michroma-font)

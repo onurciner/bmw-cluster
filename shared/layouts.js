@@ -48,6 +48,7 @@ const TYPES = {
     volt: ['signal', 'min', 'max'],
     aurum: [],
     eclipse: [],
+    mapdash: [],
 };
 const CLASSES = ['ambient', 'content', 'overlay', 'alert'];
 

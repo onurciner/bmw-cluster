@@ -25,9 +25,9 @@ mgu.run({
         hud.start();
         new Page(ctx, hud, {
             title: ctx.spec.title, what: 'cluster',
-            look: { name: 'Themes', style: 'hero', tags: { gt3: 'race dash', m: 'M8 style', mview: 'M3 / M5 look', vector: 'music panel', sport: 'Live Cockpit', minimal: 'just the speed', track: 'tyres + temps', drag: '0-60 timer', rally: 'rev arc · G-meter', retro80s: '80s digital', cruise: 'calm · trip', dyno: 'safety tiles', ribbon: 'calm · holidays', atlas: 'map + speed', volt: 'electric · mascot', twin: 'twin dials', pulse: 'neon · G-meter', noir: 'gold · now playing', cockpit: 'ID7 · nav + media', aurum: 'showpiece · everything', apex: 'sport · midnight', eclipse: 'corona · amber' } },
+            look: { name: 'Themes', style: 'hero', tags: { gt3: 'race dash', m: 'M8 style', mview: 'M3 / M5 look', vector: 'music panel', sport: 'Live Cockpit', minimal: 'just the speed', track: 'tyres + temps', drag: '0-60 timer', rally: 'rev arc · G-meter', retro80s: '80s digital', cruise: 'calm · trip', dyno: 'safety tiles', ribbon: 'calm · holidays', atlas: 'map + speed', volt: 'electric · mascot', twin: 'twin dials', pulse: 'map · full screen', noir: 'gold · now playing', cockpit: 'ID7 · nav + media', aurum: 'showpiece · everything', apex: 'sport · midnight', eclipse: 'corona · amber' } },
             tabs: ['look', 'readouts', 'badge', 'map', 'alerts', 'gmeter', 'settings'],
-            settings: ['units', 'weather', 'clock', 'timeZone', 'tankLitres', 'redline', 'shiftBefore', 'coldGuard', 'showBoost', 'nightDim', 'cameraNotch', 'holiday', 'demo'],
+            settings: ['units', 'weather', 'navDirections', 'clock', 'timeZone', 'tankLitres', 'redline', 'shiftBefore', 'coldGuard', 'showBoost', 'nightDim', 'cameraNotch', 'holiday', 'demo'],
             // the drive mode check's candidates this app's app.json listens to (issue #8; shared/hud.js modeDiagLines)
             modeCheck: ['HMI', 'MDrive', 'Engine', 'Sport2'],
         }).start();

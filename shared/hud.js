@@ -137,6 +137,8 @@
  *             or hexagon (Apex) frame, speed and rev arcs; the layout's map window is cut with a gold rim.
  *   eclipse   effect layer (shaders.js eclipse): the Eclipse theme's whole backdrop: a dark eclipse disc, amber/ice
  *             corona, stars, speed and rev arcs, and the same cut-out navigation window.
+ *   mapdash   effect layer (shaders.js mapdash): the Pulse theme's full-screen city map, cut away by the layout's
+ *             full-panel "hole" while the Waze map is on (the top and bottom info bars stay on top).
  *   tiles     effect layer (shaders.js tiles): the Dyno theme's readout tiles in ONE layer: the background (role "color",
  *             bg) and up to 14 rounded tiles "tiles": [{ id, x, y, w, h (target px), slot, bar (false: none), toggle }],
  *             each with a thin "accent" strip on top and a bar along the bottom for its slot's sensor (TILE_BAR; zoned
@@ -349,6 +351,7 @@ const TILE_MAX = 14;       // half a flash: red, then the normal colour
 const MVIEW_RPM = 8000;            // the M view theme's rev scale: 0..8
 const MVIEW_SPEED = { us: 200, metric: 330 };
 const VDASH_RPM = 8000;            // the Vector theme's rev counter: 0..8
+const NAV_SCALE = 2;               // the directions picture is drawn at 2x, crisp in the cluster's large nav box
 const MEDIA_IF = 'de.bmw.infotainment.hmi.hmimediastate.HmiMediaState';   // the head unit's now playing (front)
 // Its instances have names, and none is '1': the units' catalogs list HMI_CID (the centre display), HMI_FoMo_Left and
 // HMI_FoMo_Right. Asked for as '1' (0.19.0), BMW's installer refused the whole app (bimmer-lab/apps issue #26).
@@ -2361,6 +2364,14 @@ class HudApp {
             c.uniform(ref, 'u_speed', [0]);
             c.uniform(ref, 'u_rpm', [0]);
             c.uniform(ref, 'u_flash', [0]);
+        } else if (w.type === 'mapdash') {
+            c.uniform(ref, 'u_size', [w.w, w.h]);
+            c.uniform(ref, 'u_bg', rgb(color(t, 'bg')));
+            c.uniform(ref, 'u_color', rgb(color(t, 'accent')));
+            c.uniform(ref, 'u_color2', rgb(color(t, 'accent2')));
+            c.uniform(ref, 'u_hole', this._hole(w));
+            c.uniform(ref, 'u_holeR', [this._holeRadius(w)]);
+            c.uniform(ref, 'u_night', [this.nightOn ? 1 : 0]);
         } else if (w.type === 'arc') {
             c.uniform(ref, 'u_size', [w.w, w.h]);
             c.uniform(ref, 'u_peak', [-1]);
@@ -2598,6 +2609,8 @@ class HudApp {
         if (sw === '!mapUp') return this.setting('mapUp') !== true;
         if (sw === 'weather') return !!this._weather();
         if (sw === '!weather') return !this._weather();
+        if (sw === 'nav') return this.navShown === true;
+        if (sw === '!nav') return this.navShown !== true;
         return true;
     }
 
@@ -2869,15 +2882,15 @@ class HudApp {
             const rv = rings.map(frac), bv = bars.map(frac);
             const on = this._mediaOn() ? 1 : 0, e = this._mediaElapsed();
             const pv = on && e !== null && this.media.total > 0 ? q(e / this.media.total) : 0;
-            const key = [isNum(rpm) ? q(rpm / VDASH_RPM) : 0].concat(rv, bv, [on, pv, this.setting('mapUp') ? 1 : 0]).join('|');
+            const key = [isNum(rpm) ? q(rpm / VDASH_RPM) : 0].concat(rv, bv, [on, pv, this.setting('mapUp') ? 1 : 0, this.navShown ? 1 : 0]).join('|');
             if (!force && key === x.last) return;
             x.last = key;
             x.c.uniform(x.ref, 'u_tachA', [T[4], T[5], T[6], isNum(rpm) ? q(rpm / VDASH_RPM) : 0]);
             const ru = [], bu = [];
             rings.forEach((g, i) => ru.push(g ? g.cx - w.x : 0, g ? g.cy - w.y : 0, g ? g.r : 0, rv[i]));
-            // the bars sit under the map window: gone while the map shows
-            const mapUp = this.setting('mapUp') === true;
-            bars.forEach((b, i) => bu.push(b ? b.x - w.x : 0, b ? b.y - w.y : 0, b && !mapUp ? b.w : 0, bv[i]));
+            // the bars sit under the map window and the directions: gone while either shows
+            const barsOff = this.setting('mapUp') === true || this.navShown === true;
+            bars.forEach((b, i) => bu.push(b ? b.x - w.x : 0, b ? b.y - w.y : 0, b && !barsOff ? b.w : 0, bv[i]));
             x.c.uniform(x.ref, 'u_ring', ru, { type: 'vec4' });
             x.c.uniform(x.ref, 'u_bar', bu, { type: 'vec4' });
             x.c.uniform(x.ref, 'u_vinyl', x.vinyl.concat([on]));
@@ -2961,7 +2974,10 @@ class HudApp {
 
     /** The directions' modules, loaded on the first nav widget (an app without one never loads them). */
     _navMods() {
-        if (!this.navMods) this.navMods = { Nav: require('./nav'), Pic: require('./hud_nav'), Canvas: require('./kit/canvas').Canvas };
+        if (!this.navMods) {
+            const cv = require('./kit/canvas');
+            this.navMods = { Nav: require('./nav'), Pic: require('./hud_nav'), Canvas: cv.Canvas, ScaledCanvas: cv.ScaledCanvas };
+        }
         return this.navMods;
     }
     /** The directions' source (subscriptions, the event list), started with the first nav widget, kept until stop(). */
@@ -2976,12 +2992,13 @@ class HudApp {
     _navMode() { const m = this.setting('navDirections'); return m === 'off' || m === 'near' ? m : 'route'; }
     /** The nav widget's image: the picture's own size, scaled into the widget's box when that is another size. */
     _navImage(w) {
-        const P = this._navMods().Pic;
-        return { iw: P.NW, ih: P.NH, sampling: w.w === P.NW && w.h === P.NH ? 'nearest' : 'bilinear' };
+        const P = this._navMods().Pic, k = NAV_SCALE;
+        return { iw: P.NW * k, ih: P.NH * k, sampling: w.w === P.NW * k && w.h === P.NH * k ? 'nearest' : 'bilinear' };
     }
     _navCreate(x) {
         const M = this._navMods();
-        x.cv = new M.Canvas(M.Pic.NW, M.Pic.NH);
+        x.navScale = NAV_SCALE;
+        x.cv = new M.ScaledCanvas(M.Pic.NW, M.Pic.NH, NAV_SCALE);   // drawn at 2x: crisp in a large cluster box
         this._navSource();
     }
     /** At most every TEXT_MS: what to show now; the picture redrawn only when that changed, only the changed rect sent. */
@@ -2995,10 +3012,11 @@ class HudApp {
         if (!force && key === x.last) return;
         x.last = key;
         M.Pic.drawNav(x.cv, m || null, opts);
-        const buf = Buffer.from(x.cv.d), was = x.px;
+        const k = x.navScale || 1, W = M.Pic.NW * k, H = M.Pic.NH * k;
+        const buf = Buffer.from(x.cv.canvas ? x.cv.canvas.d : x.cv.d), was = x.px;
         x.px = buf;
         if (!was) { x.c.pixels(x.ref, null, buf); return; }
-        const c = changes(was, buf, M.Pic.NW, M.Pic.NH);
+        const c = changes(was, buf, W, H);
         if (c) x.c.pixels(x.ref, [c.rect], c.px);
     }
 

@@ -262,15 +262,16 @@ const THEMES = {
         bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [82, 88, 98, 255], head: [236, 40, 52, 255],
         ink: [12, 12, 14, 255], accent: [236, 40, 52, 255], well: [0, 0, 0, 255],
     },
-    // Pulse (layout pulse.json): cyan and magenta rings over black, with vertical charge columns.
+    // Pulse (layout pulse.json): a full-screen city map. Black top and bottom bars carry navigation, media and
+    // the drive data; with the Waze map on, the whole background is the live map (the mapdash layer's u_hole).
     pulse: {
         name: 'Pulse',
-        fg: [240, 250, 255, 255], dim: [126, 148, 180, 255], track: [38, 44, 68, 255], arc: [255, 74, 190, 255],
-        glow: 0.4, stripe: false,
-        bar: { low: [60, 220, 255], mid: [255, 74, 190], high: [255, 42, 42], midAt: 'shift' },
-        rev: { from: [60, 220, 255], to: [255, 74, 190] },
-        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [74, 52, 112, 255], head: [60, 220, 255, 255],
-        ink: [10, 8, 20, 255], accent: [60, 220, 255, 255], accent2: [255, 74, 190, 255], well: [0, 0, 0, 255],
+        fg: [245, 248, 255, 255], dim: [150, 166, 186, 255], track: [26, 36, 48, 255], arc: [80, 200, 255, 255],
+        glow: 0, stripe: false,
+        bar: { low: [80, 200, 255], mid: [240, 248, 255], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [80, 200, 255], to: [240, 248, 255] },
+        bg: [5, 8, 12, 255], panel: [5, 8, 12, 240], line: [56, 72, 90, 255], head: [80, 200, 255, 255],
+        ink: [8, 12, 18, 255], accent: [80, 200, 255, 255], accent2: [255, 120, 90, 255], well: [5, 8, 12, 255],
     },
     // Noir (layout noir.json): warm gold on black, one huge thin speed and the now playing line.
     noir: {

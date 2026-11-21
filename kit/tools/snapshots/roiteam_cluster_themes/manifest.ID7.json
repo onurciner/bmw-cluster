@@ -15,6 +15,12 @@
       },
       "instances": "1"
     },
+    "de.bmw.infotainment.a4a.carplay.CarPlayManager": {
+      "attributes": {
+        "projectedGuidanceActive": "rs"
+      },
+      "instances": "CarPlayManagerInst1"
+    },
     "de.bmw.infotainment.dataprivacy.privacysettings.PrivacySettings": {
       "attributes": {
         "allSettings": "rs"
@@ -76,6 +82,27 @@
       },
       "instances": "1"
     },
+    "de.bmw.infotainment.navigation.guiding.Guidance": {
+      "attributes": {
+        "conclusiveDart": "rs",
+        "currentLaneGuiding": "rs",
+        "guidanceState": "rs",
+        "guidingProvider": "rs"
+      },
+      "instances": "Main_Instance"
+    },
+    "de.bmw.infotainment.navigation.guiding.GuidanceEventList": {
+      "instances": "Main_Instance",
+      "methods": [
+        "queryContent"
+      ]
+    },
+    "de.bmw.infotainment.navigation.projectedmodeguiding.ProjectedModeGuiding": {
+      "attributes": {
+        "currentLaneGuiding": "rs"
+      },
+      "instances": "Main_Instance"
+    },
     "de.bmw.infotainment.personalization.SessionManager": "*",
     "de.bmw.infotainment.personalization.UserAccount": {
       "attributes": {
@@ -89,6 +116,12 @@
         "requestUpdateConnectedDriveCredentials"
       ],
       "instances": "*"
+    },
+    "de.bmw.infotainment.sdi.aap.androidautoprojectedmanager.AndroidAutoProjectedManager": {
+      "attributes": {
+        "projectedGuidanceActive": "rs"
+      },
+      "instances": "AndroidAutoProjectedManagerInst1"
     },
     "de.bmw.infotainment.telematic.oap.AppBookmarks": {
       "instances": [

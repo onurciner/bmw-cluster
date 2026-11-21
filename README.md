@@ -16,9 +16,15 @@ only reads from the car.
   80s digital dash, neon rings, gold minimalism and an iDrive 7-style three-card cockpit.
 - **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex and Eclipse open a window
   for the Waze map inside the theme.
+- **Next-turn directions in Vector.** When a route runs in BMW's navigation, CarPlay (Apple Maps) or Android Auto,
+  the middle of Vector shows the next turn, its distance, the street and the lanes; the boost/torque/power bars
+  return when the route ends. "Directions in the cluster" can be set to while a route runs, near turns, or off.
+- **A full-screen map in Pulse.** The Waze map fills the whole background when "Show Waze map inside the theme" is on;
+  the top and bottom bars carry navigation, media, the shift lights, the drive mode, speed and gear, the clock and the
+  Ankara weather. With the map off, a light paper map (dark after sunset) keeps the same layout.
 - **Now playing.** Sport, M view, Vector, Noir, Cockpit, Aurum, Apex and Eclipse show the car's own media: title, artist,
   elapsed and remaining time; Sport, M view, Vector, Cockpit, Aurum, Apex and Eclipse also draw a record and progress line.
-- **Ankara weather.** Aurum, Apex and Eclipse can show the current Ankara weather from Open-Meteo (no key):
+- **Ankara weather.** Aurum, Apex, Eclipse and Pulse can show the current Ankara weather from Open-Meteo (no key):
   temperature, the day's high and low, and a condition icon, refreshed every 15 minutes and cached. The
   "Ankara weather (online)" setting turns it off; it needs the head unit's internet, and stays hidden without it.
 - **Live car data.** Speed, gear and drive mode, revs, boost, oil and coolant, intake air, fuel,
@@ -34,7 +40,7 @@ only reads from the car.
 | **GT3** | A race dash with 18 shift lights, a segmented rev bar, speed, rpm, last shift, boost, fuel and a Waze map window. |
 | **M** | A current M8-style cluster: two bowed rev blades, gear and speed, a tyre block, setup bars, fuel and oil dials, and a map version. |
 | **M view** | BMW's newer M view: curved speed and rev scales, dark panels, an oval navigation window in the middle and a now playing card inside the right panel. |
-| **Vector** | A race-sim dash: a segmented rev ring, ring gauges, boost/torque/power bars, a music panel and an octagonal map window. |
+| **Vector** | A race-sim dash: a segmented rev ring, ring gauges, live next-turn directions, boost/torque/power bars, a music panel and an octagonal map window. |
 | **Sport** | BMW Live Cockpit Sport: blue speed and red rev brackets around the speed, gear and road, with a small navigation window on the left and a now playing card on the right. |
 | **Minimal** | One huge speed, the gear beside it, a thin rev line and a thin fuel line. |
 | **Track** | A race-dash frame with all four tyre pressures and temperatures, a big gear, speed, boost and configurable readouts. |
@@ -47,7 +53,7 @@ only reads from the car.
 | **Atlas** | The Waze map owns the left half; speed, gear and a compact readout stack sit on the right. With the map off, a trip panel takes its place. |
 | **Volt** | Pikachu-yellow electric arcs that gather and reach further out as the speed climbs, with a rev ring and a little mascot. |
 | **Twin** | Two round dials: a speed arc on the left, a segmented rev arc around the gear on the right, and a calm centre column. |
-| **Pulse** | Neon cyan and magenta rings around a big speed, vertical rpm and boost columns, and a G-meter. |
+| **Pulse** | A full-screen city map: the Waze map fills the background when on, with top and bottom bars for next-turn navigation, media, shift lights, drive mode, speed/gear, clock, outside temperature and Ankara weather. |
 | **Noir** | Warm gold on black: one huge thin speed under a rev arch, local time and range, and the now playing line. |
 | **Cockpit** | An iDrive 7-style three-card view: navigation on the left, shift lights/speed/drive data in the middle, and now playing on the right. |
 | **Aurum** | A champagne-gold showpiece: a radial art-deco sunburst and diamond frame, huge speed and rev arcs, floating navigation, tyres, G-meter, media, 0-60 timer, boost, range and the Ankara weather line. |
@@ -186,7 +192,7 @@ node bench/server.js                                             # cluster bench
 - Full development notes: [docs/cluster-themes.md](docs/cluster-themes.md)
 - Bench and signal controls: [bench/README.md](bench/README.md)
 
-The project is currently **0.30.0**.
+The project is currently **0.32.0**.
 
 ## Credits and licences
 
