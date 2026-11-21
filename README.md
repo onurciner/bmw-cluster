@@ -18,6 +18,9 @@ only reads from the car.
   for the Waze map inside the theme.
 - **Now playing.** Sport, M view, Vector, Noir, Cockpit, Aurum, Apex and Eclipse show the car's own media: title, artist,
   elapsed and remaining time; Sport, M view, Vector, Cockpit, Aurum, Apex and Eclipse also draw a record and progress line.
+- **Ankara weather.** Aurum, Apex and Eclipse can show the current Ankara weather from Open-Meteo (no key):
+  temperature, the day's high and low, and a condition icon, refreshed every 15 minutes and cached. The
+  "Ankara weather (online)" setting turns it off; it needs the head unit's internet, and stays hidden without it.
 - **Live car data.** Speed, gear and drive mode, revs, boost, oil and coolant, intake air, fuel,
   range, outside temperature, tyre pressures and temperatures, G-forces, power and torque.
 - **Shift lights and warnings** that follow your redline, shift point and cold-engine guard.
@@ -47,9 +50,9 @@ only reads from the car.
 | **Pulse** | Neon cyan and magenta rings around a big speed, vertical rpm and boost columns, and a G-meter. |
 | **Noir** | Warm gold on black: one huge thin speed under a rev arch, local time and range, and the now playing line. |
 | **Cockpit** | An iDrive 7-style three-card view: navigation on the left, shift lights/speed/drive data in the middle, and now playing on the right. |
-| **Aurum** | A champagne-gold showpiece: a radial art-deco sunburst and diamond frame, huge speed and rev arcs, floating navigation, tyres, G-meter, media, 0-60 timer, boost and range. |
-| **Apex** | Aurum's sport version: a midnight-blue background, hexagonal frame and cyan/ice accents, with the same floating navigation, tyres, G-meter, media, 0-60 timer, boost and range. |
-| **Eclipse** | A deep indigo night in three horizontal bands: a header with navigation, the ECLIPSE wordmark and now playing; a dark eclipse disc with an amber/ice corona, a tight lit speed/rev ring, tyres and the G-meter; and a bottom console with fuel, shift, 0-60, boost and average. |
+| **Aurum** | A champagne-gold showpiece: a radial art-deco sunburst and diamond frame, huge speed and rev arcs, floating navigation, tyres, G-meter, media, 0-60 timer, boost, range and the Ankara weather line. |
+| **Apex** | Aurum's sport version: a midnight-blue background, hexagonal frame and cyan/ice accents, with the same floating navigation, tyres, G-meter, media, 0-60 timer, boost, range and Ankara weather. |
+| **Eclipse** | A deep indigo night in three horizontal bands: a header with navigation, the ECLIPSE wordmark and now playing; a dark eclipse disc with an amber/ice corona, a tight lit speed/rev ring, tyres and the G-meter; and a bottom console with fuel, shift, 0-60, boost, average and the Ankara weather line. |
 
 <p align="center">
   <img src="docs/images/cluster-mview.png" width="31%" alt="M view theme">
@@ -183,7 +186,7 @@ node bench/server.js                                             # cluster bench
 - Full development notes: [docs/cluster-themes.md](docs/cluster-themes.md)
 - Bench and signal controls: [bench/README.md](bench/README.md)
 
-The project is currently **0.29.0**.
+The project is currently **0.30.0**.
 
 ## Credits and licences
 

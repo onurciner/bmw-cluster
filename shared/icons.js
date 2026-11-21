@@ -5,7 +5,8 @@
  *   gauge (engine), shock (chassis), wheel (steering), cog (gearbox), stack (the gear's shift program
  *   lines), therm (coolant), oilcan (oil), fuel (pump), tyre (a wheel seen from the side: ring, hub, tread notches),
  *   bolt (Volt), pika (the little electric mascot's face, eyes and mouth cut out), dot (a filled circle),
- *   compass (the Cockpit theme's navigation heading), disc (Aurum's record).
+ *   compass (the Cockpit theme's navigation heading), disc (Aurum's record), and the weather set for the
+ *   Ankara weather line: sun, moon, partly, cloud, rain, snow, storm, fog (weather.js picks one).
  */
 function seg(px, py, ax, ay, bx, by) {
     const pax = px - ax, pay = py - ay, bax = bx - ax, bay = by - ay;
@@ -20,6 +21,24 @@ function arc(px, py, cx, cy, r, a0, a1) {          // clockwise from 12 o'clock,
     const e = (b) => Math.hypot(px - (cx + r * Math.sin(b)), py - (cy - r * Math.cos(b)));
     return Math.min(e(a0), e(a1));
 }
+
+/* The weather set: one filled cloud, a sun with eight rays, and the same cloud with rain, snow, a bolt or fog
+ * under it. Filled shapes read better than thin outlines at a 24-28 px weather line. */
+function cloudShape(x, y) {
+    return Math.min(
+        disc(x, y, 0.32, 0.60, 0.12), disc(x, y, 0.48, 0.52, 0.17), disc(x, y, 0.65, 0.60, 0.12),
+        Math.max(Math.abs(x - 0.49) - 0.30, Math.abs(y - 0.66) - 0.08));
+}
+function sunShape(x, y, cx, cy, r) {
+    let d = disc(x, y, cx, cy, r);
+    for (let i = 0; i < 8; i++) {
+        const a = i * Math.PI / 4;
+        d = Math.min(d, seg(x, y, cx + (r + 0.07) * Math.sin(a), cy - (r + 0.07) * Math.cos(a),
+            cx + (r + 0.16) * Math.sin(a), cy - (r + 0.16) * Math.cos(a)) - 0.025);
+    }
+    return d;
+}
+const moonShape = (x, y) => Math.max(disc(x, y, 0.5, 0.48, 0.28), -disc(x, y, 0.64, 0.36, 0.24));
 
 /** Distance (in box units) from (x, y) to the icon's ink; < 0 or < stroke half-width = ink. */
 const ICONS = {
@@ -57,6 +76,20 @@ const ICONS = {
         seg(x, y, 0.5, 0.5, 0.5, 0.84) - 0.035, disc(x, y, 0.5, 0.5, 0.035)),
     disc: (x, y) => Math.min(ring(x, y, 0.5, 0.5, 0.44) - 0.022, ring(x, y, 0.5, 0.5, 0.34) - 0.012,
         ring(x, y, 0.5, 0.5, 0.25) - 0.012, ring(x, y, 0.5, 0.5, 0.16) - 0.012, disc(x, y, 0.5, 0.5, 0.055)),
+    sun: (x, y) => sunShape(x, y, 0.5, 0.48, 0.15),
+    moon: (x, y) => moonShape(x, y),
+    partly: (x, y) => Math.min(sunShape(x, y, 0.36, 0.34, 0.13), cloudShape(x, y)),
+    cloud: (x, y) => cloudShape(x, y),
+    rain: (x, y) => Math.min(cloudShape(x, y + 0.06),
+        seg(x, y, 0.32, 0.78, 0.27, 0.90) - 0.025, seg(x, y, 0.5, 0.80, 0.45, 0.92) - 0.025,
+        seg(x, y, 0.68, 0.78, 0.63, 0.90) - 0.025),
+    snow: (x, y) => Math.min(cloudShape(x, y + 0.06),
+        disc(x, y, 0.32, 0.84, 0.035), disc(x, y, 0.5, 0.86, 0.035), disc(x, y, 0.68, 0.84, 0.035)),
+    storm: (x, y) => Math.min(cloudShape(x, y + 0.06),
+        seg(x, y, 0.54, 0.70, 0.44, 0.84) - 0.03, seg(x, y, 0.44, 0.84, 0.52, 0.84) - 0.03,
+        seg(x, y, 0.52, 0.84, 0.46, 0.96) - 0.03),
+    fog: (x, y) => Math.min(cloudShape(x, y + 0.08),
+        seg(x, y, 0.28, 0.82, 0.72, 0.82) - 0.025, seg(x, y, 0.34, 0.92, 0.66, 0.92) - 0.025),
 };
 
 function paintIcon(name, w, h, color) {

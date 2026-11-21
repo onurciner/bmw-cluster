@@ -736,6 +736,28 @@
      ]
     },
     "15": {
+     "type": "checkBox",
+     "name": "SET_WEATHER",
+     "properties": {
+      "Visible": {
+       "value": 1,
+       "type": "UInt"
+      },
+      "Focusable": {
+       "value": 2,
+       "type": "UInt"
+      }
+     },
+     "rows": [
+      {
+       "Text": {
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_WEATHER",
+        "type": "StringId"
+       }
+      }
+     ]
+    },
+    "16": {
      "type": "dropDownMenu",
      "name": "SET_UNITS",
      "rows": [
@@ -763,7 +785,7 @@
       }
      }
     },
-    "16": {
+    "17": {
      "type": "dropDownMenu",
      "name": "SET_CLOCK",
      "rows": [
@@ -791,7 +813,7 @@
       }
      }
     },
-    "17": {
+    "18": {
      "type": "dropDownMenu",
      "name": "SET_TIMEZONE",
      "rows": [
@@ -1203,7 +1225,7 @@
       }
      }
     },
-    "18": {
+    "19": {
      "type": "dropDownMenu",
      "name": "SET_TANKLITRES",
      "rows": [
@@ -1705,7 +1727,7 @@
       }
      }
     },
-    "19": {
+    "20": {
      "type": "dropDownMenu",
      "name": "SET_REDLINE",
      "rows": [
@@ -1751,7 +1773,7 @@
       }
      }
     },
-    "20": {
+    "21": {
      "type": "dropDownMenu",
      "name": "SET_SHIFTBEFORE",
      "rows": [
@@ -1809,7 +1831,7 @@
       }
      }
     },
-    "21": {
+    "22": {
      "type": "checkBox",
      "name": "SET_COLDGUARD",
      "properties": {
@@ -1831,7 +1853,7 @@
       }
      ]
     },
-    "22": {
+    "23": {
      "type": "dropDownMenu",
      "name": "SET_SHIFTCUE",
      "rows": [
@@ -1859,7 +1881,7 @@
       }
      }
     },
-    "23": {
+    "24": {
      "type": "checkBox",
      "name": "SET_SMARTTEMPS",
      "properties": {
@@ -1881,7 +1903,7 @@
       }
      ]
     },
-    "24": {
+    "25": {
      "type": "checkBox",
      "name": "SET_SHOWBOOST",
      "properties": {
@@ -1903,7 +1925,7 @@
       }
      ]
     },
-    "25": {
+    "26": {
      "type": "checkBox",
      "name": "SET_CAMERANOTCH",
      "properties": {
@@ -1925,7 +1947,7 @@
       }
      ]
     },
-    "26": {
+    "27": {
      "type": "dropDownMenu",
      "name": "SET_HOLIDAY",
      "rows": [
@@ -1977,7 +1999,7 @@
       }
      }
     },
-    "27": {
+    "28": {
      "type": "dropDownMenu",
      "name": "SET_WARNOIL",
      "rows": [
@@ -2053,7 +2075,7 @@
       }
      }
     },
-    "28": {
+    "29": {
      "type": "dropDownMenu",
      "name": "SET_WARNCOOLANT",
      "rows": [
@@ -2111,7 +2133,7 @@
       }
      }
     },
-    "29": {
+    "30": {
      "type": "dropDownMenu",
      "name": "SET_WARNBOOST",
      "rows": [
@@ -2175,7 +2197,7 @@
       }
      }
     },
-    "30": {
+    "31": {
      "type": "checkBox",
      "name": "SET_GFLIPLAT",
      "properties": {
@@ -2197,7 +2219,7 @@
       }
      ]
     },
-    "31": {
+    "32": {
      "type": "checkBox",
      "name": "SET_GFLIPLONG",
      "properties": {
@@ -2219,7 +2241,7 @@
       }
      ]
     },
-    "32": {
+    "33": {
      "type": "dropDownMenu",
      "name": "SET_GRANGE",
      "rows": [
@@ -2265,7 +2287,7 @@
       }
      }
     },
-    "33": {
+    "34": {
      "type": "dropDownMenu",
      "name": "SET_GTRAIL",
      "rows": [
@@ -2305,7 +2327,7 @@
       }
      }
     },
-    "34": {
+    "35": {
      "type": "dropDownMenu",
      "name": "SET_NIGHTDIM",
      "rows": [
@@ -2333,7 +2355,7 @@
       }
      }
     },
-    "35": {
+    "36": {
      "type": "dropDownMenu",
      "name": "SET_BADGE",
      "rows": [
@@ -2703,7 +2725,7 @@
       }
      }
     },
-    "36": {
+    "37": {
      "type": "checkBox",
      "name": "SET_BADGEBMW",
      "properties": {
@@ -2725,7 +2747,7 @@
       }
      ]
     },
-    "37": {
+    "38": {
      "type": "dropDownMenu",
      "name": "SET_DEMO",
      "rows": [
@@ -2759,7 +2781,7 @@
       }
      }
     },
-    "38": {
+    "39": {
      "type": "button",
      "name": "REPO_CREDITS",
      "properties": {
@@ -2785,7 +2807,7 @@
       }
      ]
     },
-    "39": {
+    "40": {
      "type": "title",
      "name": "SETTINGS_TITLE",
      "rows": [

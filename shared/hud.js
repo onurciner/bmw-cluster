@@ -276,6 +276,7 @@ const shaders = require('./shaders');
 const calibration = require('./calibration');
 const Car = require('./kit/car');
 const Waze = require('./waze');
+const Weather = require('./weather');
 const Screen = require('./screen');
 const badges = require('./badges');
 const Runs = require('./runs');
@@ -288,6 +289,8 @@ const hudHoliday = require('./hud_holiday');
 const DemoShow = require('./demo_script');
 const Garland = require('./garland');               // the holiday light string (widget type "garland")
 const DEMO_AMBER = [255, 176, 40];      // the DEMO tag's colour
+// the demo drive's fixed Ankara weather (the previews and a showroom demo don't depend on the network)
+const DEMO_WEATHER = { city: 'Ankara', temp: 14, high: 18, low: 6, code: 1, isDay: true, icon: 'partly', text: 'PARTLY CLOUDY' };
 const CAL_LAYOUTS = { grid: true, wincal: true, mapcal: true };
 // sharing the HUD with other kit apps (Redline, issue #4): kit/runtime/hud_claim.js, from cauliflowermossgrape's kit
 // (MIT). HUD Widgets is a "standing" app, like Cluster functions: it gives way while another app holds a fresh
@@ -563,6 +566,10 @@ class HudApp {
         })) : null;
         this.mapShown = false;           // "mapUp" when the layout was built (or last opened / closed, mapLive)
         this.mapLive = false;            // the active layout opens and closes its map window without a rebuild
+        // the Ankara weather line (config.weather; weather.js): Open-Meteo, no key, the "weather" setting turns it off
+        this.weather = this.config.weather ? new Weather(Object.assign({ dataDir: ctx.dataDir }, this.config.weather), this.log,
+            () => this._guard('weather', () => this._weatherChanged())) : null;
+        this.weatherIconShown = undefined;   // the weather icon in the layers, for repainting it when the answer changes
         // the screen shared with the other app (screen.js): stepping aside while the driver gave it to the other one
         this.screen = new Screen(this.target === 'panel' ? 'cluster' : 'hud', ctx.dataDir, this.log,
             () => !!(this.started && this.activeName && this.activeName !== 'off'), () => this._guard('screen', () => this._rebuild()),
@@ -584,7 +591,10 @@ class HudApp {
             if (['hudLayout', 'inComfort', 'inSport', 'inEco', 'byMode'].indexOf(key) >= 0 && this.screen.yielded) this.screen.release();
             if (PLACE_KEYS.indexOf(key) >= 0) this._guard('place', () => this._place());
             else if (LIVE_KEYS.indexOf(key) >= 0) this.widgets.forEach((x) => { x.last = null; });
-            else if (key !== 'demo') this._rebuild(); else this._status();
+            else if (key === 'weather') {
+                this._weatherWant();
+                this._weatherChanged();
+            } else if (key !== 'demo') this._rebuild(); else { this._status(); this._weatherChanged(); }
         });
     }
 
@@ -936,6 +946,7 @@ class HudApp {
         this._status();
         this._startDme();
         if (this.waze) { this.waze.start(); this._wazeWant(); }
+        if (this.weather) { this.weather.start(); this._weatherWant(); }
         this.screen.start();
     }
 
@@ -1016,6 +1027,7 @@ class HudApp {
         this.vstate.stop();
         this.stallTimers.forEach((t) => clearTimeout(t)); this.stallTimers.clear();
         if (this.waze) this._guard('waze stop', () => this.waze.stop());
+        if (this.weather) this._guard('weather stop', () => this.weather.stop());
         if (this.directions) this._guard('directions stop', () => this.directions.stop());
         this._guard('screen stop', () => this.screen.stop());
         this.clients.forEach((c) => c.close());
@@ -1738,6 +1750,19 @@ class HudApp {
             case 'hvSoc': { const v = this._raw('hvSoc'); return isNum(v) ? String(Math.round(v)) : '--'; }
             case 'fuelPct': { const v = this._raw('fuel'); return isNum(v) ? String(Math.round(v * 100)) : '--'; }
             case 'ambientN': { const v = this._raw('ambient'); return isNum(v) ? String(Math.round(us ? v * 9 / 5 + 32 : v)) : '--'; }
+            case 'weatherNow': {
+                const w = this._weather();
+                if (!w || !isNum(w.temp)) return '';
+                const t = Math.round(us ? w.temp * 9 / 5 + 32 : w.temp);
+                return (w.city || 'ANKARA').toUpperCase() + ' ' + t + '°';
+            }
+            case 'weatherHL': {
+                const w = this._weather();
+                if (!w || !isNum(w.high) || !isNum(w.low)) return '';
+                const f = (v) => Math.round(us ? v * 9 / 5 + 32 : v);
+                return 'H ' + f(w.high) + '°  L ' + f(w.low) + '°';
+            }
+            case 'weatherText': { const w = this._weather(); return w && w.text || ''; }
             case 'torque': { const v = this._raw('torque'); return fix(isNum(v) ? (us ? v * 0.737562 : v) : v, 0); }
             case 'torquePct': case 'powerPct': { const v = this._raw(tok); return isNum(v) ? String(Math.min(100, Math.round(v))) : '--'; }
             case 'boostHi': return us ? '20' : '1.4';
@@ -1876,8 +1901,9 @@ class HudApp {
         this.holidayAt = this._holidayNow();     // the light string's holiday (garland.js); the minute timer rebuilds when it changes
         this.mapLayout = false;
         this.mapShown = this.setting('mapUp');
+        this.needsWeather = false;
         if (name === 'off') {
-            this._wazeWant();
+            this._wazeWant(); this._weatherWant();
             this.problem = null; this.layoutTheme = null; this.needsBoost = false; this.needsIntake = false; this.needsHv = false; this.needsFuel = false;
             this.log.info('off: nothing drawn, BMW\'s own ' + (this.target === 'panel' ? 'cluster' : 'HUD') + ' shows');
             return;
@@ -1886,7 +1912,7 @@ class HudApp {
         try { layout = this.layouts.load(name); } catch (e) {
             this.problem = e.message;
             this.log.warn('layout "' + name + '" unusable (' + e.message + '); showing nothing');
-            this._wazeWant();
+            this._wazeWant(); this._weatherWant();
             return;
         }
         this.problem = null;
@@ -1912,6 +1938,10 @@ class HudApp {
             .map((w) => (w.stripRow ? Object.assign({}, w) : w));
         this.shown = shown;              // for a scale to find its rev bar (driver camera wings)
         this._setNeeds(shown);
+        // the weather answer is only fetched while a shown layout actually draws it (and the setting is on)
+        this.needsWeather = shown.some((w) => w.icon === 'weather' || w.showWhen === 'weather' ||
+            (typeof w.text === 'string' && /\{\{weather(Now|HL|Text)\}\}/.test(w.text)));
+        this._weatherWant();
         // plan the layers first (a sheet's size is only known once every member is placed), then make them
         // in that order: within a class and z, cluster-render puts the newer layer on top. Small sheets
         // first; a bigger limit only when the layer budget needs it (see the header).
@@ -2118,7 +2148,12 @@ class HudApp {
         } else if (w.type === 'gridlabels') this._paintGridLabels(x);
         else if (w.type === 'nav') this._navCreate(x);
         else if (w.type === 'garland') { x.tw = new Garland.Twinkle(w); this._blit(x, null, Garland.paint(w, x.tw.lvl, null)); }
-        else if (w.type === 'icon') this._blit(x, null, paintIcon(w.icon, w.w, w.h, color(t, w.color || 'fg')));
+        else if (w.type === 'icon') {
+            const name = w.icon === 'weather' ? this._weatherIconName() : w.icon;
+            x.iconName = name;
+            const buf = paintIcon(name, w.w, w.h, color(t, w.color || 'fg'));
+            if (w.icon === 'weather') this._blitDiff(x, buf); else this._blit(x, null, buf);
+        }
         else if (w.type === 'sdash') {
             c.uniform(ref, 'u_size', [w.w, w.h]);
             c.uniform(ref, 'u_geo', w.geo);
@@ -2514,6 +2549,35 @@ class HudApp {
         }
     }
 
+    /** The Ankara weather now (the demo drive's fixed answer), or null when the setting is off or there is no answer. */
+    _weather() {
+        if (!this.weather || this.setting('weather') !== true) return null;
+        if (this.car && this.car.data().demo) return DEMO_WEATHER;
+        return this.weather.state();
+    }
+
+    /** The icon name of the weather now ("sun", "rain", ...), or null. */
+    _weatherIconName() { const w = this._weather(); return w ? w.icon : null; }
+
+    /** Fetch the weather only while the setting is on and the shown layout draws it. */
+    _weatherWant() {
+        if (!this.weather) return;
+        this.weather.want(this.setting('weather') === true && this.needsWeather === true && this.activeName !== 'off');
+    }
+
+    /** A new weather answer: repaint the weather icon if the condition changed, and the texts on the next tick. */
+    _weatherChanged() {
+        const name = this._weatherIconName();
+        this.weatherIconShown = name;
+        if (!this.theme || !this.client || !this.client.ready) return;
+        this.widgets.forEach((x) => {
+            x.last = null;
+            if (x.w.type !== 'icon' || x.w.icon !== 'weather' || name === x.iconName) return;
+            x.iconName = name;
+            this._blitDiff(x, name ? paintIcon(name, x.w.w, x.w.h, color(this.theme, x.w.color || 'fg')) : Buffer.alloc(x.w.w * x.w.h * 4, 0));
+        });
+    }
+
     /** Something is playing that has a title (the music panel shows it; "showWhen": "media"). */
     _mediaOn() { return !!(this.media && this.media.title); }
 
@@ -2532,6 +2596,8 @@ class HudApp {
         if (sw === '!media') return !this._mediaOn();
         if (sw === 'mapUp') return this.setting('mapUp') === true;
         if (sw === '!mapUp') return this.setting('mapUp') !== true;
+        if (sw === 'weather') return !!this._weather();
+        if (sw === '!weather') return !this._weather();
         return true;
     }
 
@@ -2547,6 +2613,9 @@ class HudApp {
 
     _tick() {
         const now = Date.now();
+        // the weather icon changes when the answer arrives, a new day starts or the demo comes and goes
+        const wi = this._weatherIconName();
+        if (wi !== this.weatherIconShown) this._weatherChanged();
         this._smoothRpm(now);
         this._cueTick(now);
         if (now - (this.bumpAt || 0) >= 1000) { this.bumpAt = now; smartTemps.bumpTick(this); }

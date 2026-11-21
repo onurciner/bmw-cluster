@@ -171,7 +171,7 @@ A calmer, iDrive 7-style Live Cockpit: three cool-blue cards under one black scr
 A showpiece in warm black and champagne. The background is a radial art-deco sunburst with champagne rings, a large diamond frame, and lit speed/rev arcs; the numbers float over it instead of sitting in cards. Shift lights run across the top.
 
 - **Left:** navigation (the Waze map in its cut-out window) and all four tyre pressures and temperatures, with fuel, range and a thin fuel bar.
-- **Right:** now playing with a record, title, artist, progress and time; the 0-60 timer with its best; boost, intake and average speed.
+- **Right:** now playing with a record, title, artist, progress and time; the 0-60 timer with its best; boost, intake, average speed and the Ankara weather line.
 - **Centre:** the huge speed, gear, drive mode, G-meter, shift point and last shift.
 - **Theme:** the sunburst, diamond and rings are drawn by the theme's own shader; holiday decorations and the DEMO tag when the demo is running. No oil, coolant, torque or power readouts.
 
@@ -179,15 +179,20 @@ A showpiece in warm black and champagne. The background is a radial art-deco sun
 
 Aurum's sport sibling, in midnight blue. The same floating layout, but the backdrop is a deep navy with a hexagonal frame
 and cyan/ice accents: a radial sunburst, lit speed and rev arcs, navigation and tyres on the left, now playing and the
-0-60 timer on the right, and the G-meter beside the gear. No card grid; no oil, coolant, torque or power readouts.
+0-60 timer on the right, and the G-meter beside the gear. The Ankara weather line sits under boost and intake. No card
+grid; no oil, coolant, torque or power readouts.
 
 <p align="center"><img src="../../docs/images/cluster-apex.png" width="900" alt="Apex theme"></p>
 
 ### Eclipse
 
-A deep indigo night in three horizontal bands, not another side-column layout. The header carries navigation, the ECLIPSE wordmark with the drive mode, and now playing; the hero is one dark eclipse disc with an amber/ice corona, a tight lit speed/rev ring, the huge speed and gear, with all four tyres floating left and the G-meter right; the console across the bottom carries fuel and range, the shift data, the 0-60 timer, boost and intake, average speed and the best G. No card grid, no oil, coolant, torque or power readouts; the holiday decorations and DEMO tag stay.
+A deep indigo night in three horizontal bands, not another side-column layout. The header carries navigation, the ECLIPSE wordmark with the drive mode, and now playing; the hero is one dark eclipse disc with an amber/ice corona, a tight lit speed/rev ring, the huge speed and gear, with all four tyres floating left and the G-meter right; the console across the bottom carries fuel and range, the shift data, the 0-60 timer, boost and intake, average speed, the best G and the Ankara weather line. No card grid, no oil, coolant, torque or power readouts; the holiday decorations and DEMO tag stay.
 
 <p align="center"><img src="../../docs/images/cluster-eclipse.png" width="900" alt="Eclipse theme"></p>
+
+### Weather
+
+Aurum, Apex and Eclipse show Ankara's current weather in their lower right corner: the temperature, the day's high and low, and a small condition icon. It comes from [Open-Meteo](https://open-meteo.com) (no account and no key; only Ankara's coordinates are sent), refreshes every 15 minutes and keeps the last answer in the app's data folder. **Ankara weather (online)** in Settings turns it off. Without internet the line stays hidden; an answer older than 6 hours is not shown. Weather data by [Open-Meteo.com](https://open-meteo.com), CC BY 4.0.
 
 Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Volt, Twin, Pulse and Noir have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show. GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex and Eclipse open a window for it.
 
@@ -205,6 +210,7 @@ More themes are on the way.
 - **Theme**, and one per drive mode.
 - **Readouts:** pick which car sensor each GT3, M, Track, Drag, Rally, Retro 80s or Dyno readout shows (speed, rpm, boost, temperatures, tyres, fuel, g, power and more). Plug-in hybrids can also show **Hybrid battery**, the high-voltage battery's charge in % (not yet checked on a hybrid).
 - **Show Waze map inside the theme:** GT3, M, M view and Vector open a window in the middle; Sport opens a small one in its left bracket, and Atlas, Cockpit, Aurum, Apex and Eclipse open one on the left. Waze on Cluster draws its map there above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
+- **Ankara weather (online):** Aurum, Apex and Eclipse show Open-Meteo's current Ankara weather (temperature, high/low and a condition icon). On by default; turn it off to stop the requests. Needs the head unit's internet.
 - **Badge:** the model name, like "BMW X3 M40i", as text in the theme's font (GT3 top left, Sport, M and Minimal top centre, where BMW puts its own). Off by default.
 - **Warnings:** oil, coolant and boost limits. A readout over its limit flashes red (oil 130°C and coolant 115°C by default, boost off).
 - **Test the shift lights:** runs the rpm up to the shift point for about 4 seconds while the car stands.

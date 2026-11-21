@@ -50,6 +50,9 @@ Besides its own code, the app ships with:
    the layout mview.json) is ported from Asksket's f90 branch of a fork of this repository
    (https://github.com/Asksket/apps), offered in issue #15: MIT, the same licence as this repository.
 
+8. The Ankara weather line (weather.js, the weather icons in icons.js): data by Open-Meteo
+   (https://open-meteo.com), CC BY 4.0. No Open-Meteo code is included; the app only calls its JSON API.
+
 ----------------------------------------------------------------------------------------------
 Copyright 2017 The Barlow Project Authors (https://github.com/jpt/barlow)
 Copyright 2011 The Michroma Project Authors (https://github.com/googlefonts/Michroma-font)

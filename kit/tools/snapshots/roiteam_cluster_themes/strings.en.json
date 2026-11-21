@@ -652,5 +652,6 @@
  "SID_ROITEAM_CLUSTER_THEMES_SET_MAPINTHEME": "Show Waze map inside the theme",
  "SID_ROITEAM_CLUSTER_THEMES_SET_SHOWBOOST": "Show boost",
  "SID_ROITEAM_CLUSTER_THEMES_SET_SMARTTEMPS": "Show temperatures only when they matter",
+ "SID_ROITEAM_CLUSTER_THEMES_SET_WEATHER": "Ankara weather (online)",
  "SID_ROITEAM_CLUSTER_THEMES_TITLE": "Cluster Themes"
 }
