@@ -16,7 +16,7 @@ Redraws the whole instrument cluster in a theme of your choice. Open **Cluster T
 
 ## Themes
 
-Every theme fills the cluster and shows its own clock, range and outside temperature along the bottom, in the theme's style. Only BMW's gear letter at the bottom right stays uncovered: when a theme covers it, BMW draws a black box over the theme (issue #5). Every theme shows the drive mode (Comfort, Sport and so on) next to the gear.
+Every theme fills the cluster and shows its own clock, range and outside temperature along the bottom, in the theme's style. Only BMW's gear letter at the bottom right stays uncovered: when a theme covers it, BMW draws a black box over the theme (issue #5). Every theme shows the drive mode (Comfort, Sport and so on); most show it next to the gear, while M view keeps it above the now playing card.
 
 ### GT3
 
@@ -59,9 +59,10 @@ The look of BMW's newer Live Cockpit Sport view.
 The look of the M view in the newer M cars' Live Cockpit (M3, M4, M5), for any car. Asked for in issue #15.
 
 - **Left:** speed along a white line with rounded corners, 0 to 200 mph (0 to 330 km/h). The band inside the line lights up from 0 to the needle.
-- **Right:** revs the same way, 0 to 8000 rpm, with yellow and red marks from your redline.
+- **Middle:** navigation. With "Show Waze map inside the theme" on, the map shows in an oval window between the two scales that fades into the black, and the window opens and closes without the theme being built again. With the map off, it says *WAZE MAP OFF*.
+- **Right:** revs along the mirrored white line, 0 to 8000 rpm, with yellow and red marks from your redline. Inside that panel is the **now playing** card: a record, the song, artist, progress, elapsed and remaining time. With nothing playing it shows *NO MEDIA* and the drive's average speed.
+- **Mode:** the drive mode above the media card. M view leaves the gear number out.
 - **Panels:** dark grey panels inside both scales, and a red glow by the needle, as on BMW's own M view.
-- **Middle:** the speed and the gear, each over its own line, with the speed in the other unit under it (km/h under mph, or the other way round) and the drive mode under the gear. With "Show Waze map inside the theme" on, the map shows in an oval window between the two scales that fades into the black, and the window opens and closes without the theme being built again.
 - **Corners:** fuel on the far left and oil temperature on the far right, as small dials.
 - **Bottom:** the clock, range and outside temperature, with BMW's own gear letter.
 

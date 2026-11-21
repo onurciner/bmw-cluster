@@ -16,8 +16,8 @@ only reads from the car.
   80s digital dash, neon rings, gold minimalism and an iDrive 7-style three-card cockpit.
 - **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas and Cockpit open a window
   for the Waze map inside the theme.
-- **Now playing.** Vector, Noir and Cockpit show the car's own media: title, artist, elapsed and
-  remaining time; Vector and Cockpit also draw a record and progress line.
+- **Now playing.** M view, Vector, Noir and Cockpit show the car's own media: title, artist,
+  elapsed and remaining time; M view, Vector and Cockpit also draw a record and progress line.
 - **Live car data.** Speed, gear and drive mode, revs, boost, oil and coolant, intake air, fuel,
   range, outside temperature, tyre pressures and temperatures, G-forces, power and torque.
 - **Shift lights and warnings** that follow your redline, shift point and cold-engine guard.
@@ -30,7 +30,7 @@ only reads from the car.
 |---|---|
 | **GT3** | A race dash with 18 shift lights, a segmented rev bar, speed, rpm, last shift, boost, fuel and a Waze map window. |
 | **M** | A current M8-style cluster: two bowed rev blades, gear and speed, a tyre block, setup bars, fuel and oil dials, and a map version. |
-| **M view** | BMW's newer M view: curved speed and rev scales, dark panels and an oval map window between them. |
+| **M view** | BMW's newer M view: curved speed and rev scales, dark panels, an oval navigation window in the middle and a now playing card inside the right panel. |
 | **Vector** | A race-sim dash: a segmented rev ring, ring gauges, boost/torque/power bars, a music panel and an octagonal map window. |
 | **Sport** | BMW Live Cockpit Sport: a blue speed bracket, red rev bracket, a road in the middle, and the map when enabled. |
 | **Minimal** | One huge speed, the gear beside it, a thin rev line and a thin fuel line. |
@@ -180,7 +180,7 @@ node bench/server.js                                             # cluster bench
 - Full development notes: [docs/cluster-themes.md](docs/cluster-themes.md)
 - Bench and signal controls: [bench/README.md](bench/README.md)
 
-The project is currently **0.22.0**.
+The project is currently **0.23.2**.
 
 ## Credits and licences
 
