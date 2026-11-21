@@ -1,9 +1,5 @@
 # Roiteam · Cluster Themes
 
-<p align="center">
-  <img src="docs/images/cluster-gt3.png" width="100%" alt="Cluster Themes, GT3 theme">
-</p>
-
 **Cluster Themes** turns the BMW iDrive 7 instrument cluster into a display you choose. Pick one of
 19 themes on the centre screen, or let Comfort / Sport / Eco Pro pick one for you. It is drawn over
 BMW's own cluster through [cluster-render](https://github.com/robertnisipeanu/idrive-apps), and it
@@ -26,7 +22,7 @@ only reads from the car.
   range, outside temperature, tyre pressures and temperatures, G-forces, power and torque.
 - **Shift lights and warnings** that follow your redline, shift point and cold-engine guard.
 - **Theme pictures in the app**, so the centre screen shows what each theme looks like before you
-  pick it.
+  pick it, in a warm-black, champagne-accented interface built for the car.
 
 ## Themes
 
@@ -171,7 +167,7 @@ node bench/server.js                                             # cluster bench
 - Full development notes: [docs/cluster-themes.md](docs/cluster-themes.md)
 - Bench and signal controls: [bench/README.md](bench/README.md)
 
-The project is currently **0.21.0**.
+The project is currently **0.22.0**.
 
 ## Credits and licences
 

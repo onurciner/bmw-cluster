@@ -1,8 +1,8 @@
 'use strict';
 /**
  * page.js - the app's own centre-screen page (both apps), in place of BMW's plain settings list.
- * Look: design/settings-mock-v2.png (approved Nov 7 2026): near-black with a soft blue glow, a rail of
- * tabs on the left (icon, name, current value), glass cards, BMW blue for what is on.
+ * Look: near-black with a warm champagne glow, a rail of tabs on the left (icon, name, current value),
+ * glass cards, and gold/bronze details for what is on.
  *
  * Drawn on the kit's canvas screen (kit/runtime/display.js): on the Store's renderer it fills the screen at
  * up to 60 fps and every tap or controller press lands on a target (cv.target); without the renderer the
@@ -28,9 +28,11 @@ const tz = require('./tz');
 
 const W = 1600, H = 520;
 const A = G.withAlpha;
+// Premium / warm-black palette: champagne highlights, ivory text and bronze details.
 const C = {
-    bg: '#05070a', glow: '#0d1a2e', text: '#eef2f8', dim: '#8a96a8', label: '#6f7b8f', line: '#ffffff12',
-    blue: '#2b7fff', blueHi: '#5aa2ff', blueDeep: '#1c69d4', live: '#7fd3a0', off: '#c3cad6',
+    bg: '#080706', glow: '#21170d', text: '#f4eee2', dim: '#a99b87', label: '#c6a96f', line: '#efe4d11a',
+    blue: '#c9a45c', blueHi: '#f1d79b', blueDeep: '#8d6a34', live: '#9fc7ad', off: '#bdb19d',
+    gold: '#c9a45c', goldHi: '#f1d79b', bronze: '#8d6a34',
 };
 const RAIL = { x: 16, y: 54, w: 252, h: 66, gap: 8 };
 const RAIL7 = { x: 16, y: 54, w: 252, h: 58, gap: 6 };     // seven tabs or more: a little shorter, so they fit
@@ -49,8 +51,12 @@ const TAB = {
     settings: { name: 'Settings', icon: 'cog' },
 };
 
-// the kit's own chrome (header, bar, Settings sheet) in BMW blue, to match the page
-Object.assign(themes.THEMES.m_tricolour, { sel: C.blue, selText: '#ffffff', accent2: C.blueHi, bg: C.bg });
+// the kit's own chrome (header, bar, Settings sheet) in the page's warm gold, to match
+Object.assign(themes.THEMES.m_tricolour, {
+    bg: C.bg, text: C.text, dim: C.dim, tab: C.text, panelTop: '#17130d', panelBottom: '#0c0a07',
+    panelEdge: '#2b2317', track: '#211b12', tick: '#75664f', accent: C.gold, accent2: C.goldHi,
+    sel: C.gold, selText: C.text, glow: '#c9a45c38', ok: C.gold, marker: C.goldHi,
+});
 
 class Page {
     constructor(ctx, hud, cfg) {
@@ -141,12 +147,14 @@ class Page {
         const bottom = G.pageBottom(cv);
         const h = bottom + 8;
         cv.clear(C.bg);
-        cv.gradientRect(0, 0, W, h, [[0, C.glow], [0.55, '#070a10'], [1, C.bg]]);
+        cv.gradientRect(0, 0, W, h, [[0, C.glow], [0.42, '#0c0906'], [1, C.bg]]);
+        cv.fillRect(0, 49, W, 1, A(C.gold, 0.16));
+        cv.gradientRect(0, 50, 14, bottom - 50, [[0, A(C.gold, 0.05)], [1, '#00000000']]);
         const on = this.hud.activeName && this.hud.activeName !== 'off';
         const dd = this.hud.car && this.hud.car.data(), demo = dd && dd.demo;
         G.frame(cv, this.theme(), [], -1, [
-            demo ? { text: dd.demoShow ? 'DEMO' : 'DEMO DATA', color: '#ffb020' } : null,
-            { text: on ? 'ON THE ' + this.cfg.what.toUpperCase() : this.cfg.what.toUpperCase() + ' OFF', color: on ? '#3ddc84' : C.dim },
+            demo ? { text: dd.demoShow ? 'DEMO' : 'DEMO DATA', color: C.goldHi } : null,
+            { text: on ? 'ON THE ' + this.cfg.what.toUpperCase() : this.cfg.what.toUpperCase() + ' OFF', color: on ? C.live : C.dim },
         ]);
         // the page under an open list takes no taps: the list (and a tap beside it to close) does
         const target = cv.target;
@@ -172,12 +180,13 @@ class Page {
         const playing = hud.demoPlaying(), why = playing ? null : hud.demoBlocked();
         const text = playing ? 'Stop demo' : 'Play demo', h = 36, y = 44;
         const w = cv.textWidth(text, 16, { font: 'bold', literal: true }) + 62, x = CR - w;
-        cv.roundRect(x, y, w, h, h / 2, playing ? '#ffffff14' : why ? '#ffffff12' : C.blue);
-        if (playing) cv.strokeRoundRect(x, y, w, h, h / 2, 1, A(C.blueHi, 0.6));
-        const ic = why ? C.dim : '#ffffff', ix = x + 22, iy = y + h / 2;
+        const solid = !playing && !why;
+        cv.roundRect(x, y, w, h, h / 2, playing ? '#ffffff12' : why ? '#ffffff08' : C.gold);
+        if (playing) cv.strokeRoundRect(x, y, w, h, h / 2, 1, A(C.goldHi, 0.55));
+        const ic = why ? C.dim : solid ? C.bg : C.text, ix = x + 22, iy = y + h / 2;
         if (playing) cv.fillRect(ix - 6, iy - 6, 12, 12, ic);
         else cv.quad([[ix - 5, iy - 8], [ix + 8, iy], [ix + 8, iy], [ix - 5, iy + 8]], ic);
-        cv.text(text, x + 36 + (w - 36) / 2 - 10, y + 24, 16, why ? C.dim : '#ffffff', { align: 'center', font: 'bold', literal: true });
+        cv.text(text, x + 36 + (w - 36) / 2 - 10, y + 24, 16, why ? C.dim : solid ? C.bg : C.text, { align: 'center', font: 'bold', literal: true });
         const what = this.cfg.what === 'cluster' ? 'cluster' : 'HUD';
         const info = playing ? 'Playing on the ' + what + ' · ' + Math.ceil(hud.demoLeft() / 1000) + ' s'
             : why === 'moving' ? 'Stop the car to play the demo' : why === 'off' ? 'Pick a ' + (what === 'HUD' ? 'layout' : 'theme') + ' to play the demo'
@@ -187,18 +196,20 @@ class Page {
     }
 
     rail(cv, bottom) {
-        cv.fillRect(RAIL.x + RAIL.w + 15, 50, 1, bottom - 56, C.line);
+        cv.gradientRect(RAIL.x - 16, 50, RAIL.w + 32, bottom - 50, [[0, A(C.gold, 0.035)], [1, '#00000000']]);
+        cv.fillRect(RAIL.x + RAIL.w + 15, 50, 1, bottom - 56, A(C.gold, 0.18));
         const R = this.cfg.tabs.length > 6 ? RAIL7 : RAIL, dy = (66 - R.h) / 2;
         this.cfg.tabs.forEach((id, i) => {
             const x = R.x, y = R.y + i * (R.h + R.gap), w = R.w, h = R.h, sel = id === this.tab;
             if (sel) {
-                cv.card(x, y, w, h, 12, [[0, A(C.blue, 0.30)], [1, A(C.blueDeep, 0.10)]]);
-                cv.strokeRoundRect(x, y, w, h, 12, 1, A(C.blueHi, 0.35));
-                cv.roundRect(x, y + 12, 4, h - 24, 2, C.blue);
+                cv.card(x, y, w, h, 12, [[0, A(C.gold, 0.20)], [1, A(C.bronze, 0.05)]]);
+                cv.strokeRoundRect(x, y, w, h, 12, 1, A(C.goldHi, 0.50));
+                cv.roundRect(x, y + 12, 3, h - 24, 1.5, C.gold);
+                cv.circle(x + w - 16, y + 16, 2.2, C.goldHi);
             }
-            icon(cv, (TAB[id] || {}).icon, x + 34, y + h / 2, sel ? C.text : C.dim);
-            cv.text(this.tabName(id), x + 64, y + 30 - dy, 21, sel ? '#ffffff' : C.text, { font: 'bold', literal: true });
-            cv.text(this.tabValue(id), x + 64, y + 53 - dy * 1.5, 15, sel ? A(C.blueHi, 0.95) : C.dim, { literal: true });
+            icon(cv, (TAB[id] || {}).icon, x + 34, y + h / 2, sel ? C.goldHi : C.dim);
+            cv.text(this.tabName(id), x + 64, y + 30 - dy, 21, sel ? C.text : A(C.text, 0.82), { font: 'bold', literal: true });
+            cv.text(this.tabValue(id), x + 64, y + 53 - dy * 1.5, 15, sel ? A(C.goldHi, 0.95) : C.dim, { literal: true });
             cv.target(x, y, w, h, () => { this.tab = id; this.picker = null; this.kick(); }, 'tab:' + id, 12);
         });
     }
@@ -228,14 +239,16 @@ class Page {
     /** Cluster: the theme showing now, the drive modes beside it; every theme below in two rows. */
     lookHero(cv, bottom) {
         const shown = this.shownName();
-        label(cv, CX, 70, 'Now showing');
+        label(cv, CX, 70, 'Featured theme');
         const pw = 523, ph = 196, px = CX, py = 82;
         this.picture(cv, shown, 'big', px, py, pw, ph);
         // right: name, tag line, the drive modes side by side
-        const rx = px + pw + 28, rw = CR - rx;
-        cv.text(this.layoutName(shown), rx, py + 32, 34, '#ffffff', { font: 'bold', literal: true });
-        cv.text(this.yieldNote() || this.tag(shown), rx, py + 58, 17, this.yieldNote() ? '#e0a340' : C.dim, { literal: true });
-        const y = this.toggleRow(cv, rx, py + 72, rw, 'Change with the drive mode', 'byMode', 46);
+        const rx = px + pw + 32, rw = CR - rx;
+        cv.fillRect(rx - 16, py + 4, 1, ph - 8, A(C.gold, 0.20));
+        cv.text(this.layoutName(shown), rx, py + 34, 34, C.text, { font: 'bold', literal: true });
+        cv.text(this.yieldNote() || this.tag(shown), rx, py + 60, 17, this.yieldNote() ? '#e0a340' : C.dim, { literal: true });
+        cv.fillRect(rx, py + 70, rw, 1, A(C.gold, 0.18));
+        const y = this.toggleRow(cv, rx, py + 78, rw, 'Change with the drive mode', 'byMode', 46);
         if (this.get('byMode') === true) {
             const now = MODE_KEY[this.hud.driveMode], cw = (rw - 24) / 3;
             MODES.forEach((m, i) => this.modeCell(cv, rx + i * (cw + 12), y, cw, m[1] + (m[0] === now ? '  ·  now' : ''), m[0]));
@@ -262,8 +275,10 @@ class Page {
             glass(cv, x, yy, gw, gh, sel);
             const ih = Math.min(gh - 34, (gw - 16) * 0.375), iw = ih / 0.375;
             this.picture(cv, v, 'small', x + (gw - iw) / 2, yy + 8, iw, ih);
-            cv.text(this.layoutName(v), x + 12, yy + gh - 10, 16, '#ffffff', { font: 'bold', literal: true });
-            cv.text(this.tag(v), x + gw - 12, yy + gh - 10, 13, C.dim, { align: 'right', literal: true });
+            cv.fillRect(x + 12, yy + gh - 30, gw - 24, 1, A(C.gold, 0.16));
+            cv.text(this.layoutName(v), x + 12, yy + gh - 10, 16, sel ? C.goldHi : C.text, { font: 'bold', literal: true });
+            cv.text(this.tag(v), x + gw - 12, yy + gh - 10, 13, sel ? A(C.goldHi, 0.85) : C.dim, { align: 'right', literal: true });
+            if (sel) cv.circle(x + gw - 14, yy + 14, 3, C.goldHi);
             cv.target(x, yy, gw, gh, () => this.chooseLayout(this.lookKey(), v), 'look:' + v, 16);
         });
     }
@@ -316,11 +331,12 @@ class Page {
 
     /** A theme's picture (black when there is none: BMW's own, or a build without previews). */
     picture(cv, name, size, x, y, w, h) {
-        cv.roundRect(x, y, w, h, 10, '#000000');
+        cv.card(x, y, w, h, 11, [[0, '#17120c'], [1, '#070605']]);
         const p = name !== 'off' && previews.get(name, size);
         if (p) cv.image(p.id, x, y, w, h);
         else cv.text(name === 'off' ? "BMW's own " + this.cfg.what : this.layoutName(name), x + w / 2, y + h / 2 + 7, 18, C.dim, { align: 'center', literal: true });
-        cv.strokeRoundRect(x, y, w, h, 10, 1, '#ffffff10');
+        cv.strokeRoundRect(x, y, w, h, 11, 1, A(C.gold, 0.42));
+        cv.strokeRoundRect(x + 2, y + 2, w - 4, h - 4, 9, 1, '#00000055');
     }
 
     /* ---------- Readouts ---------- */
@@ -386,8 +402,8 @@ class Page {
             const y = py + 94 + i * lh, sel = cur && cur.id === sn.id;
             if (sel) cv.roundRect(px + 10, y, pw - 20, lh - 4, 10, A(C.blue, 0.35));
             else if (i) cv.fillRect(px + 20, y - 2, pw - 40, 1, C.line);
-            cv.text(sn.name, px + 24, y + lh / 2 + 4, 18, sel ? '#ffffff' : C.text, { font: sel ? 'bold' : 'label', literal: true });
-            cv.text(this.sensorText(sn), px + pw - 24, y + lh / 2 + 4, 17, sel ? '#ffffff' : C.dim, { align: 'right', literal: true });
+            cv.text(sn.name, px + 24, y + lh / 2 + 4, 18, sel ? C.goldHi : C.text, { font: sel ? 'bold' : 'label', literal: true });
+            cv.text(this.sensorText(sn), px + pw - 24, y + lh / 2 + 4, 17, sel ? C.goldHi : C.dim, { align: 'right', literal: true });
             cv.target(px + 10, y, pw - 20, lh - 4, () => { this.hud.setSlot(lay, this.slot, sn.id); this.kick(); }, 'sensor:' + sn.id, 10);
         });
     }
@@ -465,15 +481,15 @@ class Page {
         list.forEach((m, i) => {
             const x = CX + (i % 2) * (cw + 12), y = 162 + Math.floor(i / 2) * (rh + 6), sel = m === model;
             glass(cv, x, y, cw, rh, sel);
-            cv.text(m, x + 18, y + rh / 2 + 7, 19, sel ? '#ffffff' : C.text, { font: sel ? 'bold' : 'label', literal: true });
-            if (sel) check(cv, x + cw - 30, y + rh / 2, '#ffffff');
+            cv.text(m, x + 18, y + rh / 2 + 7, 19, sel ? C.goldHi : C.text, { font: sel ? 'bold' : 'label', literal: true });
+            if (sel) check(cv, x + cw - 30, y + rh / 2, C.goldHi);
             cv.target(x, y, cw, rh, () => this.set('badge', m), 'badge:' + m, 14);
         });
         // right: what shows, the lettering, none
         const rx = CX + lw + 30, rw = CR - rx, shown = badges.text(model, this.get('badgeBMW') === true);
         label(cv, rx, 70, 'On the cluster');
-        cv.card(rx, 82, rw, 110, 16, [[0, '#000000'], [1, '#05070a']]);
-        cv.strokeRoundRect(rx, 82, rw, 110, 16, 1, C.line);
+        cv.card(rx, 82, rw, 110, 16, [[0, '#16120d'], [1, '#070605']]);
+        cv.strokeRoundRect(rx, 82, rw, 110, 16, 1, A(C.gold, 0.22));
         cv.text(shown || 'No badge', rx + rw / 2, 148, shown ? 34 : 22, shown ? '#ffffff' : C.dim, { align: 'center', font: 'bold', literal: true });
         let y = 204;
         y = this.toggleRow(cv, rx, y, rw, 'BMW lettering', 'badgeBMW');
@@ -695,18 +711,18 @@ class Page {
     /** A list of a setting's choices over the page; a tap on one sets it, a tap beside it closes. */
     drawPicker(cv, bottom) {
         const p = this.picker, s = this.item(p.key), opts = s.type === 'number' ? (s.steps || []).map((v) => [v, null]) : s.options || [];
-        cv.fillRect(0, 36, W, bottom + 20, '#000000b0');
+        cv.fillRect(0, 36, W, bottom + 20, '#060504cc');
         const w = 620, rh = 58, h = 76 + opts.length * rh, x = (W - w) / 2, y = Math.max(52, (bottom + 44 - h) / 2);
-        cv.card(x, y, w, h, 18, [[0, '#18233a'], [1, '#0c111b']]);
-        cv.strokeRoundRect(x, y, w, h, 18, 1, A(C.blueHi, 0.3));
+        cv.card(x, y, w, h, 18, [[0, '#211a11'], [1, '#0b0907']]);
+        cv.strokeRoundRect(x, y, w, h, 18, 1, A(C.goldHi, 0.35));
         cv.text(p.title.toUpperCase(), x + 26, y + 42, 15, C.label, { font: 'bold', spacing: 2.4, literal: true });
         const v = this.get(p.key);
         opts.forEach((o, i) => {
             const ry = y + 60 + i * rh, sel = o[0] === v;
-            if (sel) cv.roundRect(x + 12, ry, w - 24, rh - 6, 12, A(C.blue, 0.35));
+            if (sel) cv.roundRect(x + 12, ry, w - 24, rh - 6, 12, A(C.gold, 0.16));
             const text = p.fmt ? p.fmt(o[0]) : o[1] !== null ? o[1] : fmtInt(o[0]) + ' rpm';
-            cv.text(text, x + 30, ry + 34, 20, sel ? '#ffffff' : C.text, { font: sel ? 'bold' : 'label', literal: true });
-            if (sel) check(cv, x + w - 50, ry + 26, '#ffffff');
+            cv.text(text, x + 30, ry + 34, 20, sel ? C.goldHi : C.text, { font: sel ? 'bold' : 'label', literal: true });
+            if (sel) check(cv, x + w - 50, ry + 26, C.goldHi);
             cv.target(x + 12, ry, w - 24, rh - 6, () => {
                 this.picker = null;
                 if (LOOK_KEYS.indexOf(p.key) >= 0) this.chooseLayout(p.key, o[0]); else this.set(p.key, o[0]);
@@ -718,16 +734,16 @@ class Page {
     /** The question chooseLayout asks, over the page: the answer button, Cancel, a tap beside it cancels. */
     drawConfirm(cv, bottom) {
         const q = this.confirm, close = () => { this.confirm = null; this.kick(); };
-        cv.fillRect(0, 36, W, bottom + 20, '#000000b0');
+        cv.fillRect(0, 36, W, bottom + 20, '#060504cc');
         const w = 720, h = 96 + q.lines.length * 30 + 84, x = (W - w) / 2, y = Math.max(52, (bottom + 44 - h) / 2);
-        cv.card(x, y, w, h, 18, [[0, '#18233a'], [1, '#0c111b']]);
-        cv.strokeRoundRect(x, y, w, h, 18, 1, A(C.blueHi, 0.3));
-        cv.text(q.title, x + 32, y + 56, 28, '#ffffff', { font: 'bold', literal: true });
+        cv.card(x, y, w, h, 18, [[0, '#211a11'], [1, '#0b0907']]);
+        cv.strokeRoundRect(x, y, w, h, 18, 1, A(C.goldHi, 0.35));
+        cv.text(q.title, x + 32, y + 56, 28, C.text, { font: 'bold', literal: true });
         q.lines.forEach((s, i) => cv.text(s, x + 32, y + 98 + i * 30, 19, C.text, { literal: true }));
         const bh = 52, by = y + h - bh - 24;
         const yw = cv.textWidth(q.yes, 18, { font: 'bold', literal: true }) + 56, yx = x + w - 32 - yw;
-        cv.roundRect(yx, by, yw, bh, bh / 2, C.blue);
-        cv.text(q.yes, yx + yw / 2, by + 33, 18, '#ffffff', { align: 'center', font: 'bold', literal: true });
+        cv.roundRect(yx, by, yw, bh, bh / 2, C.gold);
+        cv.text(q.yes, yx + yw / 2, by + 33, 18, C.bg, { align: 'center', font: 'bold', literal: true });
         cv.target(yx, by, yw, bh, () => { this.confirm = null; q.run(); this.kick(); }, 'confirm:yes', bh / 2);
         const nw = 150, nx = yx - 16 - nw;
         cv.roundRect(nx, by, nw, bh, bh / 2, '#ffffff14');
@@ -753,31 +769,33 @@ function label(cv, x, y, s) { cv.text(s.toUpperCase(), x, y, 14, C.label, { font
 function note(cv, x, y, lines) { lines.forEach((s, i) => cv.text(s, x, y + i * 26, 17, C.dim, { literal: true })); }
 function glass(cv, x, y, w, h, sel) {
     if (sel) {
-        cv.card(x, y, w, h, 16, [[0, A(C.blue, 0.16)], [1, A(C.blueDeep, 0.05)]]);
-        cv.strokeRoundRect(x, y, w, h, 16, 2, C.blue);
+        cv.card(x, y, w, h, 16, [[0, A(C.gold, 0.20)], [1, A(C.bronze, 0.05)]]);
+        cv.strokeRoundRect(x, y, w, h, 16, 1.5, C.gold);
     } else {
-        cv.card(x, y, w, h, 16, [[0, '#ffffff0b'], [1, '#ffffff04']]);
-        cv.strokeRoundRect(x, y, w, h, 16, 1, C.line);
+        cv.card(x, y, w, h, 16, [[0, '#ffffff09'], [1, '#ffffff03']]);
+        cv.strokeRoundRect(x, y, w, h, 16, 1, A(C.gold, 0.16));
     }
 }
 function chip(cv, x, y, text, on, run, key) {
     const w = cv.textWidth(text, 16, { font: 'bold', literal: true }) + 30, h = 36;
-    cv.roundRect(x, y, w, h, h / 2, on ? C.blue : '#ffffff12');
-    cv.text(text, x + w / 2, y + 24, 16, on ? '#ffffff' : C.off, { align: 'center', font: 'bold', literal: true });
+    cv.roundRect(x, y, w, h, h / 2, on ? C.gold : '#ffffff0e');
+    if (on) cv.strokeRoundRect(x, y, w, h, h / 2, 1, A(C.goldHi, 0.45));
+    cv.text(text, x + w / 2, y + 24, 16, on ? C.bg : C.off, { align: 'center', font: 'bold', literal: true });
     cv.target(x, y, w, h, run, key, h / 2);
     return w;
 }
 /** A small chip (the HUD cards' drive modes). */
 function miniChip(cv, x, y, text, on, run, key) {
     const w = cv.textWidth(text, 13, { font: 'bold', literal: true }) + 18, h = 28;
-    cv.roundRect(x, y, w, h, h / 2, on ? C.blue : '#ffffff12');
-    cv.text(text, x + w / 2, y + 19, 13, on ? '#ffffff' : C.off, { align: 'center', font: 'bold', literal: true });
+    cv.roundRect(x, y, w, h, h / 2, on ? C.gold : '#ffffff0e');
+    cv.text(text, x + w / 2, y + 19, 13, on ? C.bg : C.off, { align: 'center', font: 'bold', literal: true });
     cv.target(x, y, w, h, run, key, h / 2);
     return w;
 }
 function pageBtn(cv, x, y, dir, live, run, key) {
-    cv.roundRect(x, y, 42, 26, 8, live ? '#ffffff14' : '#ffffff07');
-    const c = live ? C.text : '#ffffff30', cx = x + 21, cy = y + 13;
+    cv.roundRect(x, y, 42, 26, 8, live ? A(C.gold, 0.12) : '#ffffff07');
+    if (live) cv.strokeRoundRect(x, y, 42, 26, 8, 1, A(C.goldHi, 0.35));
+    const c = live ? C.goldHi : '#ffffff25', cx = x + 21, cy = y + 13;
     cv.line(cx - 3 * dir, cy - 6, cx + 3 * dir, cy, 2.3, c);
     cv.line(cx + 3 * dir, cy, cx - 3 * dir, cy + 6, 2.3, c);
     if (live) cv.target(x, y, 42, 26, run, key, 8);
