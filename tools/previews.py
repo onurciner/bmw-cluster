@@ -7,8 +7,8 @@ apps/<app>/hud/previews/<layout>.json = { big, small[, full]: {w, h, z} } (full:
 zlib-deflated RGBA rows (opaque). The build packs hud/ into hud.pack; previews.js inflates them.
 
     # the app's bench must be running (node bench/server.js <app>, BENCH_PORT=...)
-    python3 -I tools/previews.py perea_cluster_themes 8078
-    python3 -I tools/previews.py perea_cluster_themes 8078 atlas volt   # only these layouts
+    python3 -I tools/previews.py roiteam_cluster_themes 8078
+    python3 -I tools/previews.py roiteam_cluster_themes 8078 atlas volt   # only these layouts
 
 The bench's settings are put back afterwards. The raw shots are kept in out/previews-src/<app>/ (gitignored).
 Chrome: CHROME=/path/to/chrome, else the first of google-chrome, chromium, chromium-browser on PATH.

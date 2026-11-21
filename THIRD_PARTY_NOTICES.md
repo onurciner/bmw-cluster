@@ -71,15 +71,15 @@ copied into every package next to the atlases.
 
 ## Cluster Themes (bimmer-lab/apps)
 
-`apps/perea_cluster_themes` (the app, its layouts, baked fonts and theme pictures), `shared/` (the
+`apps/roiteam_cluster_themes` (the app, its layouts, baked fonts and theme pictures), `shared/` (the
 drawing engine on cluster-render), `bench/`, `tools/`, `scripts/deploy.sh`, `docs/cluster-themes.md`
 and `docs/images/` are taken from [bimmer-lab/apps](https://github.com/bimmer-lab/apps) at commit
 `ab81cee` (Cluster Themes 0.19.0): **MIT, Copyright (c) 2026 bimmer-lab**. Changed here: the app's
-id (`perea_cluster_themes`) and logging id, the bench staging the app without an SDK, and the tools'
+id (`roiteam_cluster_themes`) and logging id, the bench staging the app without an SDK, and the tools'
 paths. `kit/runtime/car.js` and `readonly-diag.js` are that repository's versions of the kit's
 modules; `sim.js`, `dids.js`, `hud_claim.js` and `pack.js` are upstream idrive7-apps' (above).
 
-The app's own `NOTICE` (`apps/perea_cluster_themes/NOTICE`, copied into every package) is the full
+The app's own `NOTICE` (`apps/roiteam_cluster_themes/NOTICE`, copied into every package) is the full
 list and carries the licence texts. In short:
 
 | Part | From | Licence |
@@ -90,7 +90,7 @@ list and carries the licence texts. In short:
 | The pixel-diff text update in `shared/hud.js` | [PenguinDukeYDAuto/idrive7-EVAHUD](https://github.com/PenguinDukeYDAuto/idrive7-EVAHUD) | MIT, Copyright (c) 2026 DukeAPenguin |
 | The M view theme | [Asksket/apps](https://github.com/Asksket/apps) (f90 branch) | MIT |
 | `tools/shader_budget.js` | ported from james10424's idrive7-custom | MIT |
-| `apps/perea_cluster_themes/hud/fonts/*.json` (in the package: `hud.pack`), `tools/fonts-src/*.ttf` | Barlow, Michroma, Orbitron, DSEG7 Classic, Outfit | SIL Open Font License 1.1 (`tools/fonts-src/*OFL*.txt`, and the app's `NOTICE`) |
+| `apps/roiteam_cluster_themes/hud/fonts/*.json` (in the package: `hud.pack`), `tools/fonts-src/*.ttf` | Barlow, Michroma, Orbitron, DSEG7 Classic, Outfit | SIL Open Font License 1.1 (`tools/fonts-src/*OFL*.txt`, and the app's `NOTICE`) |
 
 The baked atlases are Modified Versions of those fonts under the OFL, not under MIT, and do not
 use the fonts' Reserved Font Names ("Orbitron", "DSEG") as their own names.

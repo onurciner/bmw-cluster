@@ -1,11 +1,11 @@
 'use strict';
 /**
  * Bench: a stand-in for cluster-render on the PC, for the apps that draw through it.
- * (From bimmer-lab/apps, where it also runs HUD Widgets; here the app is perea_cluster_themes.)
+ * (From bimmer-lab/apps, where it also runs HUD Widgets; here the app is roiteam_cluster_themes.)
  *
  *   node bench/server.js [app_id]   then open http://localhost:8078
  *
- * app_id: perea_cluster_themes (the default, the 1920x720 cluster).
+ * app_id: roiteam_cluster_themes (the default, the 1920x720 cluster).
  * The page draws the target the app's app.json config.target names.
  * The service's limits are modelled: 8 layers per connection (BENCH_LAYER_CAP=8; off by default), 32 across every
  * connection and 16 MiB of pixel memory with each image counted twice (both always on; see bench/README.md).
@@ -59,7 +59,7 @@ const TOTAL_ASSETS = 32, ASSETS_PER_CLIENT = 16;   // CompositorLimits assets / 
 const mib = (b) => (b / 1048576).toFixed(1) + ' MiB';
 const SOCK = path.join(os.tmpdir(), 'hud-bench-' + process.pid + '.sock');
 const ROOT = path.join(__dirname, '..');
-const APP_ID = process.argv[2] || process.env.BENCH_APP || 'perea_cluster_themes';
+const APP_ID = process.argv[2] || process.env.BENCH_APP || 'roiteam_cluster_themes';
 const APP_DIR = path.join(ROOT, 'apps', APP_ID);
 if (!fs.existsSync(path.join(APP_DIR, 'app.json'))) { console.error('no app ' + APP_ID + ' under apps/'); process.exit(2); }
 // the app's data/ on the bench (settings.json, layouts/); BENCH_DATA names another folder (a test's empty one)

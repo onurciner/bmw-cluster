@@ -46,7 +46,7 @@ for (const lang of ['en'].concat(langs)) {
         assert.deepStrictEqual(locale.strings, catalog, lang + '/' + id + ': the stage carries another catalog');
         if (lang !== 'en') {
             const spec = JSON.parse(fs.readFileSync(path.join(root, 'apps', id, 'app.json'), 'utf8'));
-            // (an app in English only, e.g. perea_cluster_themes: its own page draws English text)
+            // (an app in English only, e.g. roiteam_cluster_themes: its own page draws English text)
             for (const label of Array.isArray(spec.locales) && spec.locales.indexOf(lang) < 0 ? [] : labelsOf(spec)) {
                 if (label.includes(' ') && /[A-Za-z]{2,}/.test(label) && !/^\d/.test(label)) {
                     assert.ok(Object.prototype.hasOwnProperty.call(catalog, label), lang + '/' + id + ': untranslated menu label "' + label + '"');

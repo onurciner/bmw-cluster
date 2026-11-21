@@ -39,7 +39,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_BTN_SETTINGS",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_BTN_SETTINGS",
         "type": "StringId"
        }
       }
@@ -51,7 +51,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_MAIN_TITLE",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_MAIN_TITLE",
         "type": "StringId"
        }
       }
@@ -227,7 +227,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_BYMODE",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_BYMODE",
         "type": "StringId"
        }
       }
@@ -657,7 +657,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_MAPINTHEME",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_MAPINTHEME",
         "type": "StringId"
        }
       }
@@ -1753,7 +1753,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_COLDGUARD",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_COLDGUARD",
         "type": "StringId"
        }
       }
@@ -1803,7 +1803,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_SMARTTEMPS",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_SMARTTEMPS",
         "type": "StringId"
        }
       }
@@ -1825,7 +1825,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_SHOWBOOST",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_SHOWBOOST",
         "type": "StringId"
        }
       }
@@ -1847,7 +1847,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_CAMERANOTCH",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_CAMERANOTCH",
         "type": "StringId"
        }
       }
@@ -2119,7 +2119,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_GFLIPLAT",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_GFLIPLAT",
         "type": "StringId"
        }
       }
@@ -2141,7 +2141,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_GFLIPLONG",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_GFLIPLONG",
         "type": "StringId"
        }
       }
@@ -2647,7 +2647,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_BADGEBMW",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SET_BADGEBMW",
         "type": "StringId"
        }
       }
@@ -2703,11 +2703,11 @@
      "rows": [
       {
        "Text1stRow": {
-        "value": "SID_PEREA_CLUSTER_THEMES_REPO_CREDITS_TITLE",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_REPO_CREDITS_TITLE",
         "type": "StringId"
        },
        "Text2ndRow": {
-        "value": "SID_PEREA_CLUSTER_THEMES_REPO_CREDITS_LINK",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_REPO_CREDITS_LINK",
         "type": "StringId"
        }
       }
@@ -2719,7 +2719,7 @@
      "rows": [
       {
        "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SETTINGS_TITLE",
+        "value": "SID_ROITEAM_CLUSTER_THEMES_SETTINGS_TITLE",
         "type": "StringId"
        }
       }

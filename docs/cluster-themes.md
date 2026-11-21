@@ -1,11 +1,11 @@
 # Cluster Themes: developing
 
-Cluster Themes (`apps/perea_cluster_themes`) is a copy of [bimmer-lab/apps](https://github.com/bimmer-lab/apps)' app (0.19.0, commit `ab81cee`). This page is that repository's `docs/DEVELOPING.md`, adjusted to this one. It mentions HUD Widgets, bimmer-lab's second app on the same engine, which is not here; `design/` and `research/` are folders next to bimmer-lab's repository, not part of either.
+Cluster Themes (`apps/roiteam_cluster_themes`) is a copy of [bimmer-lab/apps](https://github.com/bimmer-lab/apps)' app (0.19.0, commit `ab81cee`). This page is that repository's `docs/DEVELOPING.md`, adjusted to this one. It mentions HUD Widgets, bimmer-lab's second app on the same engine, which is not here; `design/` and `research/` are folders next to bimmer-lab's repository, not part of either.
 
 ## Repo layout
 
 ```
-apps/perea_cluster_themes/   app.json, main.js (entry), NOTICE, README
+apps/roiteam_cluster_themes/   app.json, main.js (entry), NOTICE, README
                   subfolders (hud/: fonts, layouts, previews) are packed into <folder>.pack by the build
 shared/           the cluster-render drawing engine; an app lists the files it needs in app.json "shared"
                   and kit/tools/build.py copies them in
@@ -20,7 +20,7 @@ mgu-repo.json     tells the Store how to build the apps (Cluster Themes has its 
 
 ## Build
 
-`python3 kit/tools/build.py perea_cluster_themes` builds the app into `dist/`. It needs an `oap-sdk/` folder: on the car the Store makes the real one from a BMW app. Without one, `--preview-only` stages the app in `dist/perea_cluster_themes/` (nothing installable), which is what the bench and the tests run.
+`python3 kit/tools/build.py roiteam_cluster_themes` builds the app into `dist/`. It needs an `oap-sdk/` folder: on the car the Store makes the real one from a BMW app. Without one, `--preview-only` stages the app in `dist/roiteam_cluster_themes/` (nothing installable), which is what the bench and the tests run.
 
 ## Signals and the unit's catalog
 
@@ -31,7 +31,7 @@ BMW's app manager installs an app against the head unit's interface catalog (`/e
 - To check an app against a catalog copied from a car (`scp root@<unit>:/etc/oap/someip/someip-interfaces.json captures/`, gitignored):
 
 ```sh
-MGU_SOMEIP_CATALOG=captures/someip-interfaces.json python3 kit/tools/build.py --preview-only perea_cluster_themes
+MGU_SOMEIP_CATALOG=captures/someip-interfaces.json python3 kit/tools/build.py --preview-only roiteam_cluster_themes
 ```
 
   A line `this unit has no ... - built without it: ...` names each thing that unit lacks; no such line means the manifest fits.

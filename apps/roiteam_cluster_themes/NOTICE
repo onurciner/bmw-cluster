@@ -2,7 +2,7 @@ Cluster Themes - third-party notices
 =====================================
 
 This is a copy of bimmer-lab's Cluster Themes 0.19.0 (https://github.com/bimmer-lab/apps, commit ab81cee),
-kept in alexpereap/pereaperformance-idrive7-apps under the id perea_cluster_themes. The app's folder, the
+kept in onurciner/bmw-cluster under the id roiteam_cluster_themes. The app's folder, the
 drawing engine in shared/, bench/, tools/ and scripts/deploy.sh come from that repository.
 
 The app's own code is MIT, Copyright (c) 2026 bimmer-lab (its licence is reproduced at the end of this file).

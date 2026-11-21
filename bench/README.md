@@ -3,7 +3,7 @@
 Run an app that draws through cluster-render on the PC and watch its display in a browser: the 1920x720 instrument cluster (Cluster Themes). No car needed. The bench comes from [bimmer-lab/apps](https://github.com/bimmer-lab/apps), where it also runs HUD Widgets on the 800x480 HUD; what it says about the HUD below applies to an app drawing on that target.
 
 ```sh
-node bench/server.js                   # Cluster Themes (perea_cluster_themes), then open http://localhost:8078
+node bench/server.js                   # Cluster Themes (roiteam_cluster_themes), then open http://localhost:8078
 ```
 
 The page draws whichever target the app's `app.json` `config.target` names. One app at a time; set `BENCH_PORT` to run a second bench next to the first.

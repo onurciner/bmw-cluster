@@ -92,7 +92,7 @@ CLUSTER_FONTS = [
     ('b_gear', 'Outfit[wght].ttf', 32, DIGITS + 'PRNDSM-', 0, 'SemiBold'),
     ('b_scale', 'Outfit[wght].ttf', 20, DIGITS, 0, 'Medium'),
 ]
-FONTS = {'perea_cluster_themes': CLUSTER_FONTS}
+FONTS = {'roiteam_cluster_themes': CLUSTER_FONTS}
 PAD = 2
 ATLAS_W = 1024
 

@@ -2,12 +2,16 @@
 """MGU App Kit build: apps/<id>/app.json + main.js  ->  installable app.
 
     python3 kit/tools/build.py                     # build every app in apps/
-    python3 kit/tools/build.py perea_cluster_themes  # just one
+    python3 kit/tools/build.py roiteam_cluster_themes  # just one
 
 Produces in dist/:
-    <id>@<ver>.mgu   install bundle for deploy/mgu-app-install.sh (VM and car)
-    <id>@<ver>.tgz   npm-format package (the platform's preinstalled_apps format)
+    <id>@<ver>.tgz   npm-format app package for the MGU Store's USB repo
+    <id>@<ver>.mgu   app bundle for the Store's deploy tool (mgu-deploy.sh)
     <id>/            the staged tree (handy for inspection)
+
+To put a built package on a USB stick for the MGU Store:
+    node mgu-store/deploy/mgu-install.js usb-repo <stick> dist/<id>@<ver>.tgz
+The package file is usb-repo's input; do not copy it to the stick and then run usb-repo.
 
 The RHMI layout (application.xml + uiDescription.json) is GENERATED from the
 "screens" + "settings" in app.json, using only widget templates that BMW's own
@@ -285,8 +289,8 @@ def build_ui(spec, language='en'):
             }]))
         # the project's own credit, last row
         repo_title, repo_link = sid(app, 'REPO_CREDITS_TITLE'), sid(app, 'REPO_CREDITS_LINK')
-        strings[repo_title] = 'Perea Performance apps'
-        strings[repo_link] = 'GitHub alexpereap · github.com/alexpereap/pereaperformance-idrive7-apps'
+        strings[repo_title] = 'Roiteam · Cluster Themes'
+        strings[repo_link] = 'GitHub onurciner · github.com/onurciner/bmw-cluster'
         items.append(comp('tworow', 'REPO_CREDITS', rows=[{
             'Text1stRow': {'value': repo_title, 'type': 'StringId'},
             'Text2ndRow': {'value': repo_link, 'type': 'StringId'},
@@ -606,8 +610,8 @@ def build_start_widget(spec, app_id, icon_src, out, pkg_out=None):
     it installs rhmiData (its config "rhmiDataStartWidget": source -> installed, then
     mergeVariants), so an app installed through MainApp from the .tgz alone, as the MGU Store
     does, gets its widget too. VERIFIED on a G05 (2026-11-03): after a Store install the widget
-    is in the home screen's widget list. deploy/mgu-app-install.sh still copies the installed
-    format beside source/ from the .mgu, as before.
+    is in the home screen's widget list. The Store's deploy tool (mgu-deploy.sh install
+    --artifact) still copies the installed format beside source/ from the .mgu, as before.
 
     Same shape as BMW's own widgets on this firmware (Drive Recorder, Weather, News): a logical
     container with one startWidget component whose "Widget" cell names an HMI layout template.
@@ -858,7 +862,7 @@ def build(app_id, language='en', preview_only=False, hmi=None):
     shutil.copytree(os.path.join(KIT, 'tools', 'oapgen'), os.path.join(stage, 'oapgen'))
     meta = {'id': app_id, 'version': ver, 'title': spec['title'], 'native': NATIVE, 'kit': 1}
     # app.json signals with "_optional": "<what the app loses>": a unit without that interface
-    # still installs the app, without it (deploy/mgu-app-install.sh says what is missing)
+    # still installs the app, without it (the Store's deploy tool says what is missing)
     optional = {i: f['_optional'] for i, f in spec.get('signals', {}).items() if isinstance(f, dict) and f.get('_optional')}
     if optional:
         meta['optional'] = optional

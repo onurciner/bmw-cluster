@@ -1,6 +1,6 @@
 'use strict';
 
-// Cluster Themes (apps/perea_cluster_themes) from this repository's build: stage it (build.py --preview-only,
+// Cluster Themes (apps/roiteam_cluster_themes) from this repository's build: stage it (build.py --preview-only,
 // with the app.json "shared" files and the hud.pack), start it in the kit's stub head unit and let it draw
 // its default theme on the bench's stand-in cluster-render (bench/server.js). Passes when the theme's layers
 // are all registered there with their pixels, and the app neither threw nor left. No SDK, cluster-render or
@@ -16,7 +16,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 const root = path.resolve(__dirname, '../..');
-const APP = 'perea_cluster_themes';
+const APP = 'roiteam_cluster_themes';
 const TIMEOUT_MS = 90000;
 const spec = JSON.parse(fs.readFileSync(path.join(root, 'apps', APP, 'app.json'), 'utf8'));
 const layoutSetting = spec.settings.find((s) => s.key === 'hudLayout');

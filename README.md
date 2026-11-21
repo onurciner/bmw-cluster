@@ -118,11 +118,22 @@ Run the command again after an update; the Store offers the app again when its `
 With an `oap-sdk/` extracted from your own unit (see `docs/cluster-themes.md`), run:
 
 ```sh
-python3 kit/tools/build.py perea_cluster_themes
+python3 kit/tools/build.py roiteam_cluster_themes
 ```
 
-This writes `dist/perea_cluster_themes@<version>.tgz` and `.mgu`. Put the `.tgz` on the stick and
-install it with `usb-repo`. Keep the files to yourself: they contain BMW's SDK.
+This writes two packages in `dist/`:
+
+- `roiteam_cluster_themes@<version>.tgz` — the Store's npm-format app package
+- `roiteam_cluster_themes@<version>.mgu` — the app bundle for the Store's deploy tool
+
+Give the `.tgz` (or `.mgu`) to `usb-repo` as an input; do not copy it to the stick separately:
+
+```sh
+node mgu-store/deploy/mgu-install.js usb-repo /media/<your-stick> dist/roiteam_cluster_themes@<version>.tgz
+```
+
+Then plug the stick in and install it from the Store's **USB** page. Keep the files to yourself:
+they contain BMW's SDK.
 
 ## Use
 
@@ -155,14 +166,14 @@ The repository contains the complete cluster engine, the theme layouts and the p
 Node 18+ and Python 3 are needed on the computer; the app itself runs on the unit's Node 8.
 
 ```sh
-python3 kit/tools/build.py --preview-only perea_cluster_themes   # stage without an SDK
-python3 kit/tools/build.py perea_cluster_themes                  # build a package (needs oap-sdk/)
-node kit/tools/emu.js perea_cluster_themes                       # live emulator: http://localhost:8077
+python3 kit/tools/build.py --preview-only roiteam_cluster_themes   # stage without an SDK
+python3 kit/tools/build.py roiteam_cluster_themes                  # build a package (needs oap-sdk/)
+node kit/tools/emu.js roiteam_cluster_themes                       # live emulator: http://localhost:8077
 node kit/tools/test_cluster_themes.js                            # stage, start, draw the default theme
 node bench/server.js                                             # cluster bench: http://localhost:8078
 ```
 
-- Theme layouts: `apps/perea_cluster_themes/hud/layouts/*.json`
+- Theme layouts: `apps/roiteam_cluster_themes/hud/layouts/*.json`
 - Colours: `shared/hud_themes.js`
 - Engine: `shared/hud.js` (the widget reference is at the top of the file)
 - Preview pictures: `tools/previews.py`
@@ -177,7 +188,7 @@ Cluster Themes is based on [bimmer-lab](https://github.com/bimmer-lab/apps)'s ap
 The themes, the centre-screen page, the drawing engine, the bench and the tools are their work;
 this repository keeps that credit and adds the install fix, the unit-fitting build step, six new
 themes and the renderer/preview fixes. The complete app manual is in
-[apps/perea_cluster_themes/README.md](apps/perea_cluster_themes/README.md).
+[apps/roiteam_cluster_themes/README.md](apps/roiteam_cluster_themes/README.md).
 
 - **Cluster renderer** and its client: [robertnisipeanu/idrive-apps](https://github.com/robertnisipeanu/idrive-apps),
   MPL-2.0 for `shared/cluster_render_client.js`.
@@ -187,4 +198,4 @@ themes and the renderer/preview fixes. The complete app manual is in
 - **BMW's SDK** and packages containing it are never published in this repository.
 
 The full notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and
-[apps/perea_cluster_themes/NOTICE](apps/perea_cluster_themes/NOTICE).
+[apps/roiteam_cluster_themes/NOTICE](apps/roiteam_cluster_themes/NOTICE).

@@ -2,7 +2,7 @@
 # Push edited layouts to the car over SSH, without reinstalling the app.
 #
 #   ./scripts/deploy.sh root@<car-ip-or-hostname> [layout.json ...]
-#   APP=<app id> ./scripts/deploy.sh root@<car> gt3.json            (default: perea_cluster_themes)
+#   APP=<app id> ./scripts/deploy.sh root@<car> gt3.json            (default: roiteam_cluster_themes)
 #
 # With no files it pushes the app's built-in layouts from apps/<app>/hud/layouts/.
 # They land in the app's data folder, <app>/data/layouts/, where a file overrides the
@@ -15,7 +15,7 @@
 # cauliflowermossgrape/idrive7-apps' docs) and SSH access as root.
 set -euo pipefail
 
-APP_ID="${APP:-perea_cluster_themes}"
+APP_ID="${APP:-roiteam_cluster_themes}"
 OAP_ROOT="/var/opt/public/oap"
 
 usage() {

@@ -4,7 +4,7 @@
     "path": "apps/*",
     "manifest": "app.json",
     "icon": "icon.png",
-    "exclude": ["perea_cluster_themes"],
+    "exclude": ["roiteam_cluster_themes"],
     "mguHmi": ["ID7", "ID8"],
     "needs": ["renderer"],
     "build": {
@@ -16,9 +16,9 @@
   },
   "components": [
     {
-      "id": "perea_cluster_themes",
+      "id": "roiteam_cluster_themes",
       "kind": "app",
-      "path": "apps/perea_cluster_themes",
+      "path": "apps/roiteam_cluster_themes",
       "manifest": "app.json",
       "icon": "icon.png",
       "mguHmi": ["ID7"],

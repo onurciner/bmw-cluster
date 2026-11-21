@@ -233,7 +233,7 @@ if (require.main === module) {
                 (used[w.type] = used[w.type] || new Set()).add(app === 'idrive_hud_widgets' ? 'hud' : 'cluster');
                 if (broken || r.level === 'crash') worst = 'crash';
                 if (r.level === 'ok' && !broken && !process.argv.includes('--all')) return;
-                console.log((broken || r.level === 'crash' ? 'X ' : r.level === 'warn' ? '! ' : '  ') + (app.replace('idrive_hud_widgets', 'hud').replace('perea_cluster_themes', 'cluster') + '/' + f.replace('.json', '') + ' ' + w.id + ' (' + w.type + ' ' + w.w + 'x' + w.h + ')').padEnd(44) + r.text + (broken ? ', does not compile' : ''));
+                console.log((broken || r.level === 'crash' ? 'X ' : r.level === 'warn' ? '! ' : '  ') + (app.replace('idrive_hud_widgets', 'hud').replace('roiteam_cluster_themes', 'cluster') + '/' + f.replace('.json', '') + ' ' + w.id + ' (' + w.type + ' ' + w.w + 'x' + w.h + ')').padEnd(44) + r.text + (broken ? ', does not compile' : ''));
                 if (broken) console.log(b.errors.replace(/^/gm, '      '));
             });
         });

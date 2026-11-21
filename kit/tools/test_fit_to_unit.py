@@ -97,7 +97,7 @@ with tempfile.TemporaryDirectory() as d:
     m4 = build.manifest_for(json.loads(json.dumps(s2)))
     ok(build.fit_to_unit(m4, s2, cat) == {} and m4['proxies'][media] == {'instances': 'HMI_CID', 'attributes': {'playerMetadata': 'rs', 'trackProgress': 'rs'}},
        'named instances, asked for by name: nothing goes')
-    app = json.load(open(os.path.join(build.APPS, 'perea_cluster_themes', 'app.json'), encoding='utf-8'))
+    app = json.load(open(os.path.join(build.APPS, 'roiteam_cluster_themes', 'app.json'), encoding='utf-8'))
     m5 = build.manifest_for(json.loads(json.dumps(app)))
     ok(m5['proxies'][media]['instances'] in catalog['instanceIDs'][media], 'Cluster Themes asks for HmiMediaState by an instance name the units have')
     # an iDrive 8 manifest is not fitted by build(): its interfaces are whole ('*'), which fit_to_unit leaves alone
