@@ -37,7 +37,6 @@ const TYPES = {
     swatchimg: [],
     boxes: ['boxes'],
     atext: ['text', 'font'],
-    dial: ['measure'],
     meter: ['signal', 'min', 'max'],
     gmeter: [],
     tiles: ['tiles'],
@@ -49,6 +48,8 @@ const TYPES = {
     aurum: [],
     eclipse: [],
     mapdash: [],
+    dial: ['signal', 'center', 'r', 'band', 'start', 'sweep', 'major', 'minor'],
+    dial3d: ['signal', 'center', 'r', 'band', 'start', 'sweep', 'major', 'minor'],
 };
 const CLASSES = ['ambient', 'content', 'overlay', 'alert'];
 

@@ -2102,4 +2102,169 @@ void main() {
 }
 `;
 
-module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH, volt: VOLT, aurum: AURUM, eclipse: ECLIPSE, mapdash: MAPDASH };
+const DIAL = `// Touring cluster: the classic thin-ring dial of the reference photo. A thin chrome rim, a dim
+// inner ring, fine ticks inside it, a thin needle and a small hub. u_value 0..1; u_redFrom < 0: no redline.
+// The face is the layout's black mask; numbers are text widgets inside the rim. v_uv (0,0) is the top-left.
+precision mediump float;
+varying vec2 v_uv;
+uniform vec2 u_size;
+uniform vec2 u_center;
+uniform float u_r;
+uniform float u_w;
+uniform float u_start;
+uniform float u_sweep;
+uniform float u_value;
+uniform float u_major;
+uniform float u_minor;
+uniform float u_redFrom;
+uniform vec3 u_color;
+uniform vec4 u_track;
+uniform vec3 u_red;
+uniform vec3 u_needle;
+uniform float u_hub;
+uniform float u_needleW;
+
+const float PI = 3.14159265359;
+float cov(float d) { return clamp(0.5 - d, 0.0, 1.0); }
+float segd(vec2 p, vec2 a, vec2 b) {
+    vec2 ba = b - a;
+    float h = clamp(dot(p - a, ba) / max(dot(ba, ba), 0.001), 0.0, 1.0);
+    return length(p - a - ba * h);
+}
+
+void main() {
+    vec2 p = v_uv * u_size - u_center;
+    float rr = length(p);
+    float a = atan(p.x, -p.y);
+    float rel = mod(a - u_start + 4.0 * PI, 2.0 * PI);
+    vec3 col = vec3(0.0);
+    float al = 0.0;
+    if (rel <= u_sweep) {
+        // the thin outer rim
+        float rc = cov(abs(rr - u_r) - u_w * 0.5);
+        if (rc > 0.0) { col = u_color; al = 0.95 * rc; }
+        // the redline is the same rim, in red
+        if (u_redFrom >= 0.0 && rel >= u_redFrom * u_sweep && rc > 0.0) { col = u_red; al = rc; }
+        // a dim inner ring
+        float ic = cov(abs(rr - (u_r - 12.0)) - 0.7);
+        if (ic > 0.0) { col = mix(u_color, u_track.rgb, 0.55); al = 0.80 * ic; }
+        // fine ticks inside the rim
+        float n = max(1.0, u_major * u_minor);
+        float f = rel / u_sweep * n;
+        float idx = floor(f + 0.5);
+        float ai = u_start + (idx / n) * u_sweep;
+        vec2 td = vec2(sin(ai), -cos(ai));
+        float major = mod(idx + 0.5, u_minor) < 1.0 ? 1.0 : 0.0;
+        float len = major > 0.5 ? 18.0 : 12.0;
+        float d = segd(p, td * (u_r - 8.0 - len), td * (u_r - 8.0)) - (major > 0.5 ? 1.2 : 0.7);
+        if (d < 0.0) { col = u_color; al = 0.90; }
+        // the thin needle and its hub
+        float av = u_start + clamp(u_value, 0.0, 1.0) * u_sweep;
+        vec2 nd = vec2(sin(av), -cos(av));
+        if (segd(p, nd * (u_r * 0.26), nd * (u_r * 0.94)) - u_needleW * 0.5 < 0.0) { col = u_needle; al = 1.0; }
+        if (length(p) - u_hub < 0.0) { col = u_needle; al = 1.0; }
+    }
+    gl_FragColor = vec4(col, al);
+}
+`;
+
+const DIAL3D = `// Touring 3D: the same thin classic rim, with a subtle chrome edge, a dark inset face, embossed
+// ticks, a needle shadow and a faint glass sheen. No thick bezel; v_uv (0,0) is the top-left.
+precision mediump float;
+varying vec2 v_uv;
+uniform vec2 u_size;
+uniform vec2 u_center;
+uniform float u_r;
+uniform float u_w;
+uniform float u_start;
+uniform float u_sweep;
+uniform float u_value;
+uniform float u_major;
+uniform float u_minor;
+uniform float u_redFrom;
+uniform vec3 u_color;
+uniform vec4 u_track;
+uniform vec3 u_red;
+uniform vec3 u_needle;
+uniform float u_hub;
+uniform float u_needleW;
+uniform float u_night;
+
+const float PI = 3.14159265359;
+float cov(float d) { return clamp(0.5 - d, 0.0, 1.0); }
+float segd(vec2 p, vec2 a, vec2 b) {
+    vec2 ba = b - a;
+    float h = clamp(dot(p - a, ba) / max(dot(ba, ba), 0.001), 0.0, 1.0);
+    return length(p - a - ba * h);
+}
+
+void main() {
+    vec2 p = v_uv * u_size - u_center;
+    float rr = length(p);
+    float a = atan(p.x, -p.y);
+    float rel = mod(a - u_start + 4.0 * PI, 2.0 * PI);
+    float bw = u_w * 0.5;
+    float faceR = u_r + bw + 4.0;
+    vec3 col = vec3(0.0);
+    float al = 0.0;
+
+    // a strong, soft shadow around the whole dial (both sides) plus a drop to the lower right
+    float amb = 1.0 - smoothstep(faceR - 12.0, faceR + 22.0, rr);
+    vec2 sp = p - vec2(6.0, 8.0);
+    float drop = 1.0 - smoothstep(faceR - 8.0, faceR + 16.0, length(sp));
+    float sh = max(amb * 0.9, drop);
+    if (sh > 0.0) { col = vec3(0.0); al = sh * 0.60; }
+
+    // a subtle inset face, not a big metal disc
+    if (rr < faceR) {
+        float t = clamp(rr / faceR, 0.0, 1.0);
+        vec3 fc = mix(vec3(0.006, 0.007, 0.009), vec3(0.035, 0.038, 0.044), t * t) * mix(1.0, 0.65, u_night);
+        float q = (rr - (faceR - 8.0)) / 6.0;
+        fc *= 1.0 - 0.45 * exp(-q * q);
+        col = fc; al = 1.0;
+    }
+
+    if (rel <= u_sweep) {
+        vec2 dir = normalize(p + vec2(0.0001));
+        vec2 L = normalize(vec2(-0.6, -0.8));
+        float lum = 0.5 + 0.5 * dot(dir, L);
+
+        // the thin chrome rim
+        float rc = cov(abs(rr - u_r) - bw);
+        if (rc > 0.0) {
+            float spec = pow(max(0.0, dot(dir, L)), 16.0);
+            vec3 metal = mix(u_track.rgb, u_color, 0.72) * mix(1.0, 0.65, u_night);
+            col = metal * (0.65 + 0.35 * lum) + u_color * spec * 0.35; al = rc;
+        }
+        // the redline on the rim
+        if (u_redFrom >= 0.0 && rel >= u_redFrom * u_sweep && rc > 0.0) { col = u_red; al = rc; }
+        // the dim inner ring
+        float ic = cov(abs(rr - (u_r - 12.0)) - 0.7);
+        if (ic > 0.0) { col = mix(u_color, u_track.rgb, 0.55); al = 0.80 * ic; }
+        // embossed ticks
+        float n = max(1.0, u_major * u_minor);
+        float f = rel / u_sweep * n;
+        float idx = floor(f + 0.5);
+        float ai = u_start + (idx / n) * u_sweep;
+        vec2 td = vec2(sin(ai), -cos(ai));
+        float major = mod(idx + 0.5, u_minor) < 1.0 ? 1.0 : 0.0;
+        float len = major > 0.5 ? 18.0 : 12.0;
+        float tsh = segd(p - vec2(1.0, 1.2), td * (u_r - 8.0 - len), td * (u_r - 8.0)) - (major > 0.5 ? 1.2 : 0.7);
+        if (tsh < 0.0) { col = vec3(0.0); al = 0.50; }
+        float tick = segd(p, td * (u_r - 8.0 - len), td * (u_r - 8.0)) - (major > 0.5 ? 1.2 : 0.7);
+        if (tick < 0.0) { col = u_color; al = 0.95; }
+        // needle shadow, thin needle and hub
+        float av = u_start + clamp(u_value, 0.0, 1.0) * u_sweep;
+        vec2 nd = vec2(sin(av), -cos(av));
+        if (segd(p - vec2(1.8, 2.2), nd * (u_r * 0.26), nd * (u_r * 0.94)) - u_needleW * 0.5 < 0.0) { col = vec3(0.0); al = 0.35; }
+        if (segd(p, nd * (u_r * 0.26), nd * (u_r * 0.94)) - u_needleW * 0.5 < 0.0) { col = u_needle; al = 1.0; }
+        if (length(p) - u_hub < 0.0) {
+            float ht = clamp(1.0 - (length(p) - u_hub) / (u_hub * 2.0), 0.0, 1.0);
+            col = mix(vec3(0.10), u_needle, ht * 0.7); al = 1.0;
+        }
+    }
+    gl_FragColor = vec4(col, al);
+}
+`;
+
+module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH, volt: VOLT, aurum: AURUM, eclipse: ECLIPSE, mapdash: MAPDASH, dial: DIAL, dial3d: DIAL3D };

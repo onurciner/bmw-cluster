@@ -1,7 +1,7 @@
 # Roiteam · Cluster Themes
 
 **Cluster Themes** turns the BMW iDrive 7 instrument cluster into a display you choose. Pick one of
-22 themes on the centre screen, or let Comfort / Sport / Eco Pro pick one for you. It is drawn over
+24 themes on the centre screen, or let Comfort / Sport / Eco Pro pick one for you. It is drawn over
 BMW's own cluster through [cluster-render](https://github.com/robertnisipeanu/idrive-apps), and it
 only reads from the car.
 
@@ -12,7 +12,7 @@ only reads from the car.
 
 ## Highlights
 
-- **22 themes**, from a GT3 race dash and a current M8-style cluster to a calm highway layout, an
+- **24 themes**, from a GT3 race dash and a current M8-style cluster to a calm highway layout, an
   80s digital dash, neon rings, gold minimalism and an iDrive 7-style three-card cockpit.
 - **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex and Eclipse open a window
   for the Waze map inside the theme.
@@ -24,7 +24,7 @@ only reads from the car.
   Ankara weather. With the map off, a light paper map (dark after sunset) keeps the same layout.
 - **Now playing.** Sport, M view, Vector, Noir, Cockpit, Aurum, Apex and Eclipse show the car's own media: title, artist,
   elapsed and remaining time; Sport, M view, Vector, Cockpit, Aurum, Apex and Eclipse also draw a record and progress line.
-- **Ankara weather.** Aurum, Apex, Eclipse and Pulse can show the current Ankara weather from Open-Meteo (no key):
+- **Ankara weather.** Aurum, Apex, Eclipse, Pulse and Touring can show the current Ankara weather from Open-Meteo (no key):
   temperature, the day's high and low, and a condition icon, refreshed every 15 minutes and cached. The
   "Ankara weather (online)" setting turns it off; it needs the head unit's internet, and stays hidden without it.
 - **Live car data.** Speed, gear and drive mode, revs, boost, oil and coolant, intake air, fuel,
@@ -54,6 +54,8 @@ only reads from the car.
 | **Volt** | Pikachu-yellow electric arcs that gather and reach further out as the speed climbs, with a rev ring and a little mascot. |
 | **Twin** | Two round dials: a speed arc on the left, a segmented rev arc around the gear on the right, and a calm centre column. |
 | **Pulse** | A full-screen city map: the Waze map fills the background when on, with top and bottom bars for next-turn navigation, media, shift lights, drive mode, speed/gear, clock, outside temperature and Ankara weather. |
+| **Touring** | Classic twin dials with thin chrome rims and numbers inside, around a centre Waze map: a rev counter with gear and fuel on the left, a speedometer on the right, navigation/media/weather above the map, and clock/range/temperature below. |
+| **Touring 3D** | The same thin classic dials with a subtle 3D chrome edge, strong soft shadows on both dials, inset black faces, embossed ticks and shadowed needles, around a larger centre map whose sides tuck under the dials; a framed now-playing card (record, title, artist, progress, times) hangs over the map. |
 | **Noir** | Warm gold on black: one huge thin speed under a rev arch, local time and range, and the now playing line. |
 | **Cockpit** | An iDrive 7-style three-card view: navigation on the left, shift lights/speed/drive data in the middle, and now playing on the right. |
 | **Aurum** | A champagne-gold showpiece: a radial art-deco sunburst and diamond frame, huge speed and rev arcs, floating navigation, tyres, G-meter, media, 0-60 timer, boost, range and the Ankara weather line. |
@@ -192,7 +194,7 @@ node bench/server.js                                             # cluster bench
 - Full development notes: [docs/cluster-themes.md](docs/cluster-themes.md)
 - Bench and signal controls: [bench/README.md](bench/README.md)
 
-The project is currently **0.32.0**.
+The project is currently **0.40.0**.
 
 ## Credits and licences
 

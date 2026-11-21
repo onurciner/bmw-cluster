@@ -1,8 +1,8 @@
 {
   "id": "roiteam_cluster_themes",
   "title": "Cluster Themes",
-  "description": "Redraws the instrument cluster: GT3 race dash, M-style, M view, Vector (with a music panel and next-turn directions), Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno (BMW-coloured readout tiles), Ribbon (with holiday editions), Atlas (map beside the speed), Volt (electric arcs), Twin (two round dials), Pulse (full-screen map with top and bottom info), Noir (gold and now playing), Cockpit (iDrive 7-style navigation, speed and media), Aurum (the gold showpiece with navigation, tyres, G-meter, media and 0-60), Apex (the blue sport version of that showpiece) or Eclipse (a deep indigo eclipse with an amber/ice corona), with shift lights, boost, temps, tyres, a G-meter, a 0-60 timer and an optional Ankara weather line",
-  "version": "0.32.0",
+  "description": "Redraws the instrument cluster: GT3 race dash, M-style, M view, Vector (with a music panel and next-turn directions), Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno (BMW-coloured readout tiles), Ribbon (with holiday editions), Atlas (map beside the speed), Volt (electric arcs), Twin (two round dials), Pulse (full-screen map with top and bottom info), Touring (two round dials around a live map), Touring 3D (the same layout with subtle 3D chrome dials, strong soft shadows, a larger map that tucks under them and a framed now-playing card), Noir (gold and now playing), Cockpit (iDrive 7-style navigation, speed and media), Aurum (the gold showpiece with navigation, tyres, G-meter, media and 0-60), Apex (the blue sport version of that showpiece) or Eclipse (a deep indigo eclipse with an amber/ice corona), with shift lights, boost, temps, tyres, a G-meter, a 0-60 timer and an optional Ankara weather line",
+  "version": "0.40.0",
   "vendor": "custom",
   "loggingId": "OAA1",
   "iconGlyph": "CLU",
@@ -226,6 +226,14 @@
           "Pulse"
         ],
         [
+          "touring",
+          "Touring"
+        ],
+        [
+          "touring3d",
+          "Touring 3D"
+        ],
+        [
           "noir",
           "Noir"
         ],
@@ -340,6 +348,14 @@
           "Pulse"
         ],
         [
+          "touring",
+          "Touring"
+        ],
+        [
+          "touring3d",
+          "Touring 3D"
+        ],
+        [
           "noir",
           "Noir"
         ],
@@ -440,6 +456,14 @@
           "Pulse"
         ],
         [
+          "touring",
+          "Touring"
+        ],
+        [
+          "touring3d",
+          "Touring 3D"
+        ],
+        [
           "noir",
           "Noir"
         ],
@@ -538,6 +562,14 @@
         [
           "pulse",
           "Pulse"
+        ],
+        [
+          "touring",
+          "Touring"
+        ],
+        [
+          "touring3d",
+          "Touring 3D"
         ],
         [
           "noir",

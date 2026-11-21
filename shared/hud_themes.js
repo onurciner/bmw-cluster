@@ -273,6 +273,27 @@ const THEMES = {
         bg: [5, 8, 12, 255], panel: [5, 8, 12, 240], line: [56, 72, 90, 255], head: [80, 200, 255, 255],
         ink: [8, 12, 18, 255], accent: [80, 200, 255, 255], accent2: [255, 120, 90, 255], well: [5, 8, 12, 255],
     },
+    // Touring (layout touring.json): two round dials around a centre Waze map, after BMW's classic Live Cockpit.
+    touring: {
+        name: 'Touring',
+        fg: [245, 246, 248, 255], dim: [150, 154, 162, 255], track: [38, 41, 48, 255], arc: [236, 40, 52, 255],
+        glow: 0, stripe: false,
+        bar: { low: [245, 246, 248], mid: [255, 196, 0], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [245, 246, 248], to: [236, 40, 52] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 240], line: [70, 74, 82, 255], head: [236, 40, 52, 255],
+        ink: [10, 10, 12, 255], accent: [80, 160, 255, 255], accent2: [236, 40, 52, 255], well: [0, 0, 0, 255],
+    },
+    // Touring 3D (layout touring3d.json): the Touring composition with machined, bevelled 3D dials.
+    touring3d: {
+        name: 'Touring 3D',
+        fg: [245, 246, 248, 255], dim: [150, 154, 162, 255], track: [38, 41, 48, 255], arc: [236, 40, 52, 255],
+        glow: 0, stripe: false,
+        bar: { low: [245, 246, 248], mid: [255, 196, 0], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [245, 246, 248], to: [236, 40, 52] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 240], line: [70, 74, 82, 255], head: [236, 40, 52, 255],
+        ink: [10, 10, 12, 255], accent: [80, 160, 255, 255], accent2: [236, 40, 52, 255], well: [0, 0, 0, 255],
+        shadow: [0, 0, 0, 130],
+    },
     // Noir (layout noir.json): warm gold on black, one huge thin speed and the now playing line.
     noir: {
         name: 'Noir',

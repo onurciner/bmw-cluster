@@ -139,6 +139,11 @@
  *             corona, stars, speed and rev arcs, and the same cut-out navigation window.
  *   mapdash   effect layer (shaders.js mapdash): the Pulse theme's full-screen city map, cut away by the layout's
  *             full-panel "hole" while the Waze map is on (the top and bottom info bars stay on top).
+ *   dial      effect layer (shaders.js dial): the Touring theme's round dial: ring, ticks, redline, needle and hub;
+ *             "center" / "r" / "band" / "start" / "sweep" / "major" / "minor"; "signal" speed (the app's speed scale) or
+ *             rpm (0..rpmMax, default 8000); "red": true for the redline. Numbers are text widgets round it.
+ *   dial3d    the same dial with an inset face, a machined bevelled bezel, embossed ticks and a shadowed needle
+ *             (Touring 3D); the same fields as dial.
  *   tiles     effect layer (shaders.js tiles): the Dyno theme's readout tiles in ONE layer: the background (role "color",
  *             bg) and up to 14 rounded tiles "tiles": [{ id, x, y, w, h (target px), slot, bar (false: none), toggle }],
  *             each with a thin "accent" strip on top and a bar along the bottom for its slot's sensor (TILE_BAR; zoned
@@ -2372,6 +2377,24 @@ class HudApp {
             c.uniform(ref, 'u_hole', this._hole(w));
             c.uniform(ref, 'u_holeR', [this._holeRadius(w)]);
             c.uniform(ref, 'u_night', [this.nightOn ? 1 : 0]);
+        } else if (w.type === 'dial' || w.type === 'dial3d') {
+            c.uniform(ref, 'u_size', [w.w, w.h]);
+            c.uniform(ref, 'u_center', [w.center[0] - w.x, w.center[1] - w.y]);
+            c.uniform(ref, 'u_r', [w.r]);
+            c.uniform(ref, 'u_w', [w.band || 26]);
+            c.uniform(ref, 'u_start', [(w.start === undefined ? 225 : w.start) * Math.PI / 180]);
+            c.uniform(ref, 'u_sweep', [(w.sweep === undefined ? 270 : w.sweep) * Math.PI / 180]);
+            c.uniform(ref, 'u_major', [w.major || 8]);
+            c.uniform(ref, 'u_minor', [w.minor || 4]);
+            c.uniform(ref, 'u_redFrom', [w.red ? this._redMarks(w.rpmMax || 8000)[0] : -1]);
+            c.uniform(ref, 'u_color', rgb(color(t, w.color || 'fg')));
+            c.uniform(ref, 'u_track', rgba(color(t, w.trackColor || 'track')));
+            c.uniform(ref, 'u_red', rgb(color(t, w.redColor || 'hot')));
+            c.uniform(ref, 'u_needle', rgb(color(t, w.needleColor || 'fg')));
+            c.uniform(ref, 'u_hub', [w.hub || 5]);
+            c.uniform(ref, 'u_needleW', [w.needleW || 3]);
+            c.uniform(ref, 'u_value', [0]);
+            if (w.type === 'dial3d') c.uniform(ref, 'u_night', [this.nightOn ? 1 : 0]);
         } else if (w.type === 'arc') {
             c.uniform(ref, 'u_size', [w.w, w.h]);
             c.uniform(ref, 'u_peak', [-1]);
@@ -2829,6 +2852,20 @@ class HudApp {
             x.c.uniform(x.ref, 'u_rpm', [rv]);
             // the shader's u_hole is kept by _mapLive; no size change here
             x.c.uniform(x.ref, 'u_flash', [this.flash ? 1 : 0]);
+        } else if (w.type === 'dial' || w.type === 'dial3d') {
+            const us = this.setting('units') === 'us';
+            let v = 0;
+            if (w.signal === 'speed') {
+                const sp = this._raw('speed');
+                v = isNum(sp) ? scaleFrac(us ? sp * 0.621371 : sp, SPEED_SCALE[us ? 'us' : 'metric']) : 0;
+            } else {
+                const rpm = this._raw('rpm');
+                v = isNum(rpm) ? rpm / (w.rpmMax || 8000) : 0;
+            }
+            const q = Math.round(Math.min(1, Math.max(0, v)) * 1000) / 1000;
+            if (!force && q === x.last) return;
+            x.last = q;
+            x.c.uniform(x.ref, 'u_value', [q]);
         } else if (w.type === 'arc' || w.type === 'meter' || w.type === 'volt') {
             // a meter with a "slot" (Dyno) shows the bar of whatever sensor that readout slot shows (TILE_BAR)
             let sig = w.signal, mn = w.min, mx = w.max, ab = false;
