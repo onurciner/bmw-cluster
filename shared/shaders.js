@@ -1739,4 +1739,85 @@ void main() {
 }
 `;
 
-module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH };
+const VOLT = `// Electric arcs for a cluster-render "effect" layer (GLSL ES 1.00), the Volt theme: a quiet charge ring
+// with jagged bolts radiating from the middle. u_value is the speed between min and max, so at rest only the
+// ring shows; as the car pulls, bolt after bolt switches on and reaches further out, and at the shift point
+// they flash white. v_uv (0,0) is the top-left. Straight alpha, as the other effect shaders.
+precision mediump float;
+varying vec2 v_uv;
+uniform vec2 u_size;
+uniform float u_value;
+uniform float u_flash;
+uniform vec3 u_color;
+uniform vec3 u_color2;
+uniform vec4 u_track;
+
+const float PI = 3.14159265359;
+
+float hash(float n) { return fract(sin(n) * 43758.5453123); }
+
+// distance from p to the segment a-b (all in layer px, the caller's frame)
+float segd(vec2 p, vec2 a, vec2 b) {
+    vec2 pa = p - a, ba = b - a;
+    float h = clamp(dot(pa, ba) / max(dot(ba, ba), 0.001), 0.0, 1.0);
+    return length(pa - ba * h);
+}
+
+void main() {
+    vec2 p = (v_uv - 0.5) * u_size;
+    float s = min(u_size.x, u_size.y);
+    float radius = length(p);
+    float f = clamp(u_value, 0.0, 1.0);
+    vec3 col = vec3(0.0);
+    float alpha = 0.0;
+
+    // the faint ring the charge leaves behind
+    float ring = abs(radius - s * 0.455) - 1.5;
+    float cr = clamp(0.5 - ring, 0.0, 1.0);
+    col += u_track.rgb * cr * u_track.a;
+    alpha = max(alpha, cr * u_track.a);
+
+    // eight radial bolts: each has its own speed threshold and grows longer as the speed climbs
+    for (int i = 0; i < 8; i++) {
+        float fi = float(i);
+        float threshold = 0.05 + fi * 0.09;
+        float on = smoothstep(threshold, threshold + 0.06, f);
+        if (on <= 0.001) continue;
+        float base = fi * (2.0 * PI / 8.0) + 0.37 + hash(fi + 3.1) * 0.22;
+        float len = mix(0.20, 0.46, clamp((f - threshold) / 0.35, 0.0, 1.0));
+        vec2 a = vec2(0.0);
+        float best = 1e5;
+        for (int j = 0; j < 10; j++) {
+            float t = float(j) / 9.0;
+            float jag = sin(t * 17.0 + fi * 2.13) * 0.055
+                      + sin(t * 31.0 + fi * 4.7) * 0.025
+                      + (hash(fi * 7.0 + float(j)) - 0.5) * 0.035;
+            float an = base + jag;
+            float rr = mix(s * 0.20, s * (0.20 + len), t);
+            vec2 q = rr * vec2(sin(an), -cos(an));
+            if (j > 0) best = min(best, segd(p, a, q));
+            a = q;
+        }
+        float core = clamp(0.5 - (best - 1.35), 0.0, 1.0);
+        float glow = clamp(0.5 - (best - 7.0), 0.0, 1.0);
+        vec3 bc = u_color;
+        vec3 gc = u_color2;
+        if (u_flash > 0.5) bc = mix(bc, vec3(1.0), 0.55);
+        float aCore = core * on;
+        float aGlow = glow * 0.3 * on;
+        col += bc * aCore + gc * aGlow;
+        alpha = min(1.0, alpha + aCore + aGlow);
+    }
+
+    // a low halo around the speed, brightest with the speed
+    float halo = pow(clamp(1.0 - radius / (s * 0.46), 0.0, 1.0), 3.0) * 0.12 * f;
+    col += u_color2 * halo;
+    alpha = min(1.0, alpha + halo);
+
+    if (alpha <= 0.001) { gl_FragColor = vec4(0.0); return; }
+    // straight alpha; col is additive, so normalise it by the coverage for the blend
+    gl_FragColor = vec4(col / max(alpha, 0.001), alpha);
+}
+`;
+
+module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH, volt: VOLT };

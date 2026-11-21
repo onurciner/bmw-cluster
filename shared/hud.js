@@ -130,6 +130,9 @@
  *   revarc    effect layer (shaders.js revarc): a segmented rev arc, the Rally theme's: centre "center" [x, y] (layer px, may
  *             sit below the layer), outer radius "r", "band" px (40), "start" / "sweep" degrees clockwise from 12 o'clock,
  *             "segments" (30); colours, flash and scale as the shiftbar.
+ *   volt      effect layer (shaders.js volt): the Volt theme's electric arcs, "signal" between "min" and "max" (the
+ *             layout uses speed): a faint charge ring, then jagged bolts from the middle that switch on and reach
+ *             further out as the value climbs; "color" / "color2" roles (accent / accent2), "trackColor" for the ring.
  *   tiles     effect layer (shaders.js tiles): the Dyno theme's readout tiles in ONE layer: the background (role "color",
  *             bg) and up to 14 rounded tiles "tiles": [{ id, x, y, w, h (target px), slot, bar (false: none), toggle }],
  *             each with a thin "accent" strip on top and a bar along the bottom for its slot's sensor (TILE_BAR; zoned
@@ -2289,6 +2292,13 @@ class HudApp {
             c.uniform(ref, 'u_track', rgba(color(t, w.trackColor || 'track')));
             c.uniform(ref, 'u_peak', [-1]);
             c.uniform(ref, 'u_peakC', rgb(color(t, w.peakColor || 'fg')));
+        } else if (w.type === 'volt') {
+            c.uniform(ref, 'u_size', [w.w, w.h]);
+            c.uniform(ref, 'u_color', rgb(color(t, w.color || 'accent')));
+            c.uniform(ref, 'u_color2', rgb(color(t, w.color2 || 'accent2')));
+            c.uniform(ref, 'u_track', rgba(color(t, w.trackColor || 'track')));
+            c.uniform(ref, 'u_flash', [0]);
+            c.uniform(ref, 'u_value', [0]);
         } else if (w.type === 'arc') {
             c.uniform(ref, 'u_size', [w.w, w.h]);
             c.uniform(ref, 'u_peak', [-1]);
@@ -2697,7 +2707,7 @@ class HudApp {
             x.last = key;
             x.c.uniform(x.ref, 'u_value', [q]);
             x.c.uniform(x.ref, 'u_flash', [this.flash ? 1 : 0]);
-        } else if (w.type === 'arc' || w.type === 'meter') {
+        } else if (w.type === 'arc' || w.type === 'meter' || w.type === 'volt') {
             // a meter with a "slot" (Dyno) shows the bar of whatever sensor that readout slot shows (TILE_BAR)
             let sig = w.signal, mn = w.min, mx = w.max, ab = false;
             if (w.slot) {
@@ -2710,10 +2720,12 @@ class HudApp {
             const v = isNum(raw) && mx !== mn ? Math.min(1, Math.max(0, (raw - mn) / (mx - mn))) : 0;
             const q = Math.round(v * 200) / 200;
             const pk = w.peak ? this._peakHold(x, q, now, w.peak) : -1;
-            const key = q + '|' + pk;
+            const flash = w.type === 'volt' ? (this.flash ? 1 : 0) : 0;
+            const key = q + '|' + pk + (w.type === 'volt' ? '|' + flash : '');
             if (!force && key === x.last) return;
             x.last = key;
             x.c.uniform(x.ref, 'u_value', [q]);
+            if (w.type === 'volt') x.c.uniform(x.ref, 'u_flash', [flash]);
             if (w.peak) x.c.uniform(x.ref, 'u_peak', [pk > q ? pk : -1]);
         } else if (w.type === 'sdash') {
             const us = this.setting('units') === 'us';

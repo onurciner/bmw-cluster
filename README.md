@@ -10,7 +10,7 @@ from this repository: no BMW SDK leaves the car, and none is in this repository.
 
 | App | Id | What it does |
 |---|---|---|
-| **Cluster Themes** | `perea_cluster_themes` | Redraws the whole **instrument cluster** in a theme of your choice (GT3 race dash, M, M view, Vector, Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Ribbon), picked on the centre screen or by drive mode. **iDrive 7 only**, and it draws through [cluster-render](https://github.com/robertnisipeanu/idrive-apps) (0.5.1 or newer), which must be installed first. **The app is [bimmer-lab](https://github.com/bimmer-lab/apps)'s, and all credit for it goes to them**; this is a copy of their 0.19.0 (MIT) with a fix so that it installs (0.19.1, below). Themes, settings and what is verified on a car: [apps/perea_cluster_themes/README.md](apps/perea_cluster_themes/README.md); working on it: [docs/cluster-themes.md](docs/cluster-themes.md). |
+| **Cluster Themes** | `perea_cluster_themes` | Redraws the whole **instrument cluster** in a theme of your choice (GT3 race dash, M, M view, Vector, Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Ribbon, Atlas, Volt, Twin, Pulse, Noir), picked on the centre screen or by drive mode. **iDrive 7 only**, and it draws through [cluster-render](https://github.com/robertnisipeanu/idrive-apps) (0.5.1 or newer), which must be installed first. **The app is [bimmer-lab](https://github.com/bimmer-lab/apps)'s, and all credit for it goes to them**; this is a copy of their 0.19.0 (MIT) with the install fix and five new themes (0.20.1, below). Themes, settings and what is verified on a car: [apps/perea_cluster_themes/README.md](apps/perea_cluster_themes/README.md); working on it: [docs/cluster-themes.md](docs/cluster-themes.md). |
 
 ![Cluster Themes, GT3](docs/images/cluster-gt3.png)
 
@@ -31,6 +31,9 @@ adds to it is small:
 - **The build fits the app to the head unit it builds on**: what that unit's interface catalog does not
   have comes out of the app's SOME/IP manifest (`fit_to_unit()` in `kit/tools/build.py`, from
   idrive7-apps), so a signal a car lacks costs that readout and not the install.
+- **Five new themes (0.20.1):** Atlas (the Waze map on the left, speed on the right), Volt (Pikachu-yellow
+  lightning that gathers with the speed), Twin (two round dials), Pulse (neon rings and vertical charge
+  bars) and Noir (gold, one huge speed and the now playing line).
 - Its own id (`perea_cluster_themes`) and Store entry, and a start test.
 
 ## Install

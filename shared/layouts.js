@@ -45,6 +45,7 @@ const TYPES = {
     ribbon: ['curve', 'span'],
     deco: [],
     nav: [],
+    volt: ['signal', 'min', 'max'],
 };
 const CLASSES = ['ambient', 'content', 'overlay', 'alert'];
 

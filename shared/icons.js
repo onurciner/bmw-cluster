@@ -3,7 +3,8 @@
  * Small line icons, drawn here (no image files): straight RGBA for an image layer, w x h, in one colour.
  * Each icon is a distance function in a 0..1 box; coverage is anti-aliased over one pixel.
  *   gauge (engine), shock (chassis), wheel (steering), cog (gearbox), stack (the gear's shift program
- *   lines), therm (coolant), oilcan (oil), fuel (pump), tyre (a wheel seen from the side: ring, hub, tread notches).
+ *   lines), therm (coolant), oilcan (oil), fuel (pump), tyre (a wheel seen from the side: ring, hub, tread notches),
+ *   bolt (Volt), pika (the little electric mascot's face, eyes and mouth cut out), dot (a filled circle).
  */
 function seg(px, py, ax, ay, bx, by) {
     const pax = px - ax, pay = py - ay, bax = bx - ax, bay = by - ay;
@@ -38,6 +39,19 @@ const ICONS = {
         return d;
     },
     oilcan: (x, y) => Math.min(seg(x, y, 0.2, 0.62, 0.6, 0.62) - 0.12, seg(x, y, 0.6, 0.58, 0.9, 0.44) - 0.04, disc(x, y, 0.92, 0.66, 0.05), seg(x, y, 0.3, 0.46, 0.3, 0.34) - 0.035, seg(x, y, 0.22, 0.34, 0.38, 0.34) - 0.04),
+    bolt: (x, y) => Math.min(seg(x, y, 0.62, 0.04, 0.31, 0.47) - 0.075, seg(x, y, 0.31, 0.47, 0.56, 0.47) - 0.075,
+        seg(x, y, 0.56, 0.47, 0.31, 0.96) - 0.075, seg(x, y, 0.31, 0.96, 0.45, 0.55) - 0.075,
+        seg(x, y, 0.45, 0.55, 0.24, 0.55) - 0.075, seg(x, y, 0.24, 0.55, 0.47, 0.16) - 0.075),
+    pika: (x, y) => {
+        // a little Pikachu silhouette: round head and two long ears, with the eyes and mouth cut out
+        let d = disc(x, y, 0.5, 0.58, 0.31);
+        d = Math.min(d, seg(x, y, 0.34, 0.38, 0.13, 0.04) - 0.075, seg(x, y, 0.66, 0.38, 0.87, 0.04) - 0.075,
+            disc(x, y, 0.13, 0.04, 0.075), disc(x, y, 0.87, 0.04, 0.075));
+        d = Math.max(d, -disc(x, y, 0.38, 0.52, 0.046), -disc(x, y, 0.62, 0.52, 0.046),
+            -seg(x, y, 0.44, 0.68, 0.5, 0.71) - 0.018, -seg(x, y, 0.56, 0.68, 0.5, 0.71) - 0.018);
+        return d;
+    },
+    dot: (x, y) => disc(x, y, 0.5, 0.5, 0.34),
 };
 
 function paintIcon(name, w, h, color) {

@@ -231,6 +231,57 @@ const THEMES = {
         decoColors: [[255, 75, 75], [111, 149, 255], [255, 255, 255]],
         greeting: 'FOURTH OF JULY',
     },
+    // Atlas (layout atlas.json): the Waze map owns the left half, the speed and the numbers the right.
+    atlas: {
+        name: 'Atlas',
+        fg: [241, 248, 250, 255], dim: [150, 178, 186, 255], track: [40, 86, 94, 255], arc: [40, 224, 200, 255],
+        glow: 0, stripe: false,
+        bar: { low: [40, 224, 200], mid: [241, 248, 250], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [40, 224, 200], to: [40, 224, 200] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [38, 104, 112, 255], head: [40, 224, 200, 255],
+        ink: [8, 20, 22, 255], accent: [40, 224, 200, 255], well: [0, 0, 0, 255],
+    },
+    // Volt (layout volt.json): Pikachu yellow and electric arcs that gather as the speed climbs.
+    volt: {
+        name: 'Volt',
+        fg: [255, 248, 210, 255], dim: [176, 166, 120, 255], track: [74, 64, 18, 255], arc: [255, 214, 0, 255],
+        glow: 0.5, stripe: false,
+        bar: { low: [255, 214, 0], mid: [90, 210, 255], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [255, 214, 0], to: [90, 210, 255] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [112, 96, 20, 255], head: [255, 214, 0, 255],
+        ink: [20, 16, 0, 255], accent: [255, 214, 0, 255], accent2: [90, 210, 255, 255], cheek: [255, 72, 56, 255],
+        well: [0, 0, 0, 255],
+    },
+    // Twin (layout twin.json): two round dials, white with BMW red needles, and one calm centre column.
+    twin: {
+        name: 'Twin',
+        fg: [244, 246, 249, 255], dim: [146, 152, 162, 255], track: [54, 58, 66, 255], arc: [236, 40, 52, 255],
+        glow: 0, stripe: false,
+        bar: { low: [244, 246, 249], mid: [255, 196, 0], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [244, 246, 249], to: [236, 40, 52] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [82, 88, 98, 255], head: [236, 40, 52, 255],
+        ink: [12, 12, 14, 255], accent: [236, 40, 52, 255], well: [0, 0, 0, 255],
+    },
+    // Pulse (layout pulse.json): cyan and magenta rings over black, with vertical charge columns.
+    pulse: {
+        name: 'Pulse',
+        fg: [240, 250, 255, 255], dim: [126, 148, 180, 255], track: [38, 44, 68, 255], arc: [255, 74, 190, 255],
+        glow: 0.4, stripe: false,
+        bar: { low: [60, 220, 255], mid: [255, 74, 190], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [60, 220, 255], to: [255, 74, 190] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [74, 52, 112, 255], head: [60, 220, 255, 255],
+        ink: [10, 8, 20, 255], accent: [60, 220, 255, 255], accent2: [255, 74, 190, 255], well: [0, 0, 0, 255],
+    },
+    // Noir (layout noir.json): warm gold on black, one huge thin speed and the now playing line.
+    noir: {
+        name: 'Noir',
+        fg: [246, 239, 222, 255], dim: [158, 146, 122, 255], track: [54, 48, 34, 255], arc: [214, 178, 96, 255],
+        glow: 0, stripe: false,
+        bar: { low: [214, 178, 96], mid: [246, 239, 222], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [214, 178, 96], to: [214, 178, 96] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [92, 82, 58, 255], head: [214, 178, 96, 255],
+        ink: [18, 14, 8, 255], accent: [214, 178, 96, 255], well: [0, 0, 0, 255],
+    },
 };
 // every theme: the shift-point red, used by "hot" (the gear and SHIFT at the shift point, the rev bar past it)
 Object.keys(THEMES).forEach((k) => { THEMES[k].hot = [255, 42, 42, 255]; });

@@ -162,11 +162,41 @@
         "value": "SID_CN_STATIC_0015",
         "type": "StringId"
        }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0016",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0017",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0018",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0019",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0020",
+        "type": "StringId"
+       }
       }
      ],
      "cells": {
       "HeaderText": {
-       "value": "SID_CN_STATIC_0016",
+       "value": "SID_CN_STATIC_0021",
        "type": "StringId"
       },
       "SelectedItem": {
@@ -201,36 +231,6 @@
      "type": "dropDownMenu",
      "name": "SET_INCOMFORT",
      "rows": [
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0017",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0018",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0019",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0020",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0021",
-        "type": "StringId"
-       }
-      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0022",
@@ -284,23 +284,13 @@
         "value": "SID_CN_STATIC_0030",
         "type": "StringId"
        }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0031",
-       "type": "StringId"
       },
-      "SelectedItem": {
-       "value": 0,
-       "type": "UInt"
-      }
-     }
-    },
-    "12": {
-     "type": "dropDownMenu",
-     "name": "SET_INSPORT",
-     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0031",
+        "type": "StringId"
+       }
+      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0032",
@@ -354,13 +344,23 @@
         "value": "SID_CN_STATIC_0040",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0041",
+       "type": "StringId"
       },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0041",
-        "type": "StringId"
-       }
-      },
+      "SelectedItem": {
+       "value": 0,
+       "type": "UInt"
+      }
+     }
+    },
+    "12": {
+     "type": "dropDownMenu",
+     "name": "SET_INSPORT",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0042",
@@ -384,23 +384,13 @@
         "value": "SID_CN_STATIC_0045",
         "type": "StringId"
        }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0046",
-       "type": "StringId"
       },
-      "SelectedItem": {
-       "value": 1,
-       "type": "UInt"
-      }
-     }
-    },
-    "13": {
-     "type": "dropDownMenu",
-     "name": "SET_INECO",
-     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0046",
+        "type": "StringId"
+       }
+      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0047",
@@ -492,36 +482,14 @@
        "type": "StringId"
       },
       "SelectedItem": {
-       "value": 0,
+       "value": 1,
        "type": "UInt"
       }
      }
     },
-    "14": {
-     "type": "checkBox",
-     "name": "SET_MAPINTHEME",
-     "properties": {
-      "Visible": {
-       "value": 1,
-       "type": "UInt"
-      },
-      "Focusable": {
-       "value": 2,
-       "type": "UInt"
-      }
-     },
-     "rows": [
-      {
-       "Text": {
-        "value": "SID_PEREA_CLUSTER_THEMES_SET_MAPINTHEME",
-        "type": "StringId"
-       }
-      }
-     ]
-    },
-    "15": {
+    "13": {
      "type": "dropDownMenu",
-     "name": "SET_UNITS",
+     "name": "SET_INECO",
      "rows": [
       {
        "ItemText": {
@@ -534,23 +502,13 @@
         "value": "SID_CN_STATIC_0063",
         "type": "StringId"
        }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0064",
-       "type": "StringId"
       },
-      "SelectedItem": {
-       "value": 0,
-       "type": "UInt"
-      }
-     }
-    },
-    "16": {
-     "type": "dropDownMenu",
-     "name": "SET_CLOCK",
-     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0064",
+        "type": "StringId"
+       }
+      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0065",
@@ -562,23 +520,13 @@
         "value": "SID_CN_STATIC_0066",
         "type": "StringId"
        }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0067",
-       "type": "StringId"
       },
-      "SelectedItem": {
-       "value": 0,
-       "type": "UInt"
-      }
-     }
-    },
-    "17": {
-     "type": "dropDownMenu",
-     "name": "SET_TIMEZONE",
-     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0067",
+        "type": "StringId"
+       }
+      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0068",
@@ -656,13 +604,45 @@
         "value": "SID_CN_STATIC_0080",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0081",
+       "type": "StringId"
       },
+      "SelectedItem": {
+       "value": 0,
+       "type": "UInt"
+      }
+     }
+    },
+    "14": {
+     "type": "checkBox",
+     "name": "SET_MAPINTHEME",
+     "properties": {
+      "Visible": {
+       "value": 1,
+       "type": "UInt"
+      },
+      "Focusable": {
+       "value": 2,
+       "type": "UInt"
+      }
+     },
+     "rows": [
       {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0081",
+       "Text": {
+        "value": "SID_PEREA_CLUSTER_THEMES_SET_MAPINTHEME",
         "type": "StringId"
        }
-      },
+      }
+     ]
+    },
+    "15": {
+     "type": "dropDownMenu",
+     "name": "SET_UNITS",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0082",
@@ -674,13 +654,23 @@
         "value": "SID_CN_STATIC_0083",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0084",
+       "type": "StringId"
       },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0084",
-        "type": "StringId"
-       }
-      },
+      "SelectedItem": {
+       "value": 0,
+       "type": "UInt"
+      }
+     }
+    },
+    "16": {
+     "type": "dropDownMenu",
+     "name": "SET_CLOCK",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0085",
@@ -692,13 +682,23 @@
         "value": "SID_CN_STATIC_0086",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0087",
+       "type": "StringId"
       },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0087",
-        "type": "StringId"
-       }
-      },
+      "SelectedItem": {
+       "value": 0,
+       "type": "UInt"
+      }
+     }
+    },
+    "17": {
+     "type": "dropDownMenu",
+     "name": "SET_TIMEZONE",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0088",
@@ -974,23 +974,13 @@
         "value": "SID_CN_STATIC_0133",
         "type": "StringId"
        }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0134",
-       "type": "StringId"
       },
-      "SelectedItem": {
-       "value": 0,
-       "type": "UInt"
-      }
-     }
-    },
-    "18": {
-     "type": "dropDownMenu",
-     "name": "SET_TANKLITRES",
-     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0134",
+        "type": "StringId"
+       }
+      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0135",
@@ -1104,13 +1094,23 @@
         "value": "SID_CN_STATIC_0153",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0154",
+       "type": "StringId"
       },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0154",
-        "type": "StringId"
-       }
-      },
+      "SelectedItem": {
+       "value": 0,
+       "type": "UInt"
+      }
+     }
+    },
+    "18": {
+     "type": "dropDownMenu",
+     "name": "SET_TANKLITRES",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0155",
@@ -1476,23 +1476,13 @@
         "value": "SID_CN_STATIC_0215",
         "type": "StringId"
        }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0216",
-       "type": "StringId"
       },
-      "SelectedItem": {
-       "value": 35,
-       "type": "UInt"
-      }
-     }
-    },
-    "19": {
-     "type": "dropDownMenu",
-     "name": "SET_REDLINE",
-     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0216",
+        "type": "StringId"
+       }
+      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0217",
@@ -1522,23 +1512,13 @@
         "value": "SID_CN_STATIC_0221",
         "type": "StringId"
        }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0222",
-       "type": "StringId"
       },
-      "SelectedItem": {
-       "value": 3,
-       "type": "UInt"
-      }
-     }
-    },
-    "20": {
-     "type": "dropDownMenu",
-     "name": "SET_SHIFTBEFORE",
-     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0222",
+        "type": "StringId"
+       }
+      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0223",
@@ -1580,11 +1560,151 @@
         "value": "SID_CN_STATIC_0229",
         "type": "StringId"
        }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0230",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0231",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0232",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0233",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0234",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0235",
+        "type": "StringId"
+       }
       }
      ],
      "cells": {
       "HeaderText": {
-       "value": "SID_CN_STATIC_0230",
+       "value": "SID_CN_STATIC_0236",
+       "type": "StringId"
+      },
+      "SelectedItem": {
+       "value": 35,
+       "type": "UInt"
+      }
+     }
+    },
+    "19": {
+     "type": "dropDownMenu",
+     "name": "SET_REDLINE",
+     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0237",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0238",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0239",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0240",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0241",
+        "type": "StringId"
+       }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0242",
+       "type": "StringId"
+      },
+      "SelectedItem": {
+       "value": 3,
+       "type": "UInt"
+      }
+     }
+    },
+    "20": {
+     "type": "dropDownMenu",
+     "name": "SET_SHIFTBEFORE",
+     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0243",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0244",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0245",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0246",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0247",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0248",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0249",
+        "type": "StringId"
+       }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0250",
        "type": "StringId"
       },
       "SelectedItem": {
@@ -1621,20 +1741,20 @@
      "rows": [
       {
        "ItemText": {
-        "value": "SID_CN_STATIC_0231",
+        "value": "SID_CN_STATIC_0251",
         "type": "StringId"
        }
       },
       {
        "ItemText": {
-        "value": "SID_CN_STATIC_0232",
+        "value": "SID_CN_STATIC_0252",
         "type": "StringId"
        }
       }
      ],
      "cells": {
       "HeaderText": {
-       "value": "SID_CN_STATIC_0233",
+       "value": "SID_CN_STATIC_0253",
        "type": "StringId"
       },
       "SelectedItem": {
@@ -1715,146 +1835,6 @@
      "rows": [
       {
        "ItemText": {
-        "value": "SID_CN_STATIC_0234",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0235",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0236",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0237",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0238",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0239",
-        "type": "StringId"
-       }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0240",
-       "type": "StringId"
-      },
-      "SelectedItem": {
-       "value": 0,
-       "type": "UInt"
-      }
-     }
-    },
-    "27": {
-     "type": "dropDownMenu",
-     "name": "SET_WARNOIL",
-     "rows": [
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0241",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0242",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0243",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0244",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0245",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0246",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0247",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0248",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0249",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0250",
-        "type": "StringId"
-       }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0251",
-       "type": "StringId"
-      },
-      "SelectedItem": {
-       "value": 5,
-       "type": "UInt"
-      }
-     }
-    },
-    "28": {
-     "type": "dropDownMenu",
-     "name": "SET_WARNCOOLANT",
-     "rows": [
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0252",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0253",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
         "value": "SID_CN_STATIC_0254",
         "type": "StringId"
        }
@@ -1882,29 +1862,29 @@
         "value": "SID_CN_STATIC_0258",
         "type": "StringId"
        }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0259",
+        "type": "StringId"
+       }
       }
      ],
      "cells": {
       "HeaderText": {
-       "value": "SID_CN_STATIC_0259",
+       "value": "SID_CN_STATIC_0260",
        "type": "StringId"
       },
       "SelectedItem": {
-       "value": 4,
+       "value": 0,
        "type": "UInt"
       }
      }
     },
-    "29": {
+    "27": {
      "type": "dropDownMenu",
-     "name": "SET_WARNBOOST",
+     "name": "SET_WARNOIL",
      "rows": [
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0260",
-        "type": "StringId"
-       }
-      },
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0261",
@@ -1946,11 +1926,151 @@
         "value": "SID_CN_STATIC_0267",
         "type": "StringId"
        }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0268",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0269",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0270",
+        "type": "StringId"
+       }
       }
      ],
      "cells": {
       "HeaderText": {
-       "value": "SID_CN_STATIC_0268",
+       "value": "SID_CN_STATIC_0271",
+       "type": "StringId"
+      },
+      "SelectedItem": {
+       "value": 5,
+       "type": "UInt"
+      }
+     }
+    },
+    "28": {
+     "type": "dropDownMenu",
+     "name": "SET_WARNCOOLANT",
+     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0272",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0273",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0274",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0275",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0276",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0277",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0278",
+        "type": "StringId"
+       }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0279",
+       "type": "StringId"
+      },
+      "SelectedItem": {
+       "value": 4,
+       "type": "UInt"
+      }
+     }
+    },
+    "29": {
+     "type": "dropDownMenu",
+     "name": "SET_WARNBOOST",
+     "rows": [
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0280",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0281",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0282",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0283",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0284",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0285",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0286",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0287",
+        "type": "StringId"
+       }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0288",
        "type": "StringId"
       },
       "SelectedItem": {
@@ -2009,156 +2129,6 @@
      "rows": [
       {
        "ItemText": {
-        "value": "SID_CN_STATIC_0269",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0270",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0271",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0272",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0273",
-        "type": "StringId"
-       }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0274",
-       "type": "StringId"
-      },
-      "SelectedItem": {
-       "value": 2,
-       "type": "UInt"
-      }
-     }
-    },
-    "33": {
-     "type": "dropDownMenu",
-     "name": "SET_GTRAIL",
-     "rows": [
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0275",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0276",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0277",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0278",
-        "type": "StringId"
-       }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0279",
-       "type": "StringId"
-      },
-      "SelectedItem": {
-       "value": 2,
-       "type": "UInt"
-      }
-     }
-    },
-    "34": {
-     "type": "dropDownMenu",
-     "name": "SET_NIGHTDIM",
-     "rows": [
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0280",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0281",
-        "type": "StringId"
-       }
-      }
-     ],
-     "cells": {
-      "HeaderText": {
-       "value": "SID_CN_STATIC_0282",
-       "type": "StringId"
-      },
-      "SelectedItem": {
-       "value": 0,
-       "type": "UInt"
-      }
-     }
-    },
-    "35": {
-     "type": "dropDownMenu",
-     "name": "SET_BADGE",
-     "rows": [
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0283",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0284",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0285",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0286",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0287",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0288",
-        "type": "StringId"
-       }
-      },
-      {
-       "ItemText": {
         "value": "SID_CN_STATIC_0289",
         "type": "StringId"
        }
@@ -2186,13 +2156,23 @@
         "value": "SID_CN_STATIC_0293",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0294",
+       "type": "StringId"
       },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0294",
-        "type": "StringId"
-       }
-      },
+      "SelectedItem": {
+       "value": 2,
+       "type": "UInt"
+      }
+     }
+    },
+    "33": {
+     "type": "dropDownMenu",
+     "name": "SET_GTRAIL",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0295",
@@ -2216,13 +2196,23 @@
         "value": "SID_CN_STATIC_0298",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0299",
+       "type": "StringId"
       },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0299",
-        "type": "StringId"
-       }
-      },
+      "SelectedItem": {
+       "value": 2,
+       "type": "UInt"
+      }
+     }
+    },
+    "34": {
+     "type": "dropDownMenu",
+     "name": "SET_NIGHTDIM",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0300",
@@ -2234,13 +2224,23 @@
         "value": "SID_CN_STATIC_0301",
         "type": "StringId"
        }
+      }
+     ],
+     "cells": {
+      "HeaderText": {
+       "value": "SID_CN_STATIC_0302",
+       "type": "StringId"
       },
-      {
-       "ItemText": {
-        "value": "SID_CN_STATIC_0302",
-        "type": "StringId"
-       }
-      },
+      "SelectedItem": {
+       "value": 0,
+       "type": "UInt"
+      }
+     }
+    },
+    "35": {
+     "type": "dropDownMenu",
+     "name": "SET_BADGE",
+     "rows": [
       {
        "ItemText": {
         "value": "SID_CN_STATIC_0303",
@@ -2474,11 +2474,131 @@
         "value": "SID_CN_STATIC_0341",
         "type": "StringId"
        }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0342",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0343",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0344",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0345",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0346",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0347",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0348",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0349",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0350",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0351",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0352",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0353",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0354",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0355",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0356",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0357",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0358",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0359",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0360",
+        "type": "StringId"
+       }
+      },
+      {
+       "ItemText": {
+        "value": "SID_CN_STATIC_0361",
+        "type": "StringId"
+       }
       }
      ],
      "cells": {
       "HeaderText": {
-       "value": "SID_CN_STATIC_0342",
+       "value": "SID_CN_STATIC_0362",
        "type": "StringId"
       },
       "SelectedItem": {
@@ -2515,26 +2635,26 @@
      "rows": [
       {
        "ItemText": {
-        "value": "SID_CN_STATIC_0343",
+        "value": "SID_CN_STATIC_0363",
         "type": "StringId"
        }
       },
       {
        "ItemText": {
-        "value": "SID_CN_STATIC_0344",
+        "value": "SID_CN_STATIC_0364",
         "type": "StringId"
        }
       },
       {
        "ItemText": {
-        "value": "SID_CN_STATIC_0345",
+        "value": "SID_CN_STATIC_0365",
         "type": "StringId"
        }
       }
      ],
      "cells": {
       "HeaderText": {
-       "value": "SID_CN_STATIC_0346",
+       "value": "SID_CN_STATIC_0366",
        "type": "StringId"
       },
       "SelectedItem": {

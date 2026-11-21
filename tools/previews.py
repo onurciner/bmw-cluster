@@ -8,6 +8,7 @@ zlib-deflated RGBA rows (opaque). The build packs hud/ into hud.pack; previews.j
 
     # the app's bench must be running (node bench/server.js <app>, BENCH_PORT=...)
     python3 -I tools/previews.py perea_cluster_themes 8078
+    python3 -I tools/previews.py perea_cluster_themes 8078 atlas volt   # only these layouts
 
 The bench's settings are put back afterwards. The raw shots are kept in out/previews-src/<app>/ (gitignored).
 Chrome: CHROME=/path/to/chrome, else the first of google-chrome, chromium, chromium-browser on PATH.
@@ -80,6 +81,12 @@ def main():
     target = spec.get('config', {}).get('target', 'hud')
     sz = SIZES['panel' if target == 'panel' else 'hud']
     layouts = [o[0] for o in next(s for s in spec['settings'] if s['key'] == 'hudLayout')['options'] if o[0] not in SKIP]
+    wanted = sys.argv[3:]
+    if wanted:
+        unknown = [n for n in wanted if n not in layouts]
+        if unknown:
+            raise SystemExit('not a layout with a picture: ' + ', '.join(unknown))
+        layouts = [n for n in layouts if n in wanted]
     data = os.path.join(ROOT, 'bench', '.data', app, 'settings.json')
     saved = json.load(open(data)) if os.path.exists(data) else {}
     defaults = {s['key']: s.get('default') for s in spec['settings']}

@@ -2,7 +2,7 @@
 
 <img src="icon.png" width="72" align="left" alt="Cluster Themes icon">
 
-> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). This is a copy of their 0.19.0 (commit `ab81cee`, MIT) kept in this repository as `perea_cluster_themes`, with the install fix below. Everything from [Themes](#themes) on is bimmer-lab's own text, and the issue numbers in it are their repository's.
+> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). This is a copy of their 0.19.0 (commit `ab81cee`, MIT) kept in this repository as `perea_cluster_themes`, with the install fix below. Everything from [Themes](#themes) on is bimmer-lab's own text, except the Atlas, Volt, Twin, Pulse and Noir sections added here; the issue numbers in it are their repository's.
 >
 > iDrive 7 only. Install **cluster-render** 0.5.1 or newer first (Store source `robertnisipeanu/idrive-apps`).
 
@@ -10,6 +10,7 @@
 
 - **0.19.1: it installs.** 0.19.0 was refused by BMW's app manager on install (`generateSomeipInterfaces`, the Store's "install failed"; [bimmer-lab/apps issue #26](https://github.com/bimmer-lab/apps/issues/26)). It asked for the head unit's now playing (`HmiMediaState`, for the Vector theme's music panel) by instance `1`, and the head units have no instance of that name: theirs are `HMI_CID`, `HMI_FoMo_Left` and `HMI_FoMo_Right`. The app now asks for `HMI_CID`, the centre display, and opens that one.
 - **The build fits the app to the head unit.** When the Store builds the app on the car, the build takes out of the app's SOME/IP manifest whatever that unit's interface catalog does not have (`fit_to_unit()`, from [idrive7-apps](https://github.com/cauliflowermossgrape/idrive7-apps)) and the app's log names it at each start. A signal a car lacks costs that readout, not the install.
+- **Five new themes (0.20.1)**: Atlas, Volt, Twin, Pulse and Noir, with previews on the centre screen. Their sections are below; the rest of the theme text is bimmer-lab's.
 - **Its own id and Store entry**: `perea_cluster_themes`, listed for iDrive 7 only, so it can sit beside bimmer-lab's own `cluster_themes`.
 - **A start test** (`kit/tools/test_cluster_themes.js`) and the bench staging the app without BMW's SDK.
 
@@ -138,7 +139,37 @@ Calm and premium. One ribbon of light runs along under the top edge of the clust
 <p align="center"><img src="../../docs/images/cluster-ribbon.png" width="900" alt="Ribbon theme"></p>
 <p align="center"><img src="../../docs/images/cluster-ribbon-christmas.png" width="900" alt="Ribbon theme, Christmas edition"></p>
 
-Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno and Ribbon have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show.
+### Atlas
+
+A navigation-first theme: the Waze map owns the left half behind a thin teal frame, and the speed, gear, shift bar and a compact readout stack sit on the right. With the map off, the left side turns into a calm trip panel with the clock, average speed, range, outside temperature and fuel.
+
+<p align="center"><img src="../../docs/images/cluster-atlas.png" width="900" alt="Atlas theme"></p>
+
+### Volt
+
+Pikachu yellow and electric blue on black. A segmented rev ring and the speed sit inside a field of lightning: more bolts switch on and reach further out as the speed climbs, and they flash white at the shift point. The little electric mascot keeps watch on the left, with the shift lights, boost and fuel around it.
+
+<p align="center"><img src="../../docs/images/cluster-volt.png" width="900" alt="Volt theme"></p>
+
+### Twin
+
+Two round dials and one calm centre column: a speed arc with its peak dot on the left, a segmented rev arc around the gear on the right, and fuel, oil, water and boost between them. White numbers with BMW red needles.
+
+<p align="center"><img src="../../docs/images/cluster-twin.png" width="900" alt="Twin theme"></p>
+
+### Pulse
+
+A neon cyan and magenta double ring around a big speed, a segmented rev bar on top, and vertical charge columns for rpm and boost. The G-force meter and the left/right, accelerating/braking g strip sit at the lower right; fuel runs along the bottom.
+
+<p align="center"><img src="../../docs/images/cluster-pulse.png" width="900" alt="Pulse theme"></p>
+
+### Noir
+
+Warm gold on black. One huge thin speed under a wide rev arch, the gear in a small gold frame, local time and range on the left, engine readings on the right, and the now playing line (or this drive's average) under a thin rule.
+
+<p align="center"><img src="../../docs/images/cluster-noir.png" width="900" alt="Noir theme"></p>
+
+Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Volt, Twin, Pulse and Noir have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show. GT3, Sport, M and Atlas open a window for it.
 
 More themes are on the way.
 
@@ -153,7 +184,7 @@ More themes are on the way.
 
 - **Theme**, and one per drive mode.
 - **Readouts:** pick which car sensor each GT3, M, Track, Drag, Rally, Retro 80s or Dyno readout shows (speed, rpm, boost, temperatures, tyres, fuel, g, power and more). Plug-in hybrids can also show **Hybrid battery**, the high-voltage battery's charge in % (not yet checked on a hybrid).
-- **Show Waze map inside the theme:** GT3, Sport and M open a window in the middle and Waze on Cluster draws its map in it, above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
+- **Show Waze map inside the theme:** GT3, Sport and M open a window in the middle, and Atlas opens one on the left, where Waze on Cluster draws its map above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
 - **Badge:** the model name, like "BMW X3 M40i", as text in the theme's font (GT3 top left, Sport, M and Minimal top centre, where BMW puts its own). Off by default.
 - **Warnings:** oil, coolant and boost limits. A readout over its limit flashes red (oil 130°C and coolant 115°C by default, boost off).
 - **Test the shift lights:** runs the rpm up to the shift point for about 4 seconds while the car stands.
