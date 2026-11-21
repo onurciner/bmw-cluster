@@ -14,7 +14,7 @@ only reads from the car.
 
 - **24 themes**, from a GT3 race dash and a current M8-style cluster to a calm highway layout, an
   80s digital dash, neon rings, gold minimalism and an iDrive 7-style three-card cockpit.
-- **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex and Eclipse open a window
+- **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex, Eclipse, Pulse, Touring and Touring 3D open a window
   for the Waze map inside the theme.
 - **Next-turn directions in Vector.** When a route runs in BMW's navigation, CarPlay (Apple Maps) or Android Auto,
   the middle of Vector shows the next turn, its distance, the street and the lanes; the boost/torque/power bars
@@ -22,8 +22,8 @@ only reads from the car.
 - **A full-screen map in Pulse.** The Waze map fills the whole background when "Show Waze map inside the theme" is on;
   the top and bottom bars carry navigation, media, the shift lights, the drive mode, speed and gear, the clock and the
   Ankara weather. With the map off, a light paper map (dark after sunset) keeps the same layout.
-- **Now playing.** Sport, M view, Vector, Noir, Cockpit, Aurum, Apex and Eclipse show the car's own media: title, artist,
-  elapsed and remaining time; Sport, M view, Vector, Cockpit, Aurum, Apex and Eclipse also draw a record and progress line.
+- **Now playing.** Sport, M view, Vector, Noir, Cockpit, Aurum, Apex, Eclipse, Pulse, Touring and Touring 3D show the car's own media: title, artist,
+  elapsed and remaining time; Sport, M view, Vector, Cockpit, Aurum, Apex, Eclipse, Pulse, Touring and Touring 3D also draw a record and progress line.
 - **Ankara weather.** Aurum, Apex, Eclipse, Pulse and Touring can show the current Ankara weather from Open-Meteo (no key):
   temperature, the day's high and low, and a condition icon, refreshed every 15 minutes and cached. The
   "Ankara weather (online)" setting turns it off; it needs the head unit's internet, and stays hidden without it.
@@ -62,14 +62,48 @@ only reads from the car.
 | **Apex** | Aurum's sport version: a midnight-blue background, hexagonal frame and cyan/ice accents, with the same floating navigation, tyres, G-meter, media, 0-60 timer, boost, range and Ankara weather. |
 | **Eclipse** | A deep indigo night in three horizontal bands: a header with navigation, the ECLIPSE wordmark and now playing; a dark eclipse disc with an amber/ice corona, a tight lit speed/rev ring, tyres and the G-meter; and a bottom console with fuel, shift, 0-60, boost, average and the Ankara weather line. |
 
-<p align="center">
-  <img src="docs/images/cluster-mview.png" width="31%" alt="M view theme">
-  <img src="docs/images/cluster-vector.png" width="31%" alt="Vector theme">
-  <img src="docs/images/cluster-cockpit.png" width="31%" alt="Cockpit theme"><br>
-  <img src="docs/images/cluster-atlas.png" width="31%" alt="Atlas theme">
-  <img src="docs/images/cluster-volt.png" width="31%" alt="Volt theme">
-  <img src="docs/images/cluster-noir.png" width="31%" alt="Noir theme">
-</p>
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-gt3.png" width="100%" alt="GT3 theme"><br><sub><b>GT3</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-m.png" width="100%" alt="M theme"><br><sub><b>M</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-mview.png" width="100%" alt="M view theme"><br><sub><b>M view</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-vector.png" width="100%" alt="Vector theme"><br><sub><b>Vector</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-sport.png" width="100%" alt="Sport theme"><br><sub><b>Sport</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-minimal.png" width="100%" alt="Minimal theme"><br><sub><b>Minimal</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-track.png" width="100%" alt="Track theme"><br><sub><b>Track</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-drag.png" width="100%" alt="Drag theme"><br><sub><b>Drag</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-rally.png" width="100%" alt="Rally theme"><br><sub><b>Rally</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-retro80s.png" width="100%" alt="Retro 80s theme"><br><sub><b>Retro 80s</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-cruise.png" width="100%" alt="Cruise theme"><br><sub><b>Cruise</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-dyno.png" width="100%" alt="Dyno theme"><br><sub><b>Dyno</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-ribbon.png" width="100%" alt="Ribbon theme"><br><sub><b>Ribbon</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-atlas.png" width="100%" alt="Atlas theme"><br><sub><b>Atlas</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-volt.png" width="100%" alt="Volt theme"><br><sub><b>Volt</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-twin.png" width="100%" alt="Twin theme"><br><sub><b>Twin</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-pulse.png" width="100%" alt="Pulse theme"><br><sub><b>Pulse</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-touring.png" width="100%" alt="Touring theme"><br><sub><b>Touring</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-touring3d.png" width="100%" alt="Touring 3D theme"><br><sub><b>Touring 3D</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-noir.png" width="100%" alt="Noir theme"><br><sub><b>Noir</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-cockpit.png" width="100%" alt="Cockpit theme"><br><sub><b>Cockpit</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/cluster-aurum.png" width="100%" alt="Aurum theme"><br><sub><b>Aurum</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-apex.png" width="100%" alt="Apex theme"><br><sub><b>Apex</b></sub></td>
+    <td align="center" width="33%"><img src="docs/images/cluster-eclipse.png" width="100%" alt="Eclipse theme"><br><sub><b>Eclipse</b></sub></td>
+  </tr>
+</table>
 
 
 <p align="center">
@@ -78,10 +112,10 @@ only reads from the car.
 
 ## What it can show
 
-- **Navigation:** the Waze map inside the theme (GT3, Sport, M, M view, Vector, Atlas and
-  Cockpit, Aurum, Apex, Eclipse), plus range and outside temperature around it.
+- **Navigation:** the Waze map inside the theme (GT3, Sport, M, M view, Vector, Atlas,
+  Cockpit, Aurum, Apex, Eclipse, Pulse, Touring and Touring 3D), plus range and outside temperature around it.
 - **Media:** now playing from the head unit, with title, artist and track progress in Vector, Noir,
-  Cockpit, Aurum, Apex and Eclipse.
+  Cockpit, Aurum, Apex, Eclipse, Pulse, Touring and Touring 3D.
 - **Engine and drive:** rpm, speed, gear and shifter programme, drive mode, boost, intake air,
   torque and power, oil and coolant, fuel and range.
 - **Chassis:** tyre pressure and temperature per corner, lateral and longitudinal G, a G-meter
