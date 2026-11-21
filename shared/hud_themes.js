@@ -282,6 +282,17 @@ const THEMES = {
         bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [92, 82, 58, 255], head: [214, 178, 96, 255],
         ink: [18, 14, 8, 255], accent: [214, 178, 96, 255], well: [0, 0, 0, 255],
     },
+    // Cockpit (layout cockpit.json): the iDrive 7 Live Cockpit's cool blue frames around a navigation card on the
+    // left, speed and the drive data in the middle, and a now playing card on the right.
+    cockpit: {
+        name: 'Cockpit',
+        fg: [244, 248, 253, 255], dim: [148, 166, 188, 255], track: [42, 56, 78, 255], arc: [66, 146, 255, 255],
+        glow: 0, stripe: false,
+        bar: { low: [66, 146, 255], mid: [130, 205, 255], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [66, 146, 255], to: [130, 205, 255] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [70, 108, 154, 255], head: [28, 82, 158, 255],
+        ink: [242, 248, 255, 255], accent: [94, 172, 255, 255], accent2: [166, 214, 255, 255], well: [0, 0, 0, 255],
+    },
 };
 // every theme: the shift-point red, used by "hot" (the gear and SHIFT at the shift point, the rev bar past it)
 Object.keys(THEMES).forEach((k) => { THEMES[k].hot = [255, 42, 42, 255]; });

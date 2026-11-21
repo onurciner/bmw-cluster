@@ -14,8 +14,8 @@
  * opts.native: ask for mgu-render's own dialect (mgu-render/1, the Store's renderer). There touch
  * claims and the controller grab work on one connection, and X_STATE says when the renderer has
  * the app on screen. A renderer that does not speak it answers READY alone and the connection
- * stays in the upstream dialect. Pixel images (op 18) are upstream only: an app that draws them
- * (Doom) connects without opts.native.
+ * stays in the upstream dialect. Pixel images work in both: native gets MI_IMAGE and the native
+ * OP_IMAGE layout, upstream gets MU_IMAGE and its own (display.js records in the renderer's layout).
  */
 const net = require('net');
 const fs = require('fs');
@@ -28,6 +28,7 @@ const SOCKETS = process.env.MGU_RENDERD_SOCKET ? [process.env.MGU_RENDERD_SOCKET
 const SOCKET = SOCKETS[0];
 const isSocket = (p) => { try { return fs.statSync(p).isSocket(); } catch (e) { return false; } };
 const M = { HELLO: 1, PLACE: 2, SHOW: 3, ATLAS: 4, RAMP: 5, LAYER: 6, FRAME: 7, DROP_LAYER: 8, IMAGE: 9, GRAB: 10 };
+const MI_IMAGE = 10;             // native / iterio: u32 id, w, h, premultiplied RGBA (1..1024 a side)
 const E = { READY: 101, TICK: 102, ERROR: 103, STATS: 104, CCU: 105 };
 // touch (mgu-render, IterioDev's mgu-renderd): message 9 is CLAIM there; 105 and 106 come back as TOUCH and CLOSED
 const CLAIM = 9, TOUCH = 105, CLOSED = 106;
@@ -314,10 +315,33 @@ class RenderClient extends EventEmitter {
     }
     /** upload a pixel image when this connection hasn't got its current version */
     _ensureImage(id) {
-        if (this.native) { if (!this.imgWarned) { this.imgWarned = true; this.log.warn('renderd: pixel images need the upstream dialect'); } return; }
         const im = rec.imageById.get(id);
         if (!im || !im.data) return;
         if (this.sent.image.get(id) === im.ver) return;
+        if (this.native) {
+            // mgu-render/1's MI_IMAGE: one picture, premultiplied, at most 1024 px a side
+            if (im.w > 1024 || im.h > 1024) {
+                if (!this.imgWarned) { this.imgWarned = true; this.log.warn('renderd: pixel image ' + im.w + 'x' + im.h + ' is over the native 1024 px side'); }
+                return;
+            }
+            const n = im.w * im.h * 4, b = this._imageBuf(8 + 12 + n);
+            b.writeUInt32LE(MI_IMAGE, 0); b.writeUInt32LE(12 + n, 4);
+            b.writeUInt32LE(id, 8); b.writeUInt32LE(im.w, 12); b.writeUInt32LE(im.h, 16);
+            const src = Buffer.from(im.data.buffer, im.data.byteOffset, n), dst = b.subarray(20, 20 + n);
+            let premul = false;
+            for (let i = 3; i < n; i += 4) if (src[i] !== 255) { premul = true; break; }
+            if (premul) {
+                for (let i = 0; i < n; i += 4) {
+                    const a = src[i + 3];
+                    dst[i] = Math.round(src[i] * a / 255); dst[i + 1] = Math.round(src[i + 1] * a / 255);
+                    dst[i + 2] = Math.round(src[i + 2] * a / 255); dst[i + 3] = a;
+                }
+            } else src.copy(dst);
+            this._write(b);
+            this.sent.image.set(id, im.ver);
+            return;
+        }
+        // upstream: MU_IMAGE, opaque RGBA, w / h up to 4096
         const n = im.w * im.h * 4, b = this._imageBuf(8 + 12 + n);
         b.writeUInt32LE(M.IMAGE, 0); b.writeUInt32LE(12 + n, 4);
         b.writeUInt32LE(id, 8); b.writeUInt32LE(im.w, 12); b.writeUInt32LE(im.h, 16);

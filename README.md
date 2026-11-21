@@ -1,151 +1,192 @@
-# Perea Performance iDrive apps
+# Roiteam · Cluster Themes
 
-An app for the BMW MGU head unit on iDrive 7, installed with the
-[MGU Store](https://github.com/robertnisipeanu/mgu-store). It is built on the MGU App Kit
-from [idrive7-apps](https://github.com/cauliflowermossgrape/idrive7-apps), reduced here to what
-this app uses (see `THIRD_PARTY_NOTICES.md`). The Store builds the app on the head unit itself
-from this repository: no BMW SDK leaves the car, and none is in this repository.
+<p align="center">
+  <img src="docs/images/cluster-gt3.png" width="100%" alt="Cluster Themes, GT3 theme">
+</p>
 
-## App
+**Cluster Themes** turns the BMW iDrive 7 instrument cluster into a display you choose. Pick one of
+19 themes on the centre screen, or let Comfort / Sport / Eco Pro pick one for you. It is drawn over
+BMW's own cluster through [cluster-render](https://github.com/robertnisipeanu/idrive-apps), and it
+only reads from the car.
 
-| App | Id | What it does |
-|---|---|---|
-| **Cluster Themes** | `perea_cluster_themes` | Redraws the whole **instrument cluster** in a theme of your choice (GT3 race dash, M, M view, Vector, Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Ribbon, Atlas, Volt, Twin, Pulse, Noir), picked on the centre screen or by drive mode. **iDrive 7 only**, and it draws through [cluster-render](https://github.com/robertnisipeanu/idrive-apps) (0.5.1 or newer), which must be installed first. **The app is [bimmer-lab](https://github.com/bimmer-lab/apps)'s, and all credit for it goes to them**; this is a copy of their 0.19.0 (MIT) with the install fix and five new themes (0.20.1, below). Themes, settings and what is verified on a car: [apps/perea_cluster_themes/README.md](apps/perea_cluster_themes/README.md); working on it: [docs/cluster-themes.md](docs/cluster-themes.md). |
+**iDrive 7 only. cluster-render 0.5.1 or newer is required.**
 
-![Cluster Themes, GT3](docs/images/cluster-gt3.png)
+> **Drive with BMW's warnings first.** The app's readouts are for information only. Follow BMW's own
+> warnings and use *Off (BMW's own cluster)* whenever you want the original cluster back.
 
-> **Cluster Themes draws over BMW's own cluster.** Its readouts are for information only: follow
-> BMW's own warnings, and pick *Off* in the app to get BMW's cluster back. It only reads from the car.
+## Highlights
 
-**Credit.** Cluster Themes was made by [bimmer-lab](https://github.com/bimmer-lab/apps): the themes, the
-centre-screen page, the drawing engine in `shared/`, the bench and the tools are their work, on
-[cluster-render](https://github.com/robertnisipeanu/idrive-apps) by Robert Nisipeanu. What this repository
-adds to it is small:
+- **19 themes**, from a GT3 race dash and a current M8-style cluster to a calm highway layout, an
+  80s digital dash, neon rings, gold minimalism and an iDrive 7-style three-card cockpit.
+- **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas and Cockpit open a window
+  for the Waze map inside the theme.
+- **Now playing.** Vector, Noir and Cockpit show the car's own media: title, artist, elapsed and
+  remaining time; Vector and Cockpit also draw a record and progress line.
+- **Live car data.** Speed, gear and drive mode, revs, boost, oil and coolant, intake air, fuel,
+  range, outside temperature, tyre pressures and temperatures, G-forces, power and torque.
+- **Shift lights and warnings** that follow your redline, shift point and cold-engine guard.
+- **Theme pictures in the app**, so the centre screen shows what each theme looks like before you
+  pick it.
 
-- **It installs (0.19.1).** bimmer-lab's 0.19.0 is refused on install by BMW's app manager (the Store's
-  *install failed … generateSomeipInterfaces*,
-  [their issue #26](https://github.com/bimmer-lab/apps/issues/26)): it asks for the head unit's now playing
-  (`HmiMediaState`) by instance `1`, and the units name that interface's instances `HMI_CID`,
-  `HMI_FoMo_Left` and `HMI_FoMo_Right`. Here the app asks for `HMI_CID`. Installed and running on an
-  iDrive 7 car since 2026-11-18.
-- **The build fits the app to the head unit it builds on**: what that unit's interface catalog does not
-  have comes out of the app's SOME/IP manifest (`fit_to_unit()` in `kit/tools/build.py`, from
-  idrive7-apps), so a signal a car lacks costs that readout and not the install.
-- **Five new themes (0.20.1):** Atlas (the Waze map on the left, speed on the right), Volt (Pikachu-yellow
-  lightning that gathers with the speed), Twin (two round dials), Pulse (neon rings and vertical charge
-  bars) and Noir (gold, one huge speed and the now playing line).
-- Its own id (`perea_cluster_themes`) and Store entry, and a start test.
+## Themes
+
+| Theme | What it is |
+|---|---|
+| **GT3** | A race dash with 18 shift lights, a segmented rev bar, speed, rpm, last shift, boost, fuel and a Waze map window. |
+| **M** | A current M8-style cluster: two bowed rev blades, gear and speed, a tyre block, setup bars, fuel and oil dials, and a map version. |
+| **M view** | BMW's newer M view: curved speed and rev scales, dark panels and an oval map window between them. |
+| **Vector** | A race-sim dash: a segmented rev ring, ring gauges, boost/torque/power bars, a music panel and an octagonal map window. |
+| **Sport** | BMW Live Cockpit Sport: a blue speed bracket, red rev bracket, a road in the middle, and the map when enabled. |
+| **Minimal** | One huge speed, the gear beside it, a thin rev line and a thin fuel line. |
+| **Track** | A race-dash frame with all four tyre pressures and temperatures, a big gear, speed, boost and configurable readouts. |
+| **Drag** | A full-width shift bar, a 0-60 mph / 0-100 km/h timer, peak boost and the run's data. |
+| **Rally** | A rev arc across the top, a huge gear, a G-meter, boost and configurable readouts. |
+| **Retro 80s** | Amber seven-segment digits with faint unlit 8s, bar graphs and an 80s digital clock. |
+| **Cruise** | A calm highway layout with a soft white speed, a row of figures and the average moving speed. |
+| **Dyno** | BMW M-coloured telemetry tiles: twelve sensor tiles, two tall power/torque tiles and warning flashes. |
+| **Ribbon** | A single ribbon of light that fills with the revs, a thin speed and optional holiday editions. |
+| **Atlas** | The Waze map owns the left half; speed, gear and a compact readout stack sit on the right. With the map off, a trip panel takes its place. |
+| **Volt** | Pikachu-yellow electric arcs that gather and reach further out as the speed climbs, with a rev ring and a little mascot. |
+| **Twin** | Two round dials: a speed arc on the left, a segmented rev arc around the gear on the right, and a calm centre column. |
+| **Pulse** | Neon cyan and magenta rings around a big speed, vertical rpm and boost columns, and a G-meter. |
+| **Noir** | Warm gold on black: one huge thin speed under a rev arch, local time and range, and the now playing line. |
+| **Cockpit** | An iDrive 7-style three-card view: navigation on the left, shift lights/speed/drive data in the middle, and now playing on the right. |
+
+<p align="center">
+  <img src="docs/images/cluster-mview.png" width="31%" alt="M view theme">
+  <img src="docs/images/cluster-vector.png" width="31%" alt="Vector theme">
+  <img src="docs/images/cluster-cockpit.png" width="31%" alt="Cockpit theme"><br>
+  <img src="docs/images/cluster-atlas.png" width="31%" alt="Atlas theme">
+  <img src="docs/images/cluster-volt.png" width="31%" alt="Volt theme">
+  <img src="docs/images/cluster-noir.png" width="31%" alt="Noir theme">
+</p>
+
+Every theme, with its screenshots and settings, is described in
+[apps/perea_cluster_themes/README.md](apps/perea_cluster_themes/README.md).
+
+<p align="center">
+  <img src="docs/images/page-cluster-themes.png" width="900" alt="The Cluster Themes gallery on the centre screen">
+</p>
+
+## What it can show
+
+- **Navigation:** the Waze map inside the theme (GT3, Sport, M, M view, Vector, Atlas and
+  Cockpit), plus range and outside temperature around it.
+- **Media:** now playing from the head unit, with title, artist and track progress in Vector, Noir
+  and Cockpit.
+- **Engine and drive:** rpm, speed, gear and shifter programme, drive mode, boost, intake air,
+  torque and power, oil and coolant, fuel and range.
+- **Chassis:** tyre pressure and temperature per corner, lateral and longitudinal G, a G-meter
+  with a trail and grip envelope, and a 0-60 mph / 0-100 km/h timer.
+- **Driving aids:** shift lights and shift bar, last-shift grading, cold-engine rev guard, oil /
+  coolant / boost warnings, night colours, holiday lights, and a demo drive for trying it parked.
+- **Personalisation:** theme per drive mode, configurable readouts on the themes that support
+  slots, badge and BMW lettering, units, clock and time zone, fuel tank size, redline and shift
+  point, driver-camera space, and calibration layouts.
+
+## Requirements
+
+- BMW MGU head unit on **iDrive 7**.
+- [cluster-render](https://github.com/robertnisipeanu/idrive-apps) **0.5.1 or newer**, installed
+  from the `robertnisipeanu/idrive-apps` Store source. The Store cannot install it by itself.
+- [MGU Store](https://github.com/robertnisipeanu/mgu-store) to install and update the app.
+
+The app does not need the Store's own Renderer; it draws the cluster through cluster-render and
+uses the head unit's normal centre-screen renderer for its page.
 
 ## Install
 
-Cluster Themes needs **cluster-render** (0.5.1 or newer), which the Store cannot offer by
-itself: add the source `robertnisipeanu/idrive-apps` and install *Cluster renderer* from it first.
-The app is listed for iDrive 7 only (its own entry in `mgu-repo.json`).
+### From the Store
 
-**A. From GitHub, in the Store.** Settings → **Add source** → `alexpereap/pereaperformance-idrive7-apps`,
-following the **main** branch. The app appears in the Store's list; pick it and install. The
-head unit builds it (the Store installs its Python tool first, once).
+1. In the MGU Store, add the source `robertnisipeanu/idrive-apps` and install **Cluster renderer**
+   (0.5.1 or newer).
+2. Add the source `alexpereap/pereaperformance-idrive7-apps`, following the **main** branch.
+3. Install **Cluster Themes**. The head unit builds the package itself.
 
-**B. From a USB stick, offline.** Clone the Store's repository on your computer (Node 18 or
-newer, or the standalone executable from the Store's `installer` release), write the stick, and
-install from the Store's **USB** page:
+### From a USB stick
+
+Clone the Store, write the repository to the stick, and install from the Store's **USB** page:
 
 ```sh
 git clone https://github.com/robertnisipeanu/mgu-store.git
-```
-
-```sh
 node mgu-store/deploy/mgu-install.js usb-repo /media/<your-stick> /path/to/pereaperformance-idrive7-apps
 ```
 
-It copies this repository's tracked files to `<stick>/mgu-repo/<name>/`; the head unit builds
-the app from there. Run it again after a change: the Store offers the app again only when its
-`version` in `app.json` went up.
+Run the command again after an update; the Store offers the app again when its `version` in
+`app.json` goes up.
 
-**C. A package built with your own SDK.** With `oap-sdk/` extracted from your unit (below),
-`python3 kit/tools/build.py perea_cluster_themes` writes `dist/perea_cluster_themes@<version>.tgz`; put it
-on the stick with `usb-repo /media/<your-stick> dist/perea_cluster_themes@<version>.tgz`. The `.mgu`
-and `.tgz` files contain BMW's SDK: keep them for your own car.
+### Build a package yourself
 
-## Develop
-
-Needs Node (18 or newer on the computer; the app itself runs on the unit's Node 8, so no
-`?.` or `??` in app code) and Python 3.
-
-**The SDK from your unit** (only for installable builds; previews and tests need none):
+With an `oap-sdk/` extracted from your own unit (see `docs/cluster-themes.md`), run:
 
 ```sh
-scp root@<unit>:'/usr/lib/oap-mainapp/preinstalled_apps/x_call@*.tgz' .
-mkdir x_call && tar xzf x_call@*.tgz -C x_call
-node kit/tools/extract_sdk.js x_call/javascript/app.js     # writes ./oap-sdk/ (gitignored, never commit it)
+python3 kit/tools/build.py perea_cluster_themes
 ```
 
-**Build, preview, emulate, test:**
+This writes `dist/perea_cluster_themes@<version>.tgz` and `.mgu`. Put the `.tgz` on the stick and
+install it with `usb-repo`. Keep the files to yourself: they contain BMW's SDK.
+
+## Use
+
+Open **Cluster Themes** from the apps menu on the centre screen.
+
+- **Themes:** the gallery shows ten themes a page, with arrows for the rest. Tap a theme to show
+  it. The selected theme is highlighted.
+- **Off (BMW's own cluster):** pick it to stop drawing and get BMW's cluster back.
+- **Drive modes:** with *Change with the drive mode* on, Comfort, Sport and Eco Pro each use the
+  theme picked for them. Turn it off to keep one theme everywhere.
+- **Map:** enable *Show Waze map inside the theme* to let Waze draw into the theme's window. Waze
+  on Cluster is required; the setting is on the Map tab.
+- **Readouts:** GT3, M, Track, Drag, Rally, Retro 80s and Dyno have configurable readout slots.
+- **Settings:** units, clock and time zone, fuel tank size, redline, shift point, cold guard,
+  warnings, night colours, holiday editions, driver-camera space and demo data.
+
+The app is read-only: it does not send anything to the car. Its log and diagnostic file live in
+`/var/opt/public/oap/oap_<uid>/data/` on the unit.
+
+## Safety
+
+Cluster Themes draws over BMW's own instrument cluster. The information is provided for
+convenience and is not a replacement for BMW's warnings, telltales or service information. Use
+*Off* whenever you need the original cluster, and drive with your own judgement. Use at your own
+risk.
+
+## Development
+
+The repository contains the complete cluster engine, the theme layouts and the preview tooling.
+Node 18+ and Python 3 are needed on the computer; the app itself runs on the unit's Node 8.
 
 ```sh
-python3 kit/tools/build.py --preview-only perea_cluster_themes   # stage dist/perea_cluster_themes (no SDK)
-python3 kit/tools/build.py perea_cluster_themes                  # with oap-sdk/: dist/perea_cluster_themes@<ver>.tgz and .mgu
-node kit/tools/preview.js dist/perea_cluster_themes out/         # frames as PNG (demo data)
-node kit/tools/emu.js perea_cluster_themes                       # the app in the browser: http://localhost:8077 (docs/emulator.md)
-node kit/tools/test_cluster_themes.js                            # staged, started, its default theme on a stand-in cluster-render
-node kit/tools/test_runtime.js                                   # the kit: display, renderer client, settings sheet
-node kit/tools/test_start.js                                     # mgu.js's start sequence against a stand-in oap-sdk
-node kit/tools/test_locales.js                                   # every language: catalogs, labels, glyphs
-python3 kit/tools/test_build.py                                  # build.py output against the snapshots
-python3 kit/tools/test_fit_to_unit.py                            # the build takes out of the manifest what a unit's catalog lacks
-node bench/server.js                                             # the cluster in the browser: http://localhost:8078 (bench/README.md)
+python3 kit/tools/build.py --preview-only perea_cluster_themes   # stage without an SDK
+python3 kit/tools/build.py perea_cluster_themes                  # build a package (needs oap-sdk/)
+node kit/tools/emu.js perea_cluster_themes                       # live emulator: http://localhost:8077
+node kit/tools/test_cluster_themes.js                            # stage, start, draw the default theme
+node bench/server.js                                             # cluster bench: http://localhost:8078
 ```
 
-`build.py` with no app id builds every app in `apps/`.
+- Theme layouts: `apps/perea_cluster_themes/hud/layouts/*.json`
+- Colours: `shared/hud_themes.js`
+- Engine: `shared/hud.js` (the widget reference is at the top of the file)
+- Preview pictures: `tools/previews.py`
+- Full development notes: [docs/cluster-themes.md](docs/cluster-themes.md)
+- Bench and signal controls: [bench/README.md](bench/README.md)
 
-## Adding an app
+The project is currently **0.21.0**.
 
-1. `apps/<id>/app.json` and `main.js`: the id lower-case with the `perea_` prefix (the Store
-   wants ids unique across sources), a `loggingId` of its own, `version` x.y.z. An ordinary app
-   uses `mgu.run({ start(ctx) })`, `ctx.loop`, `ctx.canvas`, `G.radial` and the generated
-   Settings screen. Cluster Themes is the example here: a canvas page (`shared/page.js`) and a
-   cluster engine (`shared/hud.js`), both listed in `app.json` `"shared"`.
-2. `apps/<id>/icon.png` (the Store shows it; 128 KiB at most):
-   `node kit/tools/make_icon.js <glyph> apps/<id>/icon.png`.
-3. Its test in `kit/tools/`, run from `.github/workflows/tests.yml`.
-4. Nothing to change in `mgu-repo.json`: every folder in `apps/` with an `app.json` is an app,
-   for iDrive 7 and 8, needing a renderer. An app that differs (Cluster Themes: iDrive 7 only, no
-   renderer needed) is named in the pattern's `exclude` and has its own entry under `components`.
-   A kit module the app needs that is not here yet is taken from upstream idrive7-apps, with its
-   notice. Code more than one app can use goes in `shared/`; an app names the files it needs in
-   `app.json` `"shared"` and the build copies them in.
+## Credits and licences
 
-## Translations
+Cluster Themes is based on [bimmer-lab](https://github.com/bimmer-lab/apps)'s app (0.19.0, MIT).
+The themes, the centre-screen page, the drawing engine, the bench and the tools are their work;
+this repository keeps that credit and adds the install fix, the unit-fitting build step, six new
+themes and the renderer/preview fixes. The complete app manual is in
+[apps/perea_cluster_themes/README.md](apps/perea_cluster_themes/README.md).
 
-The packages are fixed-language: English, or Korean (`ko`), Russian (`ru`), Chinese (`zh-CN`)
-with `--language`. The catalogs are `kit/runtime/locales/<lang>.tsv` (`English<TAB>translation`,
-the key is the exact English text; every `app.json` label with a space must have a row) and
-hold only the rows the app shows. Cluster Themes is English only (`"locales": ["en"]`): its
-labels need no rows, and a package of it in another language shows them in English. The catalogs
-carry the kit's own text.
+- **Cluster renderer** and its client: [robertnisipeanu/idrive-apps](https://github.com/robertnisipeanu/idrive-apps),
+  MPL-2.0 for `shared/cluster_render_client.js`.
+- **MGU App Kit** and emulator: [cauliflowermossgrape/idrive7-apps](https://github.com/cauliflowermossgrape/idrive7-apps),
+  MIT; fonts under the Ubuntu Font Licence and SIL OFL; the emulator's draw engine is GPL-3.0-or-later.
+- **Cluster Themes app:** bimmer-lab, MIT, Copyright (c) 2026 bimmer-lab.
+- **BMW's SDK** and packages containing it are never published in this repository.
 
-1. Add the rows to the three TSVs, then `python3 kit/tools/sync_locales.py` (writes the JSON).
-2. `python3 kit/tools/prune_locales.py --check` must pass (a row nothing shows is refused;
-   `prune_locales.py` without `--check` drops it). Strings the kit draws by itself are on the
-   script's `KEEP` list.
-3. New characters need their glyphs baked: `python3 kit/tools/bake_cjk.py` for Chinese
-   (downloads Noto Sans SC, checksum verified; Pillow needed), `python3 kit/tools/bake_korean.py`
-   for Korean (Noto Sans CJK KR installed). The Latin and Cyrillic atlases
-   (`bake_fonts.py`, `bake_cyrillic.py`) cover fixed character sets and only need a rebake if
-   that set changes; they need the **variable** `Ubuntu[wdth,wght].ttf`, not the static
-   Ubuntu-R/B files, or the glyph widths and weights change.
-4. `node kit/tools/test_locales.js`: builds the app in every language and checks that every
-   character of every translation has a glyph.
-
-## Licences
-
-- This repository: MIT, Copyright (c) 2026 Alex Perea (`LICENSE`).
-- The MGU App Kit it is built on: MIT, Copyright (c) 2026 cauliflowermossgrape, with the
-  Chinese translation Copyright (c) 2026 小白151 (JackieZ123430), the Russian by Иван
-  (Fieldistor) and the Korean by jaimeen shim. Fonts under the Ubuntu Font Licence and the SIL
-  OFL; the emulator's draw engine (mgu-render) GPL-3.0-or-later, source included. All of it in
-  `THIRD_PARTY_NOTICES.md`.
-- Cluster Themes (`apps/perea_cluster_themes`, `shared/`, `bench/`, `tools/`, `scripts/`): bimmer-lab's
-  work, MIT, Copyright (c) 2026 bimmer-lab; `shared/cluster_render_client.js` MPL-2.0, Copyright (C) 2026
-  Robert Nisipeanu; its fonts under the SIL OFL. In `THIRD_PARTY_NOTICES.md` and the app's `NOTICE`.
-- BMW's SDK and the `.mgu` / `.tgz` packages that contain it are never published.
+The full notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and
+[apps/perea_cluster_themes/NOTICE](apps/perea_cluster_themes/NOTICE).

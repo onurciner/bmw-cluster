@@ -184,7 +184,7 @@ class Display {
     }
 
     _startGpu(file) {
-        // mgu-render/1 for every app that draws no pixel images (Doom: "chrome": false)
+        // mgu-render/1 for full-chrome pages (Doom: "chrome": false; pixel images use its MI_IMAGE too)
         const native = this.screen.chrome !== false && process.env.MGU_RENDERD_PROTO !== 'upstream';
         const gpu = this.gpu = new RenderClient(this.spec.id, this.log, Object.assign({ native }, file ? { file } : {}));
         gpu.on('ready', () => { if (this.gpu !== gpu) return; this._place(); this._syncVisible(); this._grab(); });
@@ -699,9 +699,11 @@ class Display {
     /** The surface to draw a frame on (reused). */
     canvas(w, h) {
         const scale = this.active() ? this.place.scale : 1;
-        const key = w + 'x' + h + '@' + scale;
+        const nativeImages = !!(this.gpu && this.gpu.native);
+        const key = w + 'x' + h + '@' + scale + (nativeImages ? ':native' : '');
         let r = this.recorders.get(key);
-        if (!r) { r = new Recorder(w, h, { textScale: scale }); this.recorders.set(key, r); }
+        if (!r) { r = new Recorder(w, h, { textScale: scale, nativeImages }); this.recorders.set(key, r); }
+        r.nativeImages = nativeImages;
         r.reset();
         r.tabRects = null;
         // full-screen layout: G.frame hands its tabs to the header instead of drawing them

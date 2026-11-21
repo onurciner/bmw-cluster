@@ -57,6 +57,7 @@ class Page {
         this.ctx = ctx; this.hud = hud; this.cfg = cfg;
         this.tab = cfg.tabs[0];
         this.picker = null;              // { key, title } while a list of choices is open over the page
+        this.lookPage = null;            // the theme gallery's page (null: open on the theme showing now)
         this.loop = null;
         this.slotLayout = null;          // Readouts: the layout whose slots are edited (null: the one showing)
         this.slot = null;                // Readouts: the slot picked (its id)
@@ -239,10 +240,24 @@ class Page {
             const now = MODE_KEY[this.hud.driveMode], cw = (rw - 24) / 3;
             MODES.forEach((m, i) => this.modeCell(cv, rx + i * (cw + 12), y, cw, m[1] + (m[0] === now ? '  ·  now' : ''), m[0]));
         } else this.pickRow(cv, rx, y, rw, 'Theme', 'hudLayout', (v) => this.layoutName(v), 52);
-        // the gallery, two rows: a tap shows that theme (in the drive mode the car is in, when it changes with it)
-        const looks = this.looks(), cols = Math.max(5, Math.ceil(looks.length / 2)), gap = 12, gy = py + ph + 16;
+        // the gallery: ten a page, five across, with room for the pictures; a tap shows that theme
+        // (in the drive mode the car is in, when it changes with it)
+        const looks = this.looks(), perPage = 10, pages = Math.max(1, Math.ceil(looks.length / perPage));
+        if (this.lookPage === null) {
+            const i = looks.indexOf(shown);
+            this.lookPage = i >= 0 ? Math.floor(i / perPage) : 0;
+        }
+        this.lookPage = Math.max(0, Math.min(pages - 1, this.lookPage));
+        const start = this.lookPage * perPage, pageLooks = looks.slice(start, start + perPage);
+        const cols = 5, gap = 12, gy = py + ph + 40;
         const gw = (CW - gap * (cols - 1)) / cols, gh = (bottom - gy - 4 - gap) / 2;
-        looks.forEach((v, i) => {
+        label(cv, CX, gy - 14, 'Themes ' + (start + 1) + '-' + Math.min(start + perPage, looks.length) + ' of ' + looks.length +
+            (pages > 1 ? '  ·  page ' + (this.lookPage + 1) + ' / ' + pages : ''));
+        if (pages > 1) {
+            pageBtn(cv, CR - 92, gy - 32, -1, this.lookPage > 0, () => { this.lookPage--; this.kick(); }, 'page:prev');
+            pageBtn(cv, CR - 42, gy - 32, 1, this.lookPage < pages - 1, () => { this.lookPage++; this.kick(); }, 'page:next');
+        }
+        pageLooks.forEach((v, i) => {
             const x = CX + (i % cols) * (gw + gap), yy = gy + Math.floor(i / cols) * (gh + gap), sel = v === shown;
             glass(cv, x, yy, gw, gh, sel);
             const ih = Math.min(gh - 34, (gw - 16) * 0.375), iw = ih / 0.375;
@@ -759,6 +774,13 @@ function miniChip(cv, x, y, text, on, run, key) {
     cv.text(text, x + w / 2, y + 19, 13, on ? '#ffffff' : C.off, { align: 'center', font: 'bold', literal: true });
     cv.target(x, y, w, h, run, key, h / 2);
     return w;
+}
+function pageBtn(cv, x, y, dir, live, run, key) {
+    cv.roundRect(x, y, 42, 26, 8, live ? '#ffffff14' : '#ffffff07');
+    const c = live ? C.text : '#ffffff30', cx = x + 21, cy = y + 13;
+    cv.line(cx - 3 * dir, cy - 6, cx + 3 * dir, cy, 2.3, c);
+    cv.line(cx + 3 * dir, cy, cx - 3 * dir, cy + 6, 2.3, c);
+    if (live) cv.target(x, y, 42, 26, run, key, 8);
 }
 function stepBtn(cv, x, y, sign, live, run, key) {
     cv.roundRect(x, y, 48, 38, 10, live ? '#ffffff14' : '#ffffff07');

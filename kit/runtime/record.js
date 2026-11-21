@@ -81,6 +81,7 @@ class Recorder {
     constructor(w, h, opts) {
         this.w = w | 0; this.h = h | 0;
         this.textScale = (opts && opts.textScale) || 1;
+        this.nativeImages = !!(opts && opts.nativeImages);   // mgu-render/1's OP_IMAGE layout (display.js sets it)
         this.buf = new ArrayBuffer(65536);
         this.f = new Float32Array(this.buf);
         this.u = new Uint32Array(this.buf);
@@ -121,7 +122,14 @@ class Recorder {
         const im = imageById.get(id);
         if (!im || !(w > 0 && h > 0)) return this;
         this._grow(7); const f = this.f, i = this.n;
-        this.u[i] = OP.IMAGE; this.u[i + 1] = id; this.u[i + 2] = im.ver; f[i + 3] = x; f[i + 4] = y; f[i + 5] = w; f[i + 6] = h;
+        this.u[i] = OP.IMAGE;
+        if (this.nativeImages) {
+            // mgu-render/1 (native) OP_IMAGE: x, y, w, h, corner radius, id
+            f[i + 1] = x; f[i + 2] = y; f[i + 3] = w; f[i + 4] = h; f[i + 5] = 0; this.u[i + 6] = id;
+        } else {
+            // upstream OP_IMAGE: id, version, x, y, w, h
+            this.u[i + 1] = id; this.u[i + 2] = im.ver; f[i + 3] = x; f[i + 4] = y; f[i + 5] = w; f[i + 6] = h;
+        }
         this.images.add(id);
         this.n += 7; return this;
     }

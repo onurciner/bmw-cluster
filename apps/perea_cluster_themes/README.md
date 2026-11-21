@@ -2,19 +2,9 @@
 
 <img src="icon.png" width="72" align="left" alt="Cluster Themes icon">
 
-> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). This is a copy of their 0.19.0 (commit `ab81cee`, MIT) kept in this repository as `perea_cluster_themes`, with the install fix below. Everything from [Themes](#themes) on is bimmer-lab's own text, except the Atlas, Volt, Twin, Pulse and Noir sections added here; the issue numbers in it are their repository's.
+> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). Everything from [Themes](#themes) on is bimmer-lab's own text, except the Atlas, Volt, Twin, Pulse, Noir and Cockpit sections; the issue numbers in it are their repository's.
 >
 > iDrive 7 only. Install **cluster-render** 0.5.1 or newer first (Store source `robertnisipeanu/idrive-apps`).
-
-## What this repository adds
-
-- **0.19.1: it installs.** 0.19.0 was refused by BMW's app manager on install (`generateSomeipInterfaces`, the Store's "install failed"; [bimmer-lab/apps issue #26](https://github.com/bimmer-lab/apps/issues/26)). It asked for the head unit's now playing (`HmiMediaState`, for the Vector theme's music panel) by instance `1`, and the head units have no instance of that name: theirs are `HMI_CID`, `HMI_FoMo_Left` and `HMI_FoMo_Right`. The app now asks for `HMI_CID`, the centre display, and opens that one.
-- **The build fits the app to the head unit.** When the Store builds the app on the car, the build takes out of the app's SOME/IP manifest whatever that unit's interface catalog does not have (`fit_to_unit()`, from [idrive7-apps](https://github.com/cauliflowermossgrape/idrive7-apps)) and the app's log names it at each start. A signal a car lacks costs that readout, not the install.
-- **Five new themes (0.20.1)**: Atlas, Volt, Twin, Pulse and Noir, with previews on the centre screen. Their sections are below; the rest of the theme text is bimmer-lab's.
-- **Its own id and Store entry**: `perea_cluster_themes`, listed for iDrive 7 only, so it can sit beside bimmer-lab's own `cluster_themes`.
-- **A start test** (`kit/tools/test_cluster_themes.js`) and the bench staging the app without BMW's SDK.
-
-**On a car:** 0.19.1 was installed from this repository on an iDrive 7 car on 2026-11-18 and runs there; 0.19.0 was refused on the same car. Whether `HMI_CID` fills the Vector theme's music panel from every source (radio, Bluetooth, USB, CarPlay) is still to be seen, as bimmer-lab says of the panel itself.
 
 Working on it: [docs/cluster-themes.md](../../docs/cluster-themes.md).
 
@@ -169,7 +159,13 @@ Warm gold on black. One huge thin speed under a wide rev arch, the gear in a sma
 
 <p align="center"><img src="../../docs/images/cluster-noir.png" width="900" alt="Noir theme"></p>
 
-Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Volt, Twin, Pulse and Noir have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show. GT3, Sport, M and Atlas open a window for it.
+### Cockpit
+
+A calmer, iDrive 7-style Live Cockpit: three cool-blue cards under one black screen. The left card is **navigation**, with a compass, the Waze map opened inside it, range and outside temperature. The middle card carries the shift lights, rev bar, speed, gear and the drive readouts. The right card is **now playing**, with a spinning record, the song's title and artist, and the track's progress.
+
+<p align="center"><img src="../../docs/images/cluster-cockpit.png" width="900" alt="Cockpit theme"></p>
+
+Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Volt, Twin, Pulse and Noir have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show. GT3, Sport, M, M view, Vector, Atlas and Cockpit open a window for it.
 
 More themes are on the way.
 
@@ -184,7 +180,7 @@ More themes are on the way.
 
 - **Theme**, and one per drive mode.
 - **Readouts:** pick which car sensor each GT3, M, Track, Drag, Rally, Retro 80s or Dyno readout shows (speed, rpm, boost, temperatures, tyres, fuel, g, power and more). Plug-in hybrids can also show **Hybrid battery**, the high-voltage battery's charge in % (not yet checked on a hybrid).
-- **Show Waze map inside the theme:** GT3, Sport and M open a window in the middle, and Atlas opens one on the left, where Waze on Cluster draws its map above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
+- **Show Waze map inside the theme:** GT3, Sport, M, M view and Vector open a window in the middle, and Atlas and Cockpit open one on the left, where Waze on Cluster draws its map above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
 - **Badge:** the model name, like "BMW X3 M40i", as text in the theme's font (GT3 top left, Sport, M and Minimal top centre, where BMW puts its own). Off by default.
 - **Warnings:** oil, coolant and boost limits. A readout over its limit flashes red (oil 130°C and coolant 115°C by default, boost off).
 - **Test the shift lights:** runs the rpm up to the shift point for about 4 seconds while the car stands.
@@ -217,7 +213,7 @@ More themes are on the way.
 
 ## On the car
 
-bimmer-lab tested it on a 2020 X3 M40i (this copy's own car test is under [What this repository adds](#what-this-repository-adds)). Checked on that car: GT3 and Dyno draw complete, the Waze map shows inside GT3 and Sport, and a theme and a HUD layout show together. Still to be checked:
+bimmer-lab tested it on a 2020 X3 M40i. Checked on that car: GT3 and Dyno draw complete, the Waze map shows inside GT3 and Sport, and a theme and a HUD layout show together. Still to be checked:
 
 - the other themes on the real screen, including M since its 0.10.0 rework;
 - whether BMW's warning lights still show over the dash (start the car with a seat belt off and look);

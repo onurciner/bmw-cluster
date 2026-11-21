@@ -4,7 +4,8 @@
  * Each icon is a distance function in a 0..1 box; coverage is anti-aliased over one pixel.
  *   gauge (engine), shock (chassis), wheel (steering), cog (gearbox), stack (the gear's shift program
  *   lines), therm (coolant), oilcan (oil), fuel (pump), tyre (a wheel seen from the side: ring, hub, tread notches),
- *   bolt (Volt), pika (the little electric mascot's face, eyes and mouth cut out), dot (a filled circle).
+ *   bolt (Volt), pika (the little electric mascot's face, eyes and mouth cut out), dot (a filled circle),
+ *   compass (the Cockpit theme's navigation heading).
  */
 function seg(px, py, ax, ay, bx, by) {
     const pax = px - ax, pay = py - ay, bax = bx - ax, bay = by - ay;
@@ -52,6 +53,8 @@ const ICONS = {
         return d;
     },
     dot: (x, y) => disc(x, y, 0.5, 0.5, 0.34),
+    compass: (x, y) => Math.min(ring(x, y, 0.5, 0.5, 0.38) - 0.045, seg(x, y, 0.5, 0.5, 0.5, 0.16) - 0.035,
+        seg(x, y, 0.5, 0.5, 0.5, 0.84) - 0.035, disc(x, y, 0.5, 0.5, 0.035)),
 };
 
 function paintIcon(name, w, h, color) {

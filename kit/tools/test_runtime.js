@@ -392,6 +392,30 @@ test('iDrive 7 is as it was: 1920 x 720 placement, the bar and the HMI button', 
     } finally { t.end(); }
 });
 
+test('pixel images on mgu-render/1: native OP_IMAGE words and one MI_IMAGE upload', async () => {
+    const rec = require('../runtime/record');
+    const { RenderClient } = require('../runtime/renderd');
+    const id = 0x7e000001;
+    rec.setImage(id, 2, 1, Buffer.from([255, 0, 0, 255, 0, 255, 0, 128]));
+    const r = new rec.Recorder(10, 10, { nativeImages: true });
+    r.image(id, 1, 2, 3, 4);
+    const w = r.words();
+    assert.deepStrictEqual(Array.from(w), [18, 0x3f800000, 0x40000000, 0x40400000, 0x40800000, 0, id]);
+    const c = new RenderClient('test', { info() {}, warn() {}, error() {} });
+    c.native = true; c.connected = true;
+    let sent = null;
+    c._write = (b) => { sent = b; return true; };
+    c._ensureImage(id);
+    assert(sent, 'the native image upload was written');
+    assert.strictEqual(sent.readUInt32LE(0), 10, 'MI_IMAGE');
+    assert.strictEqual(sent.readUInt32LE(4), 20, 'its payload: id, w, h and 2x1 premultiplied pixels');
+    assert.deepStrictEqual([...sent.subarray(20)], [255, 0, 0, 255, 0, 128, 0, 128], 'opaque red, half-transparent green premultiplied');
+    const up = new rec.Recorder(10, 10);
+    up.image(id, 1, 2, 3, 4);
+    const uw = up.words();
+    assert.deepStrictEqual(Array.from(uw).slice(0, 3), [18, id, 1], 'the upstream layout is unchanged');
+});
+
 test('fonts: a size that has the text\'s glyphs (num holds letters and brackets at 40 px only)', async () => {
     const fonts = require('../runtime/fonts');
     // iDrive 8: 30 px x 1.394 = 41.8 px. The 64 px atlas has no "l", "(" or ")": the result read "76.1 ga 288.0 L"
