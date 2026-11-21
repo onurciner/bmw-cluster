@@ -57,8 +57,6 @@ only reads from the car.
   <img src="docs/images/cluster-noir.png" width="31%" alt="Noir theme">
 </p>
 
-Every theme, with its screenshots and settings, is described in
-[apps/perea_cluster_themes/README.md](apps/perea_cluster_themes/README.md).
 
 <p align="center">
   <img src="docs/images/page-cluster-themes.png" width="900" alt="The Cluster Themes gallery on the centre screen">
