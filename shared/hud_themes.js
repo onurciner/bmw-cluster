@@ -282,6 +282,42 @@ const THEMES = {
         bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [92, 82, 58, 255], head: [214, 178, 96, 255],
         ink: [18, 14, 8, 255], accent: [214, 178, 96, 255], well: [0, 0, 0, 255],
     },
+    // Aurum (layout aurum.json): a showpiece in warm black and champagne. A light ribbon carries the revs, the
+    // centre has the huge speed, gear and G-meter, navigation and tyres sit left, media and the 0-60 timer right.
+    aurum: {
+        name: 'Aurum',
+        fg: [246, 239, 225, 255], dim: [178, 164, 136, 255], track: [58, 48, 30, 255], arc: [226, 188, 114, 255],
+        glow: 0, stripe: false,
+        bar: { low: [226, 188, 114], mid: [255, 232, 180], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [226, 188, 114], to: [255, 232, 180] },
+        bg: [0, 0, 0, 255], panel: [0, 0, 0, 255], line: [112, 88, 48, 255], head: [88, 66, 30, 255],
+        ink: [248, 241, 226, 255], accent: [226, 188, 114, 255], accent2: [255, 236, 188, 255],
+        well: [0, 0, 0, 255],
+        ribbon: { stops: [[226, 188, 114], [255, 246, 222], [255, 212, 132], [255, 122, 72], [255, 42, 42]], at: [0.55, 0.78, 0.92, 1] },
+    },
+    // Apex (layout apex.json): the Aurum showpiece in a sporty midnight blue, with a hexagon frame and cyan/ice
+    // accents. Same floating data, different mood.
+    apex: {
+        name: 'Apex',
+        fg: [238, 248, 255, 255], dim: [142, 170, 200, 255], track: [30, 48, 72, 255], arc: [58, 214, 255, 255],
+        glow: 0, stripe: false,
+        bar: { low: [58, 214, 255], mid: [184, 240, 255], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [58, 214, 255], to: [184, 240, 255] },
+        bg: [2, 8, 20, 255], panel: [2, 8, 20, 255], line: [40, 88, 130, 255], head: [10, 44, 78, 255],
+        ink: [240, 250, 255, 255], accent: [58, 214, 255, 255], accent2: [184, 240, 255, 255], well: [2, 8, 20, 255],
+        ribbon: { stops: [[58, 214, 255], [220, 248, 255], [120, 220, 255], [255, 120, 90], [255, 42, 42]], at: [0.55, 0.78, 0.92, 1] },
+    },
+    // Eclipse (layout eclipse.json): a deep indigo night with an amber/ice eclipse corona around the speed.
+    eclipse: {
+        name: 'Eclipse',
+        fg: [246, 240, 228, 255], dim: [164, 154, 178, 255], track: [46, 38, 66, 255], arc: [255, 186, 92, 255],
+        glow: 0, stripe: false,
+        bar: { low: [255, 186, 92], mid: [128, 218, 255], high: [255, 42, 42], midAt: 'shift' },
+        rev: { from: [255, 186, 92], to: [128, 218, 255] },
+        bg: [6, 4, 16, 255], panel: [6, 4, 16, 255], line: [82, 66, 112, 255], head: [56, 38, 82, 255],
+        ink: [248, 242, 230, 255], accent: [255, 186, 92, 255], accent2: [128, 218, 255, 255], well: [6, 4, 16, 255],
+        ribbon: { stops: [[255, 186, 92], [255, 246, 214], [128, 218, 255], [255, 120, 90], [255, 42, 42]], at: [0.55, 0.78, 0.92, 1] },
+    },
     // Cockpit (layout cockpit.json): the iDrive 7 Live Cockpit's cool blue frames around a navigation card on the
     // left, speed and the drive data in the middle, and a now playing card on the right.
     cockpit: {

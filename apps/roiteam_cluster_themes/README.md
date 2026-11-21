@@ -2,7 +2,7 @@
 
 <img src="icon.png" width="72" align="left" alt="Cluster Themes icon">
 
-> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). Everything from [Themes](#themes) on is bimmer-lab's own text, except the Atlas, Volt, Twin, Pulse, Noir and Cockpit sections; the issue numbers in it are their repository's.
+> **Cluster Themes is [bimmer-lab](https://github.com/bimmer-lab/apps)'s app, and all credit for it goes to bimmer-lab**: the themes, the centre-screen page, the drawing engine (`shared/`), the bench and the tools are their work, with the projects they build on listed in [NOTICE](NOTICE). Everything from [Themes](#themes) on is bimmer-lab's own text, except the Atlas, Volt, Twin, Pulse, Noir, Cockpit, Aurum, Apex and Eclipse sections; the issue numbers in it are their repository's.
 >
 > iDrive 7 only. Install **cluster-render** 0.5.1 or newer first (Store source `robertnisipeanu/idrive-apps`).
 
@@ -47,9 +47,9 @@ A current M8's cluster, traced off a photo of it and drawn on black.
 
 The look of BMW's newer Live Cockpit Sport view.
 
-- **Left:** speed as a blue bracket on BMW's 0 to 200 mph scale (0 to 320 km/h), with a fuel bar up its lower leg.
-- **Right:** revs as a red bracket on the M40i's 0 to 7000 rpm scale, with yellow and red marks around your redline, with an oil temperature bar up its lower leg.
-- **Middle:** the speed in big figures with the gear and drive mode under it, over a road like BMW's own Sport view whose lane dashes run towards you as you drive. With "Show Waze map inside the theme" on, the map takes the middle and the speed and gear move into the brackets.
+- **Left:** speed as a blue bracket on BMW's 0 to 200 mph scale (0 to 320 km/h), with a fuel bar up its lower leg. Inside it is a small **navigation** window: the Waze map when enabled, or *WAZE MAP OFF* while it is closed.
+- **Right:** revs as a red bracket on the M40i's 0 to 7000 rpm scale, with yellow and red marks around your redline, with an oil temperature bar up its lower leg. Inside it is a small **now playing** card: record, title, artist, progress and elapsed/remaining time, or *NO MEDIA* with the drive average.
+- **Middle:** the speed in big figures with the gear and drive mode under it, over a road like BMW's own Sport view whose lane dashes run towards you as you drive. The dials and their numbers stay exactly where they were; the navigation window is in the left bracket and the media card in the right one.
 - **Bottom:** boost and coolant in the blue and red bar. Under it, the clock, range and outside temperature, with BMW's own gear letter.
 
 <p align="center"><img src="../../docs/images/cluster-sport.png" width="900" alt="Sport theme"></p>
@@ -166,7 +166,30 @@ A calmer, iDrive 7-style Live Cockpit: three cool-blue cards under one black scr
 
 <p align="center"><img src="../../docs/images/cluster-cockpit.png" width="900" alt="Cockpit theme"></p>
 
-Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Volt, Twin, Pulse and Noir have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show. GT3, Sport, M, M view, Vector, Atlas and Cockpit open a window for it.
+### Aurum
+
+A showpiece in warm black and champagne. The background is a radial art-deco sunburst with champagne rings, a large diamond frame, and lit speed/rev arcs; the numbers float over it instead of sitting in cards. Shift lights run across the top.
+
+- **Left:** navigation (the Waze map in its cut-out window) and all four tyre pressures and temperatures, with fuel, range and a thin fuel bar.
+- **Right:** now playing with a record, title, artist, progress and time; the 0-60 timer with its best; boost, intake and average speed.
+- **Centre:** the huge speed, gear, drive mode, G-meter, shift point and last shift.
+- **Theme:** the sunburst, diamond and rings are drawn by the theme's own shader; holiday decorations and the DEMO tag when the demo is running. No oil, coolant, torque or power readouts.
+
+### Apex
+
+Aurum's sport sibling, in midnight blue. The same floating layout, but the backdrop is a deep navy with a hexagonal frame
+and cyan/ice accents: a radial sunburst, lit speed and rev arcs, navigation and tyres on the left, now playing and the
+0-60 timer on the right, and the G-meter beside the gear. No card grid; no oil, coolant, torque or power readouts.
+
+<p align="center"><img src="../../docs/images/cluster-apex.png" width="900" alt="Apex theme"></p>
+
+### Eclipse
+
+A deep indigo night in three horizontal bands, not another side-column layout. The header carries navigation, the ECLIPSE wordmark with the drive mode, and now playing; the hero is one dark eclipse disc with an amber/ice corona, a tight lit speed/rev ring, the huge speed and gear, with all four tyres floating left and the G-meter right; the console across the bottom carries fuel and range, the shift data, the 0-60 timer, boost and intake, average speed and the best G. No card grid, no oil, coolant, torque or power readouts; the holiday decorations and DEMO tag stay.
+
+<p align="center"><img src="../../docs/images/cluster-eclipse.png" width="900" alt="Eclipse theme"></p>
+
+Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno, Volt, Twin, Pulse and Noir have no map window yet; with "Show Waze map inside the theme" on, Waze stays in its usual place while they show. GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex and Eclipse open a window for it.
 
 More themes are on the way.
 
@@ -181,7 +204,7 @@ More themes are on the way.
 
 - **Theme**, and one per drive mode.
 - **Readouts:** pick which car sensor each GT3, M, Track, Drag, Rally, Retro 80s or Dyno readout shows (speed, rpm, boost, temperatures, tyres, fuel, g, power and more). Plug-in hybrids can also show **Hybrid battery**, the high-voltage battery's charge in % (not yet checked on a hybrid).
-- **Show Waze map inside the theme:** GT3, Sport, M, M view and Vector open a window in the middle, and Atlas and Cockpit open one on the left, where Waze on Cluster draws its map above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
+- **Show Waze map inside the theme:** GT3, M, M view and Vector open a window in the middle; Sport opens a small one in its left bracket, and Atlas, Cockpit, Aurum, Apex and Eclipse open one on the left. Waze on Cluster draws its map there above BMW's own map view, so nothing shows twice. When the map goes away the theme fills back in. While it is on, Waze's map on the HUD is off. Needs robertnisipeanu's Waze on Cluster; turning it off gives Waze its usual place back.
 - **Badge:** the model name, like "BMW X3 M40i", as text in the theme's font (GT3 top left, Sport, M and Minimal top centre, where BMW puts its own). Off by default.
 - **Warnings:** oil, coolant and boost limits. A readout over its limit flashes red (oil 130°C and coolant 115°C by default, boost off).
 - **Test the shift lights:** runs the rpm up to the shift point for about 4 seconds while the car stands.

@@ -46,6 +46,8 @@ const TYPES = {
     deco: [],
     nav: [],
     volt: ['signal', 'min', 'max'],
+    aurum: [],
+    eclipse: [],
 };
 const CLASSES = ['ambient', 'content', 'overlay', 'alert'];
 

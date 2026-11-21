@@ -1820,4 +1820,204 @@ void main() {
 }
 `;
 
-module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH, volt: VOLT };
+const AURUM = `// Aurum cluster: a warm-black art-deco backdrop for the whole panel. A radial sunburst, concentric champagne rings,
+// a large diamond frame, a lit speed arc and a lit rev arc, all around a central speed. u_hole cuts the navigation
+// window through it (the Waze map) with a thin gold rim. v_uv (0,0) is the top-left.
+precision mediump float;
+varying vec2 v_uv;
+uniform vec2 u_size;
+uniform float u_speed;
+uniform float u_rpm;
+uniform float u_flash;
+uniform vec3 u_bg;
+uniform vec3 u_color;
+uniform vec3 u_color2;
+uniform vec3 u_red;
+uniform vec4 u_hole;
+uniform float u_holeR;
+uniform float u_hex;
+
+const float PI = 3.14159265359;
+
+float cov(float d) { return clamp(0.5 - d, 0.0, 1.0); }
+float segd(vec2 p, vec2 a, vec2 b) {
+    vec2 ba = b - a;
+    float h = clamp(dot(p - a, ba) / max(dot(ba, ba), 0.001), 0.0, 1.0);
+    return length(p - a - ba * h);
+}
+float arcDist(vec2 p, float radius, float a0, float sweep) {
+    float a = atan(p.x, -p.y);
+    float rel = mod(a - a0 + 4.0 * PI, 2.0 * PI);
+    if (rel <= sweep) return abs(length(p) - radius);
+    vec2 e0 = radius * vec2(sin(a0), -cos(a0));
+    vec2 e1 = radius * vec2(sin(a0 + sweep), -cos(a0 + sweep));
+    return min(length(p - e0), length(p - e1));
+}
+float rrect(vec2 p, vec4 r, float radius) {
+    vec2 hs = r.zw * 0.5;
+    vec2 q = abs(p - (r.xy + hs)) - (hs - vec2(radius));
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
+}
+
+void main() {
+    vec2 p = v_uv * u_size;
+    vec2 c = vec2(u_size.x * 0.5, 330.0);
+    vec2 d = p - c;
+    float r = length(d);
+    float a = atan(d.x, -d.y);
+    vec3 col = u_bg;
+    float alpha = 1.0;
+
+    // a low warm halo and a fine art-deco sunburst
+    col += u_color * 0.018 * exp(-r / 520.0);
+    float rays = pow(max(cos(a * 18.0), 0.0), 54.0);
+    float rayMask = smoothstep(90.0, 260.0, r) * (1.0 - smoothstep(700.0, 980.0, r));
+    col += u_color * rays * rayMask * 0.16;
+
+    // concentric rings, brightest at the two working rings
+    float rings = 0.0;
+    rings += cov(abs(r - 150.0) - 0.8) * 0.45;
+    rings += cov(abs(r - 190.0) - 1.1) * 0.20;
+    rings += cov(abs(r - 300.0) - 1.2) * 0.55;
+    rings += cov(abs(r - 335.0) - 1.0) * 0.28;
+    rings += cov(abs(r - 370.0) - 0.8) * 0.18;
+    rings += cov(abs(r - 490.0) - 0.7) * 0.12;
+    col = mix(col, u_color2, rings * 0.32);
+
+    // a large diamond frame, and a fainter inner one
+    float diamond = min(min(segd(p, c + vec2(0.0, -250.0), c + vec2(215.0, 0.0)),
+                            segd(p, c + vec2(215.0, 0.0), c + vec2(0.0, 250.0))),
+                        min(segd(p, c + vec2(0.0, 250.0), c + vec2(-215.0, 0.0)),
+                            segd(p, c + vec2(-215.0, 0.0), c + vec2(0.0, -250.0))));
+    vec2 h0 = c + vec2(0.0, -260.0), h1 = c + vec2(225.0, -130.0), h2 = c + vec2(225.0, 130.0);
+    vec2 h3 = c + vec2(0.0, 260.0), h4 = c + vec2(-225.0, 130.0), h5 = c + vec2(-225.0, -130.0);
+    float hex = min(min(segd(p, h0, h1), segd(p, h1, h2)), min(segd(p, h2, h3), segd(p, h3, h4)));
+    hex = min(hex, min(segd(p, h4, h5), segd(p, h5, h0)));
+    float inner = min(min(segd(p, c + vec2(0.0, -210.0), c + vec2(180.0, 0.0)),
+                          segd(p, c + vec2(180.0, 0.0), c + vec2(0.0, 210.0))),
+                      min(segd(p, c + vec2(0.0, 210.0), c + vec2(-180.0, 0.0)),
+                          segd(p, c + vec2(-180.0, 0.0), c + vec2(0.0, -210.0))));
+    float frame = mix(diamond, hex, u_hex);
+    col = mix(col, u_color, cov(frame - 0.8) * 0.70);
+    col = mix(col, u_color2, cov(inner - 0.5) * 0.22);
+
+    // the speed and rev arcs: 225 degrees clockwise from the lower left, open at the bottom
+    float a0 = 225.0 * PI / 180.0, sweep = 270.0 * PI / 180.0;
+    float sTrack = arcDist(d, 300.0, a0, sweep);
+    float rTrack = arcDist(d, 335.0, a0, sweep);
+    vec4 ac = mix(vec4(u_color, 0.16), vec4(u_red, 0.42), u_flash);
+    col = mix(col, ac.rgb, cov(sTrack - 2.0) * ac.a);
+    col = mix(col, u_color2, cov(rTrack - 1.3) * 0.16);
+    float litS = clamp(u_speed, 0.0, 1.0) * sweep;
+    float litR = clamp(u_rpm, 0.0, 1.0) * sweep;
+    vec4 sc = mix(vec4(u_color, 0.92), vec4(u_red, 0.95), u_flash);
+    if (litS > 0.001) col = mix(col, sc.rgb, cov(arcDist(d, 300.0, a0, litS) - 3.2) * sc.a);
+    if (litR > 0.001) col = mix(col, u_color2, cov(arcDist(d, 335.0, a0, litR) - 2.2) * 0.95);
+
+    // a tick at every 1/10 of the rev arc
+    float tick = abs(radians(mod(degrees(a - a0) + 540.0, 27.0) - 13.5)) * 335.0;
+    float tickOn = step(0.0, mod(degrees(a - a0) + 540.0, 360.0)) * step(mod(degrees(a - a0) + 540.0, 360.0), 270.0);
+    col = mix(col, u_color2, cov(tick - 1.0) * cov(abs(r - 350.0) - 5.0) * tickOn * 0.45);
+
+    // the navigation window: cut it out and give it a thin gold rim
+    if (u_hole.z > 0.0) {
+        float hd = rrect(p, u_hole, u_holeR);
+        if (hd < 0.0) alpha = 0.0;
+        else if (hd < 1.6) col = mix(col, u_color2, 0.75);
+    }
+
+    gl_FragColor = vec4(col, alpha);
+}
+`;
+
+const ECLIPSE = `// Eclipse cluster: a deep indigo night with a dark eclipse disc and an amber / ice corona, stars and a thin horizon
+// glow. A speed arc and a rev arc run around it; the navigation window is cut through the backdrop with a gold rim.
+// v_uv (0,0) is the top-left.
+precision mediump float;
+varying vec2 v_uv;
+uniform vec2 u_size;
+uniform float u_speed;
+uniform float u_rpm;
+uniform float u_flash;
+uniform vec3 u_bg;
+uniform vec3 u_color;
+uniform vec3 u_color2;
+uniform vec3 u_red;
+uniform vec4 u_hole;
+uniform float u_holeR;
+
+const float PI = 3.14159265359;
+float cov(float d) { return clamp(0.5 - d, 0.0, 1.0); }
+float hash(float n) { return fract(sin(n) * 43758.5453123); }
+float arcDist(vec2 p, float radius, float a0, float sweep) {
+    float a = atan(p.x, -p.y);
+    float rel = mod(a - a0 + 4.0 * PI, 2.0 * PI);
+    if (rel <= sweep) return abs(length(p) - radius);
+    vec2 e0 = radius * vec2(sin(a0), -cos(a0));
+    vec2 e1 = radius * vec2(sin(a0 + sweep), -cos(a0 + sweep));
+    return min(length(p - e0), length(p - e1));
+}
+float rrect(vec2 p, vec4 r, float radius) {
+    vec2 hs = r.zw * 0.5;
+    vec2 q = abs(p - (r.xy + hs)) - (hs - vec2(radius));
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
+}
+
+void main() {
+    vec2 p = v_uv * u_size;
+    vec2 c = vec2(u_size.x * 0.5, 330.0);
+    vec2 d = p - c;
+    float r = length(d);
+    float a = atan(d.x, -d.y);
+    vec3 col = u_bg;
+    float alpha = 1.0;
+
+    // a faint vertical night gradient and the eclipse corona
+    col += vec3(0.006, 0.006, 0.018) * smoothstep(0.0, 0.55, v_uv.y);
+    float corona = exp(-abs(r - 194.0) / 20.0) * 0.30;
+    float halo = exp(-max(0.0, r - 192.0) / 145.0) * 0.12;
+    col += mix(u_color, u_color2, smoothstep(175.0, 245.0, r)) * (corona + halo);
+
+    // a dark disc in the middle, with a faint inner glow and two ghost rings, then a bright rim
+    if (r < 190.0) {
+        col = u_bg * 0.30 + u_color * 0.022 * (1.0 - smoothstep(0.0, 190.0, r));
+        col = mix(col, u_color2, cov(abs(r - 150.0) - 0.6) * 0.06);
+        col = mix(col, u_color, cov(abs(r - 95.0) - 0.5) * 0.05);
+    }
+    col = mix(col, u_color2, cov(abs(r - 192.0) - 2.0) * 0.88);
+
+    // 14 thin rays and a sparse star field
+    float ray = pow(max(cos(a * 7.0), 0.0), 54.0);
+    col += mix(u_color, u_color2, 0.5) * ray * smoothstep(194.0, 224.0, r) * (1.0 - smoothstep(560.0, 840.0, r)) * 0.20;
+    vec2 cell = floor(p / 74.0);
+    float h = hash(cell.x * 13.0 + cell.y * 7.0);
+    vec2 cp = cell * 74.0 + 8.0 + 58.0 * vec2(hash(cell.x + 5.0), hash(cell.y + 9.0));
+    if (h < 0.34 && length(cp - c) > 232.0) {
+        col = mix(col, vec3(0.85, 0.9, 1.0), cov(length(p - cp) - 1.2) * (0.18 + 0.3 * h));
+    }
+
+    // a tight speed ring and rev ring around the disc, open at the bottom
+    float a0 = 230.0 * PI / 180.0, sweep = 260.0 * PI / 180.0;
+    float sTrack = arcDist(d, 199.0, a0, sweep);
+    float rTrack = arcDist(d, 210.0, a0, sweep);
+    col = mix(col, u_color, cov(sTrack - 1.3) * 0.20);
+    col = mix(col, u_color2, cov(rTrack - 1.0) * 0.20);
+    float litS = clamp(u_speed, 0.0, 1.0) * sweep;
+    float litR = clamp(u_rpm, 0.0, 1.0) * sweep;
+    vec3 sc = u_flash > 0.5 ? u_red : u_color;
+    vec3 rc = u_flash > 0.5 ? u_red : u_color2;
+    if (litS > 0.001) col = mix(col, sc, cov(arcDist(d, 199.0, a0, litS) - 2.4) * 0.95);
+    if (litR > 0.001) col = mix(col, rc, cov(arcDist(d, 210.0, a0, litR) - 1.8) * 0.90);
+
+    // a thin horizon glow along the bottom, and the navigation window cut-out
+    col += u_color2 * 0.035 * smoothstep(540.0, 660.0, p.y);
+    if (u_hole.z > 0.0) {
+        float hd = rrect(p, u_hole, u_holeR);
+        if (hd < 0.0) alpha = 0.0;
+        else if (hd < 1.5) col = mix(col, u_color2, 0.8);
+    }
+    gl_FragColor = vec4(col, alpha);
+}
+`;
+
+module.exports = { shiftbar: SHIFTBAR, arc: ARC, revbar: REVBAR, lights: LIGHTS, fill: FILL, box: BOX, grid: GRID, segbar: SEGBAR, mdash: MDASH, mtach: MTACH, sdash: SDASH, boxes: BOXES, atext: ATEXT, meter: METER, gmeter: GMETER, revarc: REVARC, tiles: TILES, ribbon: RIBBON, deco: DECO, mview: MVIEW, vdash: VDASH, volt: VOLT, aurum: AURUM, eclipse: ECLIPSE };

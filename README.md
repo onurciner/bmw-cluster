@@ -1,7 +1,7 @@
 # Roiteam · Cluster Themes
 
 **Cluster Themes** turns the BMW iDrive 7 instrument cluster into a display you choose. Pick one of
-19 themes on the centre screen, or let Comfort / Sport / Eco Pro pick one for you. It is drawn over
+22 themes on the centre screen, or let Comfort / Sport / Eco Pro pick one for you. It is drawn over
 BMW's own cluster through [cluster-render](https://github.com/robertnisipeanu/idrive-apps), and it
 only reads from the car.
 
@@ -12,12 +12,12 @@ only reads from the car.
 
 ## Highlights
 
-- **19 themes**, from a GT3 race dash and a current M8-style cluster to a calm highway layout, an
+- **22 themes**, from a GT3 race dash and a current M8-style cluster to a calm highway layout, an
   80s digital dash, neon rings, gold minimalism and an iDrive 7-style three-card cockpit.
-- **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas and Cockpit open a window
+- **Navigation where you want it.** GT3, Sport, M, M view, Vector, Atlas, Cockpit, Aurum, Apex and Eclipse open a window
   for the Waze map inside the theme.
-- **Now playing.** M view, Vector, Noir and Cockpit show the car's own media: title, artist,
-  elapsed and remaining time; M view, Vector and Cockpit also draw a record and progress line.
+- **Now playing.** Sport, M view, Vector, Noir, Cockpit, Aurum, Apex and Eclipse show the car's own media: title, artist,
+  elapsed and remaining time; Sport, M view, Vector, Cockpit, Aurum, Apex and Eclipse also draw a record and progress line.
 - **Live car data.** Speed, gear and drive mode, revs, boost, oil and coolant, intake air, fuel,
   range, outside temperature, tyre pressures and temperatures, G-forces, power and torque.
 - **Shift lights and warnings** that follow your redline, shift point and cold-engine guard.
@@ -32,7 +32,7 @@ only reads from the car.
 | **M** | A current M8-style cluster: two bowed rev blades, gear and speed, a tyre block, setup bars, fuel and oil dials, and a map version. |
 | **M view** | BMW's newer M view: curved speed and rev scales, dark panels, an oval navigation window in the middle and a now playing card inside the right panel. |
 | **Vector** | A race-sim dash: a segmented rev ring, ring gauges, boost/torque/power bars, a music panel and an octagonal map window. |
-| **Sport** | BMW Live Cockpit Sport: a blue speed bracket, red rev bracket, a road in the middle, and the map when enabled. |
+| **Sport** | BMW Live Cockpit Sport: blue speed and red rev brackets around the speed, gear and road, with a small navigation window on the left and a now playing card on the right. |
 | **Minimal** | One huge speed, the gear beside it, a thin rev line and a thin fuel line. |
 | **Track** | A race-dash frame with all four tyre pressures and temperatures, a big gear, speed, boost and configurable readouts. |
 | **Drag** | A full-width shift bar, a 0-60 mph / 0-100 km/h timer, peak boost and the run's data. |
@@ -47,6 +47,9 @@ only reads from the car.
 | **Pulse** | Neon cyan and magenta rings around a big speed, vertical rpm and boost columns, and a G-meter. |
 | **Noir** | Warm gold on black: one huge thin speed under a rev arch, local time and range, and the now playing line. |
 | **Cockpit** | An iDrive 7-style three-card view: navigation on the left, shift lights/speed/drive data in the middle, and now playing on the right. |
+| **Aurum** | A champagne-gold showpiece: a radial art-deco sunburst and diamond frame, huge speed and rev arcs, floating navigation, tyres, G-meter, media, 0-60 timer, boost and range. |
+| **Apex** | Aurum's sport version: a midnight-blue background, hexagonal frame and cyan/ice accents, with the same floating navigation, tyres, G-meter, media, 0-60 timer, boost and range. |
+| **Eclipse** | A deep indigo night in three horizontal bands: a header with navigation, the ECLIPSE wordmark and now playing; a dark eclipse disc with an amber/ice corona, a tight lit speed/rev ring, tyres and the G-meter; and a bottom console with fuel, shift, 0-60, boost and average. |
 
 <p align="center">
   <img src="docs/images/cluster-mview.png" width="31%" alt="M view theme">
@@ -65,9 +68,9 @@ only reads from the car.
 ## What it can show
 
 - **Navigation:** the Waze map inside the theme (GT3, Sport, M, M view, Vector, Atlas and
-  Cockpit), plus range and outside temperature around it.
-- **Media:** now playing from the head unit, with title, artist and track progress in Vector, Noir
-  and Cockpit.
+  Cockpit, Aurum, Apex, Eclipse), plus range and outside temperature around it.
+- **Media:** now playing from the head unit, with title, artist and track progress in Vector, Noir,
+  Cockpit, Aurum, Apex and Eclipse.
 - **Engine and drive:** rpm, speed, gear and shifter programme, drive mode, boost, intake air,
   torque and power, oil and coolant, fuel and range.
 - **Chassis:** tyre pressure and temperature per corner, lateral and longitudinal G, a G-meter
@@ -180,7 +183,7 @@ node bench/server.js                                             # cluster bench
 - Full development notes: [docs/cluster-themes.md](docs/cluster-themes.md)
 - Bench and signal controls: [bench/README.md](bench/README.md)
 
-The project is currently **0.23.2**.
+The project is currently **0.29.0**.
 
 ## Credits and licences
 

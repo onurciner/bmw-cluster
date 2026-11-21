@@ -1,12 +1,14 @@
 {
   "id": "roiteam_cluster_themes",
   "title": "Cluster Themes",
-  "description": "Redraws the instrument cluster: GT3 race dash, M-style, M view, Vector (with a music panel), Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno (BMW-coloured readout tiles), Ribbon (with holiday editions), Atlas (map beside the speed), Volt (electric arcs), Twin (two round dials), Pulse (neon rings), Noir (gold and now playing) or Cockpit (iDrive 7-style navigation, speed and media), with shift lights, boost, temps, tyres, a G-meter and a 0-60 timer",
-  "version": "0.23.2",
+  "description": "Redraws the instrument cluster: GT3 race dash, M-style, M view, Vector (with a music panel), Sport, Minimal, Track, Drag, Rally, Retro 80s, Cruise, Dyno (BMW-coloured readout tiles), Ribbon (with holiday editions), Atlas (map beside the speed), Volt (electric arcs), Twin (two round dials), Pulse (neon rings), Noir (gold and now playing), Cockpit (iDrive 7-style navigation, speed and media), Aurum (the gold showpiece with navigation, tyres, G-meter, media and 0-60), Apex (the blue sport version of that showpiece) or Eclipse (a deep indigo eclipse with an amber/ice corona), with shift lights, boost, temps, tyres, a G-meter and a 0-60 timer",
+  "version": "0.29.0",
   "vendor": "custom",
   "loggingId": "OAA1",
   "iconGlyph": "CLU",
-  "locales": ["en"],
+  "locales": [
+    "en"
+  ],
   "shared": [
     "hud.js",
     "hud_text.js",
@@ -199,6 +201,18 @@
           "Cockpit"
         ],
         [
+          "aurum",
+          "Aurum"
+        ],
+        [
+          "apex",
+          "Apex"
+        ],
+        [
+          "eclipse",
+          "Eclipse"
+        ],
+        [
           "grid",
           "Calibration grid"
         ],
@@ -299,6 +313,18 @@
         [
           "cockpit",
           "Cockpit"
+        ],
+        [
+          "aurum",
+          "Aurum"
+        ],
+        [
+          "apex",
+          "Apex"
+        ],
+        [
+          "eclipse",
+          "Eclipse"
         ]
       ]
     },
@@ -387,6 +413,18 @@
         [
           "cockpit",
           "Cockpit"
+        ],
+        [
+          "aurum",
+          "Aurum"
+        ],
+        [
+          "apex",
+          "Apex"
+        ],
+        [
+          "eclipse",
+          "Eclipse"
         ]
       ]
     },
@@ -475,6 +513,18 @@
         [
           "cockpit",
           "Cockpit"
+        ],
+        [
+          "aurum",
+          "Aurum"
+        ],
+        [
+          "apex",
+          "Apex"
+        ],
+        [
+          "eclipse",
+          "Eclipse"
         ]
       ]
     },

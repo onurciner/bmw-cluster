@@ -133,6 +133,10 @@
  *   volt      effect layer (shaders.js volt): the Volt theme's electric arcs, "signal" between "min" and "max" (the
  *             layout uses speed): a faint charge ring, then jagged bolts from the middle that switch on and reach
  *             further out as the value climbs; "color" / "color2" roles (accent / accent2), "trackColor" for the ring.
+ *   aurum     effect layer (shaders.js aurum): the Aurum/Apex backdrop: a radial sunburst, rings, a diamond (Aurum)
+ *             or hexagon (Apex) frame, speed and rev arcs; the layout's map window is cut with a gold rim.
+ *   eclipse   effect layer (shaders.js eclipse): the Eclipse theme's whole backdrop: a dark eclipse disc, amber/ice
+ *             corona, stars, speed and rev arcs, and the same cut-out navigation window.
  *   tiles     effect layer (shaders.js tiles): the Dyno theme's readout tiles in ONE layer: the background (role "color",
  *             bg) and up to 14 rounded tiles "tiles": [{ id, x, y, w, h (target px), slot, bar (false: none), toggle }],
  *             each with a thin "accent" strip on top and a bar along the bottom for its slot's sensor (TILE_BAR; zoned
@@ -2299,6 +2303,29 @@ class HudApp {
             c.uniform(ref, 'u_track', rgba(color(t, w.trackColor || 'track')));
             c.uniform(ref, 'u_flash', [0]);
             c.uniform(ref, 'u_value', [0]);
+        } else if (w.type === 'aurum') {
+            c.uniform(ref, 'u_size', [w.w, w.h]);
+            c.uniform(ref, 'u_bg', rgb(color(t, 'bg')));
+            c.uniform(ref, 'u_color', rgb(color(t, 'accent')));
+            c.uniform(ref, 'u_color2', rgb(color(t, 'accent2')));
+            c.uniform(ref, 'u_red', rgb(t.hot));
+            c.uniform(ref, 'u_hole', this._hole(w));
+            c.uniform(ref, 'u_holeR', [this._holeRadius(w)]);
+            c.uniform(ref, 'u_speed', [0]);
+            c.uniform(ref, 'u_rpm', [0]);
+            c.uniform(ref, 'u_flash', [0]);
+            c.uniform(ref, 'u_hex', [w.hex ? 1 : 0]);
+        } else if (w.type === 'eclipse') {
+            c.uniform(ref, 'u_size', [w.w, w.h]);
+            c.uniform(ref, 'u_bg', rgb(color(t, 'bg')));
+            c.uniform(ref, 'u_color', rgb(color(t, 'accent')));
+            c.uniform(ref, 'u_color2', rgb(color(t, 'accent2')));
+            c.uniform(ref, 'u_red', rgb(t.hot));
+            c.uniform(ref, 'u_hole', this._hole(w));
+            c.uniform(ref, 'u_holeR', [this._holeRadius(w)]);
+            c.uniform(ref, 'u_speed', [0]);
+            c.uniform(ref, 'u_rpm', [0]);
+            c.uniform(ref, 'u_flash', [0]);
         } else if (w.type === 'arc') {
             c.uniform(ref, 'u_size', [w.w, w.h]);
             c.uniform(ref, 'u_peak', [-1]);
@@ -2706,6 +2733,19 @@ class HudApp {
             if (!force && key === x.last) return;
             x.last = key;
             x.c.uniform(x.ref, 'u_value', [q]);
+            x.c.uniform(x.ref, 'u_flash', [this.flash ? 1 : 0]);
+        } else if (w.type === 'aurum' || w.type === 'eclipse') {
+            const us = this.setting('units') === 'us';
+            const sp = this._raw('speed'), rpm = this._raw('rpm');
+            const q = (v) => Math.round(Math.min(1, Math.max(0, v)) * 500) / 500;
+            const sv = q(isNum(sp) ? sp / (us ? 322 : 330) : 0);
+            const rv = q(isNum(rpm) ? rpm / this._barMax() : 0);
+            const key = sv + '|' + rv + '|' + (this.flash ? 1 : 0);
+            if (!force && key === x.last) return;
+            x.last = key;
+            x.c.uniform(x.ref, 'u_speed', [sv]);
+            x.c.uniform(x.ref, 'u_rpm', [rv]);
+            // the shader's u_hole is kept by _mapLive; no size change here
             x.c.uniform(x.ref, 'u_flash', [this.flash ? 1 : 0]);
         } else if (w.type === 'arc' || w.type === 'meter' || w.type === 'volt') {
             // a meter with a "slot" (Dyno) shows the bar of whatever sensor that readout slot shows (TILE_BAR)
