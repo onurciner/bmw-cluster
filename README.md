@@ -96,16 +96,20 @@ uses the head unit's normal centre-screen renderer for its page.
 
 1. In the MGU Store, add the source `robertnisipeanu/idrive-apps` and install **Cluster renderer**
    (0.5.1 or newer).
-2. Add the source `alexpereap/pereaperformance-idrive7-apps`, following the **main** branch.
+2. Add the source `onurciner/bmw-cluster`, following the **main** branch.
 3. Install **Cluster Themes**. The head unit builds the package itself.
+
+The app repository is [github.com/onurciner/bmw-cluster](https://github.com/onurciner/bmw-cluster).
 
 ### From a USB stick
 
-Clone the Store, write the repository to the stick, and install from the Store's **USB** page:
+Clone the Store and this repository, then write both to the stick and install from the Store's
+**USB** page:
 
 ```sh
 git clone https://github.com/robertnisipeanu/mgu-store.git
-node mgu-store/deploy/mgu-install.js usb-repo /media/<your-stick> /path/to/pereaperformance-idrive7-apps
+git clone https://github.com/onurciner/bmw-cluster.git
+node mgu-store/deploy/mgu-install.js usb-repo /media/<your-stick> /path/to/bmw-cluster
 ```
 
 Run the command again after an update; the Store offers the app again when its `version` in
